@@ -1,0 +1,55 @@
+{
+	"name": "GCTrade",
+	"description": "Trade project for GreenCubes",
+	"keywords": ["greencubes", "trade", "gctrade"],
+	"homepage": "http://gctrade.ru/",
+	"type": "project",
+	"license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Astappev Oleg",
+            "email": "astappev@gmail.com"
+        }
+    ],
+	"support": {
+		"issues": "https://github.com/astappev/GCTrade/issues?state=open",
+		"forum": "https://forum.greencubes.org/viewtopic.php?f=267&t=24524",
+		"source": "https://github.com/astappev/GCTrade"
+	},
+	"minimum-stability": "beta",
+	"require": {
+		"php": ">=5.4.0",
+		"yiisoft/yii2": "*",
+		"yiisoft/yii2-bootstrap": "*",
+		"yiisoft/yii2-swiftmailer": "*",
+        "yiisoft/yii2-authclient": "*",
+        "yurkinx/yii2-image": "dev-master"
+	},
+	"require-dev": {
+		"yiisoft/yii2-codeception": "*",
+		"yiisoft/yii2-debug": "*",
+		"yiisoft/yii2-gii": "*"
+	},
+	"suggest": {
+		"codeception/codeception": "Codeception, 1.8.*@dev is currently works well with Yii.",
+		"codeception/specify": "BDD style code blocks for PHPUnit and Codeception",
+		"codeception/verify": "BDD Assertions for PHPUnit and Codeception"
+	},
+	"scripts": {
+		"post-create-project-cmd": [
+			"yii\\composer\\Installer::setPermission"
+		]
+	},
+	"config": {
+		"process-timeout": 1800
+	},
+	"extra": {
+		"writable": [
+			"runtime",
+			"web/assets"
+		],
+		"executable": [
+			"yii"
+		]
+	}
+}

@@ -1,0 +1,9 @@
+DirectoryIndex /web/index.php
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^(.+) $1 [L]
+RewriteCond %{DOCUMENT_ROOT}/web%{REQUEST_URI} -f
+RewriteRule ^(.+) /web/$1 [L]
+
+Options +SymLinksIfOwnerMatch
+RewriteRule ^(.*)$ /web/ [QSA,L]
