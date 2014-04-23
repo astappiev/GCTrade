@@ -13,7 +13,10 @@ if(WEB_LOCAL){
         require(__DIR__ . '/../config/web-local.php')
     );
 } else {
-    $config = require(__DIR__ . '/../config/web.php');
+    $config = yii\helpers\ArrayHelper::merge(
+        require(__DIR__ . '/../config/web.php'),
+        require(__DIR__ . '/../config/web-server.php')
+    );
 }
 
 (new yii\web\Application($config))->run();

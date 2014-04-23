@@ -15,15 +15,12 @@ class ManageController extends Controller
 
     public function actionItem()
     {
-        $html = file_get_contents('http://greencubes.org/?action=list');
-        $source = new ParseHTML($html);
-        $tr = $source->get('table.itemtable tr')->toArray();
-        unset($tr[0]);
+        $source = json_decode(file_get_contents('https://api.greencubes.org/main/items'));
 
         $grid = [];
-        foreach($tr as $line):
-            $id = str_replace(".0", "", str_replace(", ", ".", $line['td'][1]["#text"]));
-            $name = $line['td'][2]["#text"];
+        foreach($source as $line):
+            $id = ($line->data === 0)?$line->id:$line->id.'.'.$line->data;
+            $name = $line->name;
             $status = '';
 
             $item = Item::findByAlias($id);
@@ -37,6 +34,16 @@ class ManageController extends Controller
                 else
                     $status = '<span class="glyphicon glyphicon-remove red"></span>';
             }
+
+            $icon = $_SERVER{'DOCUMENT_ROOT'}.'/images/items/'.$id.'.png';
+            if (!file_exists($icon))
+            {
+                if(file_put_contents($icon, file_get_contents($line->image_url)))
+                    $status .= '<span class="glyphicon glyphicon-floppy-save green"></span>';
+                else
+                    $status .= '<span class="glyphicon glyphicon-floppy-save red"></span>';
+            }
+
             $grid[] = ['id' => $id, 'name' => $name, 'status' => $status];
         endforeach;
 

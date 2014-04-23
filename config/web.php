@@ -12,22 +12,17 @@ return [
     'bootstrap' => ['log'],
     'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'),
     'components' => [
-        'image' => [
-            'class' => 'yii\image\ImageDriver',
-            'driver' => 'GD',  //GD or Imagick
-        ],
         'authClientCollection' => [
             'class' => 'yii\authclient\Collection',
             'clients' => [
                 'google' => [
                     'class' => 'yii\authclient\clients\GoogleOpenId'
                 ],
-                'facebook' => [
-                    'class' => 'yii\authclient\clients\Facebook',
-                    'clientId' => '659841520740702',
-                    'clientSecret' => 'aaf81a39412ee8202d53de4bf01c72af',
-                ],
             ],
+        ],
+        'image' => [
+            'class' => 'yii\image\ImageDriver',
+            'driver' => 'GD',  //GD or Imagick
         ],
         'request' => [
             'baseUrl' => '',
@@ -60,15 +55,7 @@ return [
             //'useFileTransport' => true,
             'viewPath' => '@app/mails',
             'messageConfig' => [
-                'from' => 'admin@gctrade.ru'
-            ],
-            'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'mail.ukraine.com.ua',
-                'username' => 'admin@gctrade.ru',
-                'password' => 'xY200yaI',
-                'port' => '25s',
-                'encryption' => 'tls',
+                'from' => $params['supportEmail'],
             ],
         ],
         'log' => [
@@ -80,15 +67,6 @@ return [
                     'categories' => ['yii\*'],
                 ],
             ],
-        ],
-        'db' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=astappev.mysql.ukraine.com.ua;dbname=astappev_gctrade',
-            'username' => 'astappev_gctrade',
-            'password' => 'd3u8f939',
-            'charset' => 'utf8',
-            'tablePrefix' => 'tg_',
-            //'enableSchemaCache' => true,
         ],
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',
