@@ -36,7 +36,7 @@ class Price extends ActiveRecord
     {
         if(parent::beforeSave($insert)) {
             $shop = Shop::findOne($this->id_shop);
-            if($shop->owner === Yii::$app->user->identity->id)
+            if($shop->owner === Yii::$app->user->id)
             {
                 $this->complaint_buy = 0;
                 $this->complaint_sell = 0;

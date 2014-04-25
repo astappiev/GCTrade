@@ -34,7 +34,7 @@ Alert::end();
             <?php ActiveForm::end(); ?>
 
         </div>
-        <?php $logins = See::find()->where(['user_id' => Yii::$app->user->identity->id])->all();
+        <?php $logins = See::find()->where(['user_id' => Yii::$app->user->id])->all();
         if(count($logins)): ?>
         <table class="table table-hover see">
             <thead>

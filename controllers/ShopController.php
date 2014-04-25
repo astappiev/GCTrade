@@ -114,7 +114,7 @@ class ShopController extends Controller
     public function actionEdititem($id_item, $id_shop, $price_sell = null, $price_buy = null, $stuck)
     {
         $shop = Shop::findOne($id_shop);
-        if($shop->owner != Yii::$app->user->identity->id)
+        if($shop->owner != Yii::$app->user->id)
             return '<span class="glyphicon glyphicon-ban-circle red" data-toggle="tooltip" title="У вас нет прав"></span>';
         if(($price_sell && $price_sell < 0) || ($price_buy && $price_buy < 0) || !$stuck || $stuck <= 0)
             return '<span class="glyphicon glyphicon-ban-circle red" data-toggle="tooltip" title="Некоректные значения"></span>';
@@ -147,7 +147,7 @@ class ShopController extends Controller
     {
         $item = Item::findByAlias($id_item);
         $shop = Shop::findOne($id_shop);
-        if($shop->owner != Yii::$app->user->identity->id) return false;
+        if($shop->owner != Yii::$app->user->id) return false;
         $price = Price::find()->where(['id_item' => $item->id, 'id_shop' => $id_shop])->one();
         if($price->delete()) return true;
     }
@@ -157,7 +157,7 @@ class ShopController extends Controller
         if (Yii::$app->request->get())
         {
             $shop = Shop::findOne($id_shop);
-            if($shop->owner != Yii::$app->user->identity->id) return true;
+            if($shop->owner != Yii::$app->user->id) return true;
 
             $prices = Price::find()->where(['id_shop' => $id_shop])->all();
             foreach($prices as $price)
@@ -174,7 +174,7 @@ class ShopController extends Controller
         header('Content-Type: application/csv');
         header('Content-Disposition: attachment; filename="'.$shop->alias.'_'.date('Ymd').'.csv"');
 
-        if($shop->owner == Yii::$app->user->identity->id)
+        if($shop->owner == Yii::$app->user->id)
         {
             $content = '';
             foreach($shop->prices as $price)
@@ -193,7 +193,7 @@ class ShopController extends Controller
     public function actionDelete($alias)
     {
         $shop = Shop::findByAlias($alias);
-        if($shop->owner == Yii::$app->user->identity->id)
+        if($shop->owner == Yii::$app->user->id)
         {
             Yii::$app->session->setFlash('success', 'Магазин '.$shop->name.', успешно создан.');
             $shop->delete();
@@ -224,13 +224,16 @@ class ShopController extends Controller
 
     public function actionComplaint($id_item = null, $id_shop, $type = null)
     {
+        if (Yii::$app->user->isGuest) {
+            return 'guest';
+        }
+
         if(isset($id_item) && isset($id_shop) && isset($type))
         {
             $item = Item::findByAlias($id_item);
-            $shop = Shop::findOne($id_shop);
 
             $isOwner = false;
-            if($shop->owner === Yii::$app->user->identity->id) $isOwner = true;
+            if($shop->owner === Yii::$app->user->id) $isOwner = true;
             $price = Price::find()->where(['id_item' => $item->id, 'id_shop' => $id_shop])->one();
 
             if($type == 'buy')
@@ -245,7 +248,9 @@ class ShopController extends Controller
             else
                 return false;
         } else {
-            $shop = Shop::findOne($id_shop);
+            if($shop->owner !== Yii::$app->user->id)
+                throw new HttpException(403, 'У вас нет дсотупа.');
+
             foreach($shop->prices as $price)
             {
                 $price->save();

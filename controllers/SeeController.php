@@ -34,7 +34,7 @@ class SeeController extends Controller
     public function actionDelete($id)
     {
         $login = See::findOne($id);
-        if($login->user_id == Yii::$app->user->identity->id)
+        if($login->user_id == Yii::$app->user->id)
         {
             if($login->delete()) echo 'You success delete this user.';
         }

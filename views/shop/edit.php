@@ -9,7 +9,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="body-content shop-list edit-shop">
 	<h1><?= Html::encode($this->title) ?></h1>
 
-    <?php foreach (Shop::find()->where(['owner' => Yii::$app->user->identity->id])->orderBy(['updated_at' => SORT_ASC])->all() as $shop): ?>
+    <?php foreach (Shop::find()->where(['owner' => Yii::$app->user->id])->orderBy(['updated_at' => SORT_ASC])->all() as $shop): ?>
 
         <div class="well" id="<?= $shop->id ?>">
             <a href="<?= Yii::$app->urlManager->createUrl(['shop/page', 'alias' => $shop->alias]) ?>"><img src="/images/shop/<?= ($shop->logo)?$shop->logo:'nologo.png' ?>" alt="<?= $shop->name ?>" class="img-rounded"></a>

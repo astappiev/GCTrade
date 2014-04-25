@@ -39,7 +39,7 @@ class SeeForm extends Model
 	public function AddLogin()
 	{
         $login = new See;
-        $login->user_id = Yii::$app->user->identity->id;
+        $login->user_id = Yii::$app->user->id;
         $login->login = $this->login;
         $login->description = $this->description;
         if ($login->save()) {

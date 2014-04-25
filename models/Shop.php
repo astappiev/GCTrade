@@ -103,7 +103,7 @@ class Shop extends ActiveRecord
             if ($this->isNewRecord) {
                 // Определяем автора в случае его отсутсвия.
                 if (!$this->owner) {
-                    $this->owner = \Yii::$app->user->identity->id;
+                    $this->owner = \Yii::$app->user->id;
                 }
                 // Определяем статус.
                 if (!$this->status) {
@@ -119,7 +119,7 @@ class Shop extends ActiveRecord
     public function rules()
     {
         return [
-            ['owner', 'default', 'value' => Yii::$app->user->identity->id],
+            ['owner', 'default', 'value' => Yii::$app->user->id],
 
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => array_keys(self::getStatusArray())],

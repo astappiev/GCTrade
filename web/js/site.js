@@ -37,6 +37,8 @@ $(document).ready(function(){
                     $(flag).addClass("bad")
                 else if(text == 'del')
                     $(flag).removeClass("bad")
+                else if(text == 'guest')
+                    alert('Вы должны быть авторизованы.');
             }
         });
     });
