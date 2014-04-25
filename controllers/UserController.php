@@ -20,10 +20,10 @@ class UserController extends Controller
         return [
             'access' => [
                 'class' => \yii\filters\AccessControl::className(),
-                'only' => ['login', 'logout', 'signup'],
+                'only' => ['logout', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['login', 'signup'],
+                        'actions' => ['signup'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
