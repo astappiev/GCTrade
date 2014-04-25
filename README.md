@@ -1,3 +1,3 @@
 GCTrade
 =======
-This begining text
+This beginning text
