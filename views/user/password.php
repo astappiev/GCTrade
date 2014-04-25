@@ -8,12 +8,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="body-content">
 	<h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Для изменения пароля вы должны ввести старый пароль и дважды повторить новый.</p>
-
     <div class="row">
 		<div class="col-lg-5">
 			<?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
-                <?= $form->field($model, 'old_password')->passwordInput(['placeholder' => 'Старый пароль'])->hint('Необходим для подтверждения изменений.') ?>
+                <?= ($model->scenario == 'add')?'Пароль не задан, вы можете его установить.<br>':$form->field($model, 'old_password')->passwordInput(['placeholder' => 'Старый пароль'])->hint('Необходим для подтверждения изменений.');
+                ?>
                 <br>
 				<?= $form->field($model, 'password')->passwordInput(['placeholder' => 'Новый пароль']) ?>
                 <?= $form->field($model, 'protect_password')->passwordInput(['placeholder' => 'Повтор нового пароля']) ?>

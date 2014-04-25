@@ -53,9 +53,27 @@ class UserController extends Controller
     public function successCallback($client)
     {
         $attributes = $client->getUserAttributes();
-        $user = User::findOne(["email" => $attributes["email"]]);
+        $user = User::findByUsername($attributes["username"]);
 
         if($user) {
+            if($user->status == User::STATUS_LOCAL)
+            {
+                $user->status = User::STATUS_ACTIVE;
+                $correct_email = ($user->email === $attributes["email"]);
+                if(!$correct_email)
+                    $user->email = $attributes["email"];
+
+                if($user->save()){
+                    if($correct_email)
+                        Yii::$app->session->setFlash('warning', 'Вы впервые авторизовались через OAuth, спасибо.');
+                    else
+                        Yii::$app->session->setFlash('warning', 'Вы впервые авторизовались через OAuth, ваш email был пересохранен, так же рекомендую сменить пароль.');
+                } else {
+                    Yii::$app->session->setFlash('error', 'Произошла ошибка, возможно ваш email уже используется на другом аккаунте.');
+                    return $this->goHome();
+                }
+            }
+
             $user_login = new LoginForm();
             $_POST["LoginForm"]["username"] = $user->username;
             $_POST["LoginForm"]["rememberMe"] = 1;
@@ -66,18 +84,45 @@ class UserController extends Controller
                 Yii::$app->session->setFlash('error', 'Ошибка авторизации.');
             }
         } else {
-            $user = new User;
-            $user->email = $attributes["email"];
-            $user->username = current(explode('@', $attributes["email"]));
-            $user->generateAuthKey();
-            if ($user->save()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    Yii::$app->session->setFlash('success', 'Вы успешно зарегистрировали, '.$user->username);
+            $findByEmail = User::findOne(["email" => $attributes["email"]]);
+            if($findByEmail)
+            {
+                $old_login = $findByEmail->username;
+                $findByEmail->username = $attributes["username"];
+                $findByEmail->status = User::STATUS_ACTIVE;
+
+                if($findByEmail->save()){
+                    Yii::$app->session->setFlash('warning', 'Вы впервые авторизовались через OAuth, ваш логин был изменен ('.$old_login.' => '.$findByEmail->username.').');
+                } else {
+                    Yii::$app->session->setFlash('error', 'Произошла ошибка, возможно ваш логин уже используется на другом аккаунте.');
+                    return $this->goHome();
+                }
+
+                $user_login = new LoginForm();
+                $_POST["LoginForm"]["username"] = $findByEmail->username;
+                $_POST["LoginForm"]["rememberMe"] = 1;
+                $user_login->load($_POST);
+                if(Yii::$app->user->login($user_login->getUser(), Yii::$app->getModule("user")->loginDuration)) {
+                    Yii::$app->session->setFlash('success', 'Вы успешно авторизовались, '.$findByEmail->username);
+                } else {
+                    Yii::$app->session->setFlash('error', 'Ошибка авторизации.');
                 }
             } else {
-                Yii::$app->session->setFlash('error', 'Ошибка регистрации.');
+                $user = new User;
+                $user->email = $attributes["email"];
+                $user->username = $attributes["username"];
+                $user->status = User::STATUS_ACTIVE;
+                $user->generateAuthKey();
+                if ($user->save()) {
+                    if (Yii::$app->getUser()->login($user)) {
+                        Yii::$app->session->setFlash('success', 'Вы успешно зарегистрировались, '.$user->username.'. По желанию, можете установить пароль.');
+                    }
+                } else {
+                    Yii::$app->session->setFlash('error', 'Ошибка регистрации.');
+                }
             }
         }
+        return true;
     }
 
     public function actionIndex()
@@ -111,6 +156,11 @@ class UserController extends Controller
             return $this->goHome();
         }
         $model = new PasswordUserForm();
+        $user = User::findIdentity(\Yii::$app->user->id);
+
+        if($user->password_hash == '') $model->setScenario("add");
+        else $model->setScenario('edit');
+
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->editPassword()) {
                 Yii::$app->session->setFlash('success', 'Пароль изменен.');

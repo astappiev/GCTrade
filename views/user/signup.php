@@ -20,12 +20,13 @@ $this->params['breadcrumbs'][] = $this->title;
 				<?= $form->field($model, 'password')->passwordInput() ?>
 				<div class="form-group">
 					<?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-                    <?php $authChoice = AuthChoice::begin(['baseAuthUrl' => ['user/auth']]);
-                    $google = $authChoice->getClients()["google"];
-                    $facebook = $authChoice->getClients()["facebook"];
-                    $authChoice->clientLink($google, '<i class="fa fa-google-plus"></i>', ['class' => 'btn btn-social-icon btn-google-plus auth-link']);
-                    $authChoice->clientLink($facebook, '<i class="fa fa-facebook"></i>', ['class' => 'btn btn-social-icon btn-facebook auth-link']);
-                    AuthChoice::end(); ?>
+                    <?php if(\Yii::$app->has('authClientCollection'))
+                    {
+                        $authChoice = AuthChoice::begin(['baseAuthUrl' => ['user/auth']]);
+                        $greencubes = $authChoice->getClients()["greencubes"];
+                        $authChoice->clientLink($greencubes, 'GreenCubes Auth', ['class' => 'btn btn-greencubes auth-link']);
+                        AuthChoice::end();
+                    }  ?>
 				</div>
 			<?php ActiveForm::end(); ?>
 		</div>

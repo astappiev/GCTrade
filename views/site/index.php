@@ -2,7 +2,6 @@
 $this->registerJsFile('@web/js/intro.js');
 $this->registerCssFile('@web/css/introjs.css');
 $this->title = 'Приветствуем!';
-\Yii::info('Hello, I am a test log message');
 ?>
     <div class="site-index">
         <div class="jumbotron">

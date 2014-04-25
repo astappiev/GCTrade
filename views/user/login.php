@@ -3,7 +3,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\authclient\widgets\AuthChoice;
 
-$this->registerCssFile('@web/css/font-awesome.css', ['yii\bootstrap\BootstrapAsset']);
 $this->title = 'Авторизация';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -23,12 +22,13 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="form-group">
                 <?= Html::submitButton('Войти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                <?php $authChoice = AuthChoice::begin(['baseAuthUrl' => ['user/auth']]);
-                $google = $authChoice->getClients()["google"];
-                $facebook = $authChoice->getClients()["facebook"];
-                $authChoice->clientLink($google, '<i class="fa fa-google-plus"></i>', ['class' => 'btn btn-social-icon btn-google-plus auth-link']);
-                $authChoice->clientLink($facebook, '<i class="fa fa-facebook"></i>', ['class' => 'btn btn-social-icon btn-facebook auth-link']);
-                AuthChoice::end(); ?>
+                <?php if(\Yii::$app->has('authClientCollection'))
+                {
+                    $authChoice = AuthChoice::begin(['baseAuthUrl' => ['user/auth']]);
+                    $greencubes = $authChoice->getClients()["greencubes"];
+                    $authChoice->clientLink($greencubes, 'GreenCubes Auth', ['class' => 'btn btn-greencubes auth-link']);
+                    AuthChoice::end();
+                }  ?>
             </div>
             <?php ActiveForm::end(); ?>
         </div>

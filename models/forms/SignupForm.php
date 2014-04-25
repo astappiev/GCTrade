@@ -32,11 +32,12 @@ class SignupForm extends Model
 			['username', 'filter', 'filter' => 'trim'],
 			['username', 'required'],
 			['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Данный логин уже используется.'],
 
 			['email', 'filter', 'filter' => 'trim'],
 			['email', 'required'],
 			['email', 'email'],
-			['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This email address has already been taken.'],
+			['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Данный email уже существует.'],
 
 			['password', 'required'],
 			['password', 'string', 'min' => 6],

@@ -1,8 +1,12 @@
 <?php
+$local = require(__DIR__ . '/web-local.php');
+$server = require(__DIR__ . '/web-server.php');
+$debug = require(__DIR__ . '/web-debug.php');
+
 $params = require(__DIR__ . '/params.php');
 $rules = require(__DIR__ . '/rules.php');
 
-return [
+$config = [
     'id' => 'gctrade',
     'name' => 'GCTrade',
     'language'=>'ru',
@@ -12,14 +16,6 @@ return [
     'bootstrap' => ['log'],
     'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'),
     'components' => [
-        'authClientCollection' => [
-            'class' => 'yii\authclient\Collection',
-            'clients' => [
-                'google' => [
-                    'class' => 'yii\authclient\clients\GoogleOpenId'
-                ],
-            ],
-        ],
         'image' => [
             'class' => 'yii\image\ImageDriver',
             'driver' => 'GD',  //GD or Imagick
@@ -59,7 +55,7 @@ return [
             ],
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'traceLevel' => 0,
             'targets' => [
                 'file' => [
                     'class' => 'yii\log\FileTarget',
@@ -68,10 +64,18 @@ return [
                 ],
             ],
         ],
-        'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
-            'defaultRoles' => ['admin', 'author'],
-        ],
     ],
     'params' => $params,
 ];
+
+if(WEB_LOCAL){
+    $config = yii\helpers\ArrayHelper::merge($config, $local);
+} else {
+    $config = yii\helpers\ArrayHelper::merge($config, $server);
+}
+
+if (YII_DEBUG) {
+    $config = yii\helpers\ArrayHelper::merge($config, $debug);
+}
+
+return $config;

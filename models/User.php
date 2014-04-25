@@ -25,6 +25,7 @@ use yii\web\IdentityInterface;
 class User extends ActiveRecord implements IdentityInterface
 {
 	const STATUS_DELETED = 0;
+	const STATUS_LOCAL = 2;
 	const STATUS_ACTIVE = 10;
 	const STATUS_DEFAULT = 8;
 
@@ -55,12 +56,6 @@ class User extends ActiveRecord implements IdentityInterface
 		$user->setPassword($attributes['password']);
 		$user->generateAuthKey();
 		if ($user->save()) {
-
-            // the following three lines were added:
-            $auth = Yii::$app->authManager;
-            $adminRole = $auth->getRole('author');
-            $auth->assign($adminRole, $user->getId());
-
 			return $user;
 		} else {
 			return null;
@@ -70,18 +65,18 @@ class User extends ActiveRecord implements IdentityInterface
 	/**
 	 * @inheritdoc
 	 */
-	public function behaviors()
-	{
-		return [
-			'timestamp' => [
+    public function behaviors() {
+        return [
+            'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
-				'attributes' => [
-					ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-					ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
-				],
-			],
-		];
-	}
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                'value' => function() { return date("Y-m-d H:i:s"); },
+            ],
+        ];
+    }
 
 	/**
 	 * @inheritdoc
@@ -107,7 +102,10 @@ class User extends ActiveRecord implements IdentityInterface
 	 */
 	public static function findByUsername($username)
 	{
-		return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+		return static::findOne([
+            'username' => $username,
+            'status' => [self::STATUS_ACTIVE, self::STATUS_LOCAL],
+        ]);
 	}
 
 	/**
@@ -128,7 +126,7 @@ class User extends ActiveRecord implements IdentityInterface
 
 		return static::findOne([
 			'password_reset_token' => $token,
-			'status' => self::STATUS_ACTIVE,
+			'status' => [self::STATUS_ACTIVE, self::STATUS_LOCAL],
 		]);
 	}
 
@@ -183,22 +181,11 @@ class User extends ActiveRecord implements IdentityInterface
 		$this->password_reset_token = null;
 	}
 
-    public function editUser()
-    {
-        $user = User::findIdentity(Yii::$app->user->identity->id);
-        if($this->password != '') $user->password = $this->password;
-        if($this->email != '') $user->email = $this->email;
-
-        if($this->email != '') return $user->save();
-        else if($this->password != '') return $user->save();
-        return false;
-    }
-
 	public function rules()
 	{
 		return [
-			['status', 'default', 'value' => self::STATUS_ACTIVE],
-			['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+			['status', 'default', 'value' => self::STATUS_LOCAL],
+			['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_DEFAULT, self::STATUS_LOCAL]],
 
 			['role', 'default', 'value' => self::ROLE_USER],
 			['role', 'in', 'range' => [self::ROLE_USER]],
@@ -219,16 +206,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            if ($this->isNewRecord) {
-                $this->auth_key = Security::generateRandomKey();
-            }
-
             if (!$this->auth_key) {
                 $this->auth_key = Security::generateRandomKey();
             }
-            if (!$this->api_key) {
-                $this->api_key = Security::generateRandomKey();
+
+            if (!$this->created_at || $this->created_at == 0) {
+                $this->created_at = date("Y-m-d H:i:s");
             }
+
             if (!$this->registration_ip) {
                 $this->registration_ip = \Yii::$app->request->userIP;
             }
