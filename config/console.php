@@ -2,8 +2,10 @@
 Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
 
 $params = require(__DIR__ . '/params.php');
+$server = require(__DIR__ . '/web-server.php');
+$local = require(__DIR__ . '/web-local.php');
 
-return [
+$config = [
     'id' => 'gctrade-console',
     'name' => 'GCTrade',
     'language'=>'ru',
@@ -26,24 +28,19 @@ return [
         'mail' => [
             'class' => 'yii\swiftmailer\Mailer',
             //'useFileTransport' => true,
-            'viewPath' => '@app/mail',
-            'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'mail.ukraine.com.ua',
-                'username' => 'admin@gctrade.ru',
-                'password' => 'xY200yaI',
-                'port' => '25s',
-                'encryption' => 'tls',
+            'viewPath' => '@app/mails',
+            'messageConfig' => [
+                'from' => $params['supportEmail'],
             ],
-        ],
-        'db' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=astappev.mysql.ukraine.com.ua;dbname=astappev_gctrade',
-            'username' => 'astappev_gctrade',
-            'password' => 'd3u8f939',
-            'charset' => 'utf8',
-            'tablePrefix' => 'tg_',
         ],
     ],
     'params' => $params,
 ];
+
+if(WEB_LOCAL){
+    $config = yii\helpers\ArrayHelper::merge($config, $local);
+} else {
+    $config = yii\helpers\ArrayHelper::merge($config, $server);
+}
+
+return $config;
