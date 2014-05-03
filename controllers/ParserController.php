@@ -10,75 +10,53 @@ use app\models\Shop;
 
 class ParserController extends Controller
 {
-    public function actionTor()
+    public function actionTorCubovo()
     {
-        $url = 'http://cubovo.strana.de/index.html';
-        $id_shop = 44; // Тор
-        $shop = Shop::findOne($id_shop);
-
-        $grid = [];
-        $html = new ParseHTML(file_get_contents($url));
-        $tables = $html->get('table tbody')->toArray();
-
-        foreach($tables as $table)
-        {
-            unset($table["tr"][0]);
-            foreach($table["tr"] as $tr)
-            {
-                unset($tr["#text"]);
-                unset($tr["td"][0]);
-
-                $item = Item::findByName($tr["td"][1]["#text"]);
-                $price_sell = str_replace(".", "", str_replace("-", "—", $tr["td"][3]["#text"]));
-                $price_buy = str_replace(".", "", str_replace("-", "—", $tr["td"][4]["#text"]));
-                $stuck = $tr["td"][2]["#text"];
-
-                $status = Price::addPrice($item->id, $id_shop, $price_sell, $price_buy, $stuck);
-                $grid[] = ['id' => $item->alias, 'name' => $item->name, 'price_sell' => $price_sell, 'price_buy' => $price_buy, 'stuck' => $stuck, 'status' => $status];
-            }
-        }
-
-        return $this->render('index', [
-            'grid' => $grid,
-            'shop_name' => $shop->name,
-        ]);
-    }
-
-    public function actionCubovo()
-    {
-        $url = 'http://cubovo.strana.de/index_per.html';
+        $url = 'http://cubovo.strana.de/';
+        $id_shop_tor = 44; // Тор
         $id_shop = 45; // Перекресток
+        $shop_tor = Shop::findOne($id_shop_tor);
         $shop = Shop::findOne($id_shop);
 
         $grid = [];
         $html = new ParseHTML(file_get_contents($url));
-        $tables = $html->get('table tbody')->toArray();
+        $tables = $html->get('table')->toArray();
 
         foreach($tables as $table)
         {
-            unset($table["tr"][0]);
-            foreach($table["tr"] as $tr)
+            $table = (isset($table["tbody"]))?$table["tbody"]["tr"]:$table["tr"];
+            if(isset($table[0]["th"])) unset($table[0]);
+            foreach($table as $tr)
             {
-                unset($tr["#text"]);
-                unset($tr["td"][0]);
-                unset($tr["th"]);
+                if(isset($tr["#text"])) unset($tr["#text"]);
 
-                if(isset($tr["td"][1]["#text"]))
+                $name = $tr["td"][1]["#text"];
+                $isCubovo = ($tr["td"][2]["#text"] == '-')?0:1;
+                $isTor = ($tr["td"][3]["#text"] == '-')?0:1;
+                $stuck = $tr["td"][4]["#text"];
+                $price_sell = str_replace(".", "", str_replace("-", "—", $tr["td"][6]["#text"]));
+                $price_buy = str_replace(".", "", str_replace("-", "—", $tr["td"][5]["#text"]));
+
+                $item = Item::findByName($name);
+
+                if(!$item)
                 {
-                $item = Item::findByName($tr["td"][1]["#text"]);
-                $price_sell = str_replace(".", "", str_replace("-", "—", $tr["td"][3]["#text"]));
-                $price_buy = str_replace(".", "", str_replace("-", "—", $tr["td"][4]["#text"]));
-                $stuck = $tr["td"][2]["#text"];
-
-                $status = Price::addPrice($item->id, $id_shop, $price_sell, $price_buy, $stuck);
-                $grid[] = ['id' => $item->alias, 'name' => $item->name, 'price_sell' => $price_sell, 'price_buy' => $price_buy, 'stuck' => $stuck, 'status' => $status];
+                    echo $name;
+                    return;
                 }
+
+                $status = '';
+                if($isCubovo)
+                    $status .= Price::addPrice($item->id, $id_shop, $price_sell, $price_buy, $stuck);
+                if($isTor)
+                    $status .= Price::addPrice($item->id, $id_shop_tor, $price_sell, $price_buy, $stuck);
+                $grid[] = ['id' => $item->alias, 'name' => $item->name, 'price_sell' => $price_sell, 'price_buy' => $price_buy, 'stuck' => $stuck, 'status' => $status];
             }
         }
 
         return $this->render('index', [
             'grid' => $grid,
-            'shop_name' => $shop->name,
+            'shop_name' => $shop_tor->name.' - '.$shop->name,
         ]);
     }
 

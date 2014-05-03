@@ -3,14 +3,36 @@ namespace app\models;
 
 use yii;
 use yii\db\ActiveRecord;
-use yii\validators\ImageValidator;
+use app\extensions\fileapi\behaviors\UploadBehavior;
 
+/**
+ * Class Shop
+ * @package app\models
+ * Модель магазина.
+ *
+ * @property integer $id
+ * @property integer $owner
+ * @property integer $status
+ * @property string $alias
+ * @property string $name
+ * @property string $about
+ * @property string $description
+ * @property string $subway
+ * @property integer $x_cord
+ * @property integer $z_cord
+ * @property string $logo_url
+ * @property string $source
+ * @property integer $created_at
+ * @property integer $updated_at
+ */
 class Shop extends ActiveRecord
 {
     const STATUS_DELETED = 0;
     const STATUS_VERIFIED = 6;
     const STATUS_DEPENDS = 8;
     const STATUS_ACTIVE = 10;
+
+    protected $_logo;
 
     public static function tableName()
     {
@@ -20,23 +42,33 @@ class Shop extends ActiveRecord
     public function behaviors()
     {
         return [
-            'timestamp' => [
+            'timestampBehavior' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
                 ],
             ],
+            'uploadBehavior' => [
+                'class' => UploadBehavior::className(),
+                'attributes' => ['logo_url'],
+                'deleteScenarios' => [
+                    'logo_url' => 'delete-logo',
+                ],
+                'scenarios' => ['create', 'update', 'logo'],
+                'path' => 'images/shop/',
+                'tempPath' => 'images/shop/tmp/',
+            ]
         ];
     }
 
     public function scenarios()
     {
         return [
-            'add' => ['name', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'source'],
-            'edit' => ['name', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'source'],
+            'create' => ['name', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'logo_url', 'source'],
+            'update' => ['name', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'logo_url', 'source'],
             'update_date' => ['updated_at'],
-            'logo' => ['logo'],
+            'delete-logo' => [],
         ];
     }
 
@@ -53,6 +85,14 @@ class Shop extends ActiveRecord
     public function getPrices()
     {
         return $this->hasMany(Price::className(), ['id_shop' => 'id'])->orderBy('id_item');
+    }
+
+    public function getLogo()
+    {
+        if ($this->_logo === null) {
+            $this->_logo = $this->logo_url ? ('/images/shop/'.$this->logo_url) : '/images/shop/nologo.png';
+        }
+        return $this->_logo;
     }
 
     public static function getStatusArray()
@@ -89,7 +129,7 @@ class Shop extends ActiveRecord
             'subway' => 'Станция метро',
             'x_cord' => 'Координата X',
             'z_cord' => 'Координата Z',
-            'logo' => 'Логотип магазина',
+            'logo_url' => 'Логотип магазина',
             'source' => 'Источник',
             'created_at' => 'Дата создания',
             'updated_at' => 'Дата обновления'
@@ -134,11 +174,8 @@ class Shop extends ActiveRecord
             ['name', 'string', 'min' => 3, 'max' => 90],
             ['name', 'unique', 'targetClass' => '\app\models\Shop', 'message' => 'Данное имя уже используется.'],
 
-            [['description', 'subway', 'logo', 'source'], 'string'],
+            [['description', 'subway', 'logo_url', 'source'], 'string'],
             [['x_cord', 'z_cord'], 'integer', 'max' => 30000],
-
-            ['logo', 'file', 'types'=> ['jpg', 'png', 'gif', 'jpeg']],
-            ['logo', 'image', 'maxWidth' => 150, 'minWidth' => 150, 'maxHeight' => 150, 'minHeight' => 150],
         ];
     }
 }

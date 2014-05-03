@@ -2,7 +2,9 @@
 namespace app\controllers;
 
 use Yii;
-class MapsController extends CommonController
+use yii\web\Controller;
+
+class MapsController extends Controller
 {
     public $layout = 'frame';
 	public function actionIndex()

@@ -1,5 +1,4 @@
 <?php
-$local = require(__DIR__ . '/web-local.php');
 $server = require(__DIR__ . '/web-server.php');
 $debug = require(__DIR__ . '/web-debug.php');
 
@@ -21,6 +20,8 @@ $config = [
             'driver' => 'GD',  //GD or Imagick
         ],
         'request' => [
+            'enableCsrfValidation' => true,
+            'enableCookieValidation' => true,
             'baseUrl' => '',
         ],
         'assetManager' => [
@@ -64,13 +65,27 @@ $config = [
                 ],
             ],
         ],
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=gctrade',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'tablePrefix' => 'tg_',
+        ],
+        'db_analytics' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=gctrade_analytics',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'tablePrefix' => 'tg_',
+        ],
     ],
     'params' => $params,
 ];
 
-if(WEB_LOCAL){
-    $config = yii\helpers\ArrayHelper::merge($config, $local);
-} else {
+if(!WEB_LOCAL){
     $config = yii\helpers\ArrayHelper::merge($config, $server);
 }
 

@@ -29,8 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <script type="text/javascript">
 var graph_data = [
 <?php
-    $query = (new \yii\db\Query)->select('time, value')->from('tg_other_economy')->limit(100)->orderBy(['time' => SORT_DESC]);
-    $rows = $query->createCommand()->queryAll();
+    $query = (new \yii\db\Query)->select('time, value')->from('tg_economy')->limit(100)->orderBy(['time' => SORT_DESC]);
+    $rows = $query->createCommand(\Yii::$app->db_analytics)->queryAll();
     foreach($rows as $line)
     {
         echo "{date: '".$line["time"]."', a: ".$line["value"]."},";

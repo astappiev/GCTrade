@@ -34,8 +34,8 @@ function update_world()
     online = [];
     var json = $.parseJSON($.ajax({type: 'GET', url: '/api/world', async: false, dataType: 'json'}).responseText);
 
-    for (var i in json.players){
-        online.push(json.players[i].name);
+    for (var i in json){
+        online.push(json.name);
     }
     if(online.length>0) $('.alert').hide();
     else
@@ -64,11 +64,11 @@ $(document).ready(function() {
     }
     else
     {
-        $(".alert").addClass('visible');
+        $(".alert").removeClass('hidden').addClass('visible');
     }
 
     $("#permission").click(function(){
-        $(".alert").removeClass('visible');
+        $(".alert").removeClass('visible').addClass('hidden');
         if (Notification.permission === 'default') {
             Notification.requestPermission(function (permission) {
 

@@ -34,7 +34,7 @@ $menuItemsUser = [
     ['label' => 'Магазины', 'linkOptions' => ['class' => 'intro-shop'], 'items' => [
         ['label' => 'Все магазины', 'url' => ['/shop/index']],
         ['label' => 'Управление магазинами', 'url' => ['/shop/edit']],
-        ['label' => 'Добавить магазин', 'url' => ['/shop/add']],
+        ['label' => 'Добавить магазин', 'url' => ['/shop/create']],
     ]],
     ['label' => 'Товар', 'linkOptions' => ['class' => 'intro-item'], 'items' => [
         ['label' => 'Все товары', 'url' => ['/item/full']],

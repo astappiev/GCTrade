@@ -56,6 +56,9 @@ class Price extends ActiveRecord
 
     public static function addPrice($id_item, $id_shop, $price_sell, $price_buy, $stuck)
     {
+        $price_sell = (is_numeric($price_sell))?$price_sell:null;
+        $price_buy = (is_numeric($price_buy))?$price_buy:null;
+
         $price = static::find()->where(['id_item' => $id_item, 'id_shop' => $id_shop])->one();
         if(!$price)
         {

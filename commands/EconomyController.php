@@ -17,20 +17,18 @@ class EconomyController extends Controller
             if(in_array( $_SERVER['REMOTE_ADDR'], array( '127.0.0.1', '::1' )))
             {
                 $time = date('Y-m-d H:i:s', $data["time"]);
-            }
-            else
-            {
+            } else {
                 $time = date('Y-m-d H:i:s', $data["time"]+2*60*60);
             }
             $dailymoney = $data["economy"]["dailymoney"];
 
-            $connection = \Yii::$app->db;
-            $command = $connection->createCommand('SELECT * FROM tg_other_economy ORDER BY time DESC');
+            $connection = \Yii::$app->db_analytics;
+            $command = $connection->createCommand('SELECT * FROM tg_economy ORDER BY time DESC');
             $economy = $command->queryOne();
 
             if($time != $economy["time"])
             {
-                $connection->createCommand()->insert('tg_other_economy', [
+                $connection->createCommand()->insert('tg_economy', [
                     'time' => $time,
                     'value' => $dailymoney,
                 ])->execute();

@@ -10,14 +10,15 @@ $this->title = $item->name;
 $this->params['breadcrumbs'][] = ['label' => 'Товары', 'url' => ['/item/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="body-content item-page">
+<div class="body-content page">
 	<h1><?= Html::encode($this->title) ?></h1>
 
     <div class="panel panel-default">
         <div class="panel-heading">
             <img src="/images/items/<?= $item->alias ?>.png" alt="<?= $item->name ?>" class="img-rounded">
             <div class="info">
-                <p><?= $item->name ?></p>
+                <p>ID: <?= $item->alias ?></p>
+                <p>Название: <?= $item->name ?></p>
             </div>
         </div>
         <table class="table table-hover sort pointer">
@@ -35,8 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <tbody>
             <?php foreach($item->prices as $price): ?>
 
-                <tr data-href="<?= Yii::$app->urlManager->createUrl(['shop/page', 'alias' => $price->shop->alias]) ?>">
-                    <td><img src="/images/shop/<?= $price->shop->logo; ?>" alt="<?= $price->shop->name; ?>" align="left" class="small-icon img-rounded"></td>
+                <tr data-href="<?= Yii::$app->urlManager->createUrl(['shop/view', 'alias' => $price->shop->alias]) ?>">
+                    <td><img src="<?= $price->shop->getLogo() ?>" alt="<?= $price->shop->name; ?>" align="left" class="small-icon img-rounded"></td>
                     <td class="name"><?= $price->shop->name; ?></td>
                     <td><?= (isset($price->price_sell))?round($price->price_sell/$price->stuck, 2):'—' ?></td>
                     <td><?= (isset($price->price_sell))?$price->price_sell:'—' ?></td>

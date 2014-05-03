@@ -1,9 +1,15 @@
-DirectoryIndex /web/index.php
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule ^(.+) $1 [L]
-RewriteCond %{DOCUMENT_ROOT}/web%{REQUEST_URI} -f
-RewriteRule ^(.+) /web/$1 [L]
+# Mod_Autoindex
+<IfModule mod_autoindex.c>
+  # Запрещаем просмотр содержимого папок
+  Options -Indexes
+</IfModule>
 
-Options +SymLinksIfOwnerMatch
-RewriteRule ^(.*)$ /web/ [QSA,L]
+# Mod_Rewrite
+<IfModule mod_rewrite.c>
+  Options +FollowSymlinks
+  # Включаем mod_rewrite
+  RewriteEngine On
+  IndexIgnore */*
+  # Перенаправляем все запросы на входной скрипт
+  RewriteRule ^([^/].*)?$ /web/$1
+</IfModule>

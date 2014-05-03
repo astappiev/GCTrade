@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </thead>
             <tbody>
             <?php foreach(Item::find()->orderBy(['ABS(alias)' => SORT_ASC])->all() as $item): ?>
-                <tr data-href="<?= Yii::$app->urlManager->createUrl(['item/page', 'alias' => $item->alias]) ?>">
+                <tr data-href="<?= Yii::$app->urlManager->createUrl(['item/view', 'alias' => $item->alias]) ?>">
                     <td><img src="/images/items/<?= $item->alias; ?>.png" alt="<?= $item->name; ?>" align="left" class="small-icon"></td>
                     <td><?= $item->alias; ?></td>
                     <td class="name"><?= $item->name; ?></td>

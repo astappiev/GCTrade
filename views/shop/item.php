@@ -9,10 +9,11 @@ $this->registerJsFile('@web/js/jquery.spin.js', ['yii\web\JqueryAsset']);
 $this->registerJsFile('@web/js/item.gctrade.js', ['yii\web\JqueryAsset']);
 
 $shop = Shop::find()->where(['alias' => $url])->one();
+
 $this->title = 'Управление '.$shop->name;
-$this->params['breadcrumbs'][] = ['label' => 'Магазины', 'url' => ['/shop/index']];
-$this->params['breadcrumbs'][] = ['label' => 'Редактировать', 'url' => ['/shop/edit']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Магазины', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Управление', 'url' => ['edit']];
+$this->params['breadcrumbs'][] = 'Товар - '.$shop->name;
 ?>
 <div class="body-content edit-shop" id="<?= $shop->id ?>">
 	<h1><?= Html::encode($this->title) ?></h1>
@@ -51,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <tr>
                     <td><img src="/images/items/<?= $price->item->alias; ?>.png" alt="<?= $price->item->name; ?>" align="left" class="small-icon"></td>
                     <td><?= $price->item->alias; ?></td>
-                    <td class="name"><a href="<?= Yii::$app->urlManager->createUrl(['item/page', 'alias' => $price->item->alias]) ?>"><?= $price->item->name; ?></a></td>
+                    <td class="name"><a href="<?= Yii::$app->urlManager->createUrl(['item/view', 'alias' => $price->item->alias]) ?>"><?= $price->item->name; ?></a></td>
                     <td><?= ($price->price_sell)?$price->price_sell:'—' ?></td>
                     <td class="flag"><span class="glyphicon glyphicon-bookmark complaint<?= $complaint_sell ?>" data-type="sell"></span></td>
                     <td><?= ($price->price_buy)?$price->price_buy:'—' ?></td>

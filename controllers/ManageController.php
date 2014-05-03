@@ -35,7 +35,7 @@ class ManageController extends Controller
                     $status = '<span class="glyphicon glyphicon-remove red"></span>';
             }
 
-            $icon = $_SERVER{'DOCUMENT_ROOT'}.'/images/items/'.$id.'.png';
+            $icon = $_SERVER{'DOCUMENT_ROOT'}.'/web/images/items/'.$id.'.png';
             if (!file_exists($icon))
             {
                 if(file_put_contents($icon, file_get_contents($line->image_url)))

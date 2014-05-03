@@ -3,6 +3,15 @@ namespace app\models;
 
 use yii\db\ActiveRecord;
 
+/**
+ * Class Item
+ * @package app\models
+ * Модель товара.
+ *
+ * @property integer $id
+ * @property string $alias
+ * @property string $name
+ */
 class Item extends ActiveRecord
 {
     public static function tableName()

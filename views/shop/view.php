@@ -9,12 +9,12 @@ $this->title = $shop->name;
 $this->params['breadcrumbs'][] = ['label' => 'Магазины', 'url' => ['/shop/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="body-content shop-page" id="<?= $shop->id ?>">
+<div class="body-content page" id="<?= $shop->id ?>">
 	<h1><?= Html::encode($this->title) ?></h1>
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <img src="/images/shop/<?= ($shop->logo)?$shop->logo:'nologo.png' ?>" alt="<?= $shop->name ?>" class="img-rounded">
+            <img src="<?= $shop->getLogo() ?>" alt="<?= $shop->name ?>" class="img-rounded">
             <div class="info">
                 <p><?= $shop->about ?></p>
                 <?php if($shop->subway) echo '<p>Станция метро: /go '.$shop->subway.'</p>' ?>
@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php if($shop->status == 8) echo '<p><a href="http://'.$shop->source.'" target="_blank">Источник</a></p>' ?>
             </div>
         </div>
-        <?php if(isset($shop->description)) echo'<div class="panel-body"></div>' ?>
+        <?php if(isset($shop->description)) echo'<div class="panel-body">'.$shop->description.'</div>' ?>
         <table class="table table-hover sort pointer">
             <thead>
                 <tr>
@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $complaint_sell = ($price->complaint_sell == 0)?' ':' bad';
                 $complaint_buy = ($price->complaint_buy == 0)?' ':' complaint bad';
             ?>
-                <tr data-href="<?= Yii::$app->urlManager->createUrl(['item/page', 'alias' => $price->item->alias]) ?>">
+                <tr data-href="<?= Yii::$app->urlManager->createUrl(['item/view', 'alias' => $price->item->alias]) ?>">
                     <td><img src="/images/items/<?= $price->item->alias ?>.png" alt="<?= $price->item->name; ?>" align="left" class="small-icon"></td>
                     <td><?= $price->item->alias; ?></td>
                     <td class="name"><?= $price->item->name; ?></td>

@@ -60,14 +60,14 @@ class UserController extends Controller
             {
                 $user->status = User::STATUS_ACTIVE;
                 $correct_email = ($user->email === $attributes["email"]);
-                if(!$correct_email)
+                if(!$correct_email){
                     $user->email = $attributes["email"];
+                    $user->password_hash = '';
+                }
 
                 if($user->save()){
-                    if($correct_email)
-                        Yii::$app->session->setFlash('warning', 'Вы впервые авторизовались через OAuth, спасибо.');
-                    else
-                        Yii::$app->session->setFlash('warning', 'Вы впервые авторизовались через OAuth, ваш email был пересохранен, так же рекомендую сменить пароль.');
+                    if(!$correct_email)
+                        Yii::$app->session->setFlash('warning', 'Ваш email был отличен от email в вашем профиле, он был обновлен. Так же был аннулирован ваш пароль, вы можете установить новый.');
                 } else {
                     Yii::$app->session->setFlash('error', 'Произошла ошибка, возможно ваш email уже используется на другом аккаунте.');
                     return $this->goHome();
@@ -79,7 +79,7 @@ class UserController extends Controller
             $_POST["LoginForm"]["rememberMe"] = 1;
             $user_login->load($_POST);
             if(Yii::$app->user->login($user_login->getUser(), Yii::$app->getModule("user")->loginDuration)) {
-                Yii::$app->session->setFlash('success', 'Вы успешно авторизовались, '.$user->username);
+                Yii::$app->session->setFlash('success', 'Вы успешно авторизовались через OAuth, спасибо.');
             } else {
                 Yii::$app->session->setFlash('error', 'Ошибка авторизации.');
             }
@@ -92,7 +92,7 @@ class UserController extends Controller
                 $findByEmail->status = User::STATUS_ACTIVE;
 
                 if($findByEmail->save()){
-                    Yii::$app->session->setFlash('warning', 'Вы впервые авторизовались через OAuth, ваш логин был изменен ('.$old_login.' => '.$findByEmail->username.').');
+                    Yii::$app->session->setFlash('warning', 'Ваш логин был отличен от логина в вашем профиле, он был изменен ('.$old_login.' => '.$findByEmail->username.').');
                 } else {
                     Yii::$app->session->setFlash('error', 'Произошла ошибка, возможно ваш логин уже используется на другом аккаунте.');
                     return $this->goHome();
@@ -103,7 +103,7 @@ class UserController extends Controller
                 $_POST["LoginForm"]["rememberMe"] = 1;
                 $user_login->load($_POST);
                 if(Yii::$app->user->login($user_login->getUser(), Yii::$app->getModule("user")->loginDuration)) {
-                    Yii::$app->session->setFlash('success', 'Вы успешно авторизовались, '.$findByEmail->username);
+                    Yii::$app->session->setFlash('success', 'Вы успешно авторизовались через OAuth, спасибо.');
                 } else {
                     Yii::$app->session->setFlash('error', 'Ошибка авторизации.');
                 }

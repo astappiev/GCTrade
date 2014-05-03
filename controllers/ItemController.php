@@ -16,8 +16,8 @@ class ItemController extends Controller
         return $this->render('full');
     }
 
-    public function actionPage($alias)
+    public function actionView($alias)
     {
-        return $this->render('page', ['url' => $alias]);
+        return $this->render('view', ['url' => $alias]);
     }
 }

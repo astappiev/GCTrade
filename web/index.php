@@ -1,6 +1,6 @@
 <?php
-defined('YII_DEBUG') or define('YII_DEBUG', false);
-defined('WEB_LOCAL') or define('WEB_LOCAL', false);
+defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('WEB_LOCAL') or define('WEB_LOCAL', true);
 defined('YII_ENV') or define('YII_ENV', 'prod'); // test dev prod
 
 require(__DIR__ . '/../vendor/autoload.php');

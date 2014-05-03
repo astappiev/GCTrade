@@ -6,8 +6,8 @@ use yii\web\Controller;
 use app\models\Shop;
 use app\models\Price;
 use app\models\Item;
-use yii\web\UploadedFile;
-use yii\helpers\Security;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 use yii\web\HttpException; // throw new HttpException(404);
 
 class ShopController extends Controller
@@ -35,6 +35,26 @@ class ShopController extends Controller
                         'roles' => ['@']
                     ]
                 ]
+            ],
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+            'uploadTempLogo' => [
+                'class' => 'app\extensions\fileapi\actions\UploadAction',
+                'path' => 'images/shop/tmp/',
+                'types' => ['jpg', 'png', 'gif'],
+                'minHeight' => 100,
+                'maxHeight' => 1000,
+                'minWidth' => 100,
+                'maxWidth' => 1000,
+                'maxSize' => 3145728, // 3*1024*1024 = 3MB
+            ],
+            'deleteTempLogo' => [
+                'class' => 'app\extensions\fileapi\actions\DeleteAction',
+                'path' => 'images/shop/tmp/',
             ]
         ];
     }
@@ -44,16 +64,16 @@ class ShopController extends Controller
 		return $this->render('index');
 	}
 
-    public function actionPage($alias)
+    public function actionView($alias)
     {
-        return $this->render('page', ['url' => $alias]);
+        return $this->render('view', ['url' => $alias]);
     }
 
-    public function actionInfo($alias)
+    public function actionUpdate($alias)
     {
         $model = Shop::findByAlias($alias);
         if ($model != null) {
-            $model->scenario = 'edit';
+            $model->scenario = 'update';
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
                 if ($model->save()) {
                     Yii::$app->session->setFlash('success', 'Магазин '.$model->name.', успешно обновлен.');
@@ -62,43 +82,38 @@ class ShopController extends Controller
                 }
                 return $this->refresh();
             } else {
-                return $this->render('info', ['model' => $model]);
+                return $this->render('update', ['model' => $model]);
             }
         }
     }
 
     public function actionLogo($alias)
     {
-        $dir = Yii::getAlias('@webroot/images/shop');
-        $uploaded = false;
-
         $model = Shop::findByAlias($alias);
-        $model->scenario = 'logo';
-        if($model->load(Yii::$app->request->post()))
-        {
-            $file = UploadedFile::getInstance($model, 'logo');
+        $model->setScenario('logo');
 
-            if($model->validate())
-            {
-                $name = $model->alias.'_'.Security::generateRandomKey(6).'.'.end(explode(".", $file->name));
-                $model->logo = $name;
-                $name = $dir.'/'.$name;
-
-                if($file->saveAs($name) && $model->save()) {
-                    $image = Yii::$app->image->load($name);
-                    $image = $image->resize(150, 150, Yii\image\drivers\Image::HEIGHT)->crop(150, 150)->save();
-                    Yii::$app->session->setFlash('success', 'Успех!');
-                } else {
-                    Yii::$app->session->setFlash('error', 'Изображение должно быть размером 150x150px и иметь тип jpg, png или gif.');
-                }
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //return $this->redirect(['view', 'alias' => $model['alias']]);
             return $this->refresh();
+        } elseif (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        } else {
+            return $this->render('logo', [
+                'model' => $model,
+            ]);
         }
+    }
 
-        return $this->render('logo',[
-            'model' => $model,
-            'dir' => $dir,
-        ]);
+    function actionDeleteLogo($id)
+    {
+        $model = Shop::findOne($id);
+        if ($model->owner == \Yii::$app->user->id) {
+            $model->setScenario('delete-logo');
+            $model->save(false);
+        } else {
+            throw new HttpException(403);
+        }
     }
 
     public function actionEdit()
@@ -204,10 +219,10 @@ class ShopController extends Controller
         }
     }
 
-    public function actionAdd()
+    public function actionCreate()
     {
         $model = new Shop();
-        $model->scenario = 'add';
+        $model->scenario = 'create';
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', 'Магазин '.$model->name.', успешно создан.');
@@ -216,7 +231,7 @@ class ShopController extends Controller
             }
             return $this->refresh();
         } else {
-            return $this->render('add', [
+            return $this->render('create', [
                 'model' => $model,
             ]);
         }
@@ -228,9 +243,10 @@ class ShopController extends Controller
             return 'guest';
         }
 
+        $shop = Shop::findOne($id_shop);
         if(isset($id_item) && isset($id_shop) && isset($type))
         {
-            $item = Item::findByAlias($id_item);
+            $item = Item::findOne($id_item);
 
             $isOwner = false;
             if($shop->owner === Yii::$app->user->id) $isOwner = true;
