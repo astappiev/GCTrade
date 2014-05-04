@@ -23,7 +23,7 @@ class ShopController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'page', 'complaint'],
+                        'actions' => ['index', 'view', 'complaint'],
                         'roles' => ['?']
                     ],
                     [
