@@ -14,13 +14,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <img src="<?= $shop->getLogo() ?>" alt="<?= $shop->name ?>" class="img-rounded">
+            <img src="<?= $shop->getLogo() ?>" alt="<?= $shop->name ?>" class="img-rounded" />
             <div class="info">
                 <p><?= $shop->about ?></p>
                 <?php if($shop->subway) echo '<p>Станция метро: /go '.$shop->subway.'</p>' ?>
                 <?php if(isset($shop->x_cord) && isset($shop->z_cord)) echo '<p>Координаты: X: '.$shop->x_cord.', Z: '.$shop->z_cord.'</p>' ?>
                 <?= '<p>Последнее обновление: '.gmdate("Y-m-d H:i", $shop->updated_at).'</p>' ?>
-                <?php if($shop->status == 8) echo '<p><a href="http://'.$shop->source.'" target="_blank">Источник</a></p>' ?>
+                <?php if($shop->source) echo '<p><a href="http://'.$shop->source.'" target="_blank">Источник</a></p>' ?>
             </div>
         </div>
         <?php if(isset($shop->description)) echo'<div class="panel-body">'.$shop->description.'</div>' ?>
@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $complaint_buy = ($price->complaint_buy == 0)?' ':' complaint bad';
             ?>
                 <tr data-href="<?= Yii::$app->urlManager->createUrl(['item/view', 'alias' => $price->item->alias]) ?>">
-                    <td><img src="/images/items/<?= $price->item->alias ?>.png" alt="<?= $price->item->name; ?>" align="left" class="small-icon"></td>
+                    <td><img src="/images/items/<?= $price->item->alias ?>.png" alt="<?= $price->item->name; ?>" align="left" class="small-icon" /></td>
                     <td><?= $price->item->alias; ?></td>
                     <td class="name"><?= $price->item->name; ?></td>
                     <td><?= ($price->price_sell)?$price->price_sell:'—' ?></td>
