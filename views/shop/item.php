@@ -4,9 +4,8 @@ use app\models\Shop;
 use yii\bootstrap\Modal;
 use app\models\Price;
 
-$this->registerJsFile('@web/js/spin.min.js', ['yii\web\JqueryAsset']);
-$this->registerJsFile('@web/js/jquery.spin.js', ['yii\web\JqueryAsset']);
-$this->registerJsFile('@web/js/item.gctrade.js', ['yii\web\JqueryAsset']);
+$this->registerJsFile('@web/js/jquery/jquery.spin.min.js', ['yii\web\JqueryAsset']);
+$this->registerJsFile('@web/js/item.gctrade.min.js', ['yii\web\JqueryAsset']);
 
 $shop = Shop::find()->where(['alias' => $url])->one();
 
@@ -24,11 +23,11 @@ $this->params['breadcrumbs'][] = 'Товар - '.$shop->name;
             <a class="btn btn-info" href="<?= Yii::$app->urlManager->createUrl(['shop/export', 'id' => $shop->id]) ?>" role="button"><span class="glyphicon glyphicon-export"></span> Экспорт</a>
             <button class="btn btn-primary" data-toggle="modal" data-target="#AddModal" role="button"><span class="glyphicon glyphicon-plus"></span> Добавить товар</button>
             <a class="btn btn-danger" href="<?= Yii::$app->urlManager->createUrl(['shop/clearitem', 'id_shop' => $shop->id]) ?>" role="button"><span class="glyphicon glyphicon-exclamation-sign"></span> Удалить все</a>
-            <a class="btn btn-success" href="<?= Yii::$app->urlManager->createUrl(['shop/complaint', 'id_shop' => $shop->id]) ?>" role="button"><span class="glyphicon glyphicon-stats"></span> Переучет</a>
+            <?php /*<a class="btn btn-success" href="<?= Yii::$app->urlManager->createUrl(['shop/complaint', 'id_shop' => $shop->id]) ?>" role="button"><span class="glyphicon glyphicon-stats"></span> Переучет</a> */ ?>
             <?php if($shop->status == 8) echo '<a class="btn btn-success" href="'.Yii::$app->urlManager->createUrl(['shop/parser/'.$shop->alias]).'" role="button"><span class="glyphicon glyphicon-download"></span> Синхронизировать</a>'; ?>
         </div>
         <?php if(isset($shop->description)) echo'<div class="panel-body"></div>' ?>
-        <table class="table table-hover sort not-cursor">
+        <table class="table table-hover item-list sort not-cursor">
             <thead>
                 <tr>
                     <th width="5%"></th>
@@ -44,13 +43,13 @@ $this->params['breadcrumbs'][] = 'Товар - '.$shop->name;
             </thead>
             <tbody>
             <?php
-            if(empty($shop->prices)) echo '<tr><td colspan="7">В данный момент у вас нет товаров.</td></tr>';
+            if(empty($shop->prices)) echo '<tr><td colspan="9" style="text-align: center;">В данный момент у вас нет товаров.</td></tr>';
             foreach(Price::find()->where(['id_shop' => $shop->id])->orderBy(['complaint_sell' => SORT_DESC, 'complaint_buy' => SORT_DESC, 'id_item' => SORT_ASC])->all() as $price):
                 $complaint_sell = ($price->complaint_sell == 0)?' ':' bad';
                 $complaint_buy = ($price->complaint_buy == 0)?' ':' complaint bad';
             ?>
                 <tr>
-                    <td><img src="/images/items/<?= $price->item->alias; ?>.png" alt="<?= $price->item->name; ?>" align="left" class="small-icon"></td>
+                    <td><img src="/images/items/<?= $price->item->alias; ?>.png" alt="<?= $price->item->name; ?>" align="left" class="small-icon" /></td>
                     <td><?= $price->item->alias; ?></td>
                     <td class="name"><a href="<?= Yii::$app->urlManager->createUrl(['item/view', 'alias' => $price->item->alias]) ?>"><?= $price->item->name; ?></a></td>
                     <td><?= ($price->price_sell)?$price->price_sell:'—' ?></td>
@@ -58,7 +57,7 @@ $this->params['breadcrumbs'][] = 'Товар - '.$shop->name;
                     <td><?= ($price->price_buy)?$price->price_buy:'—' ?></td>
                     <td class="flag"><span class="glyphicon glyphicon-bookmark complaint<?= $complaint_buy ?>" data-type="buy"></span></td>
                     <td><?= $price->stuck; ?></td>
-                    <td id="control">
+                    <td class="control">
                         <div class="btn-group btn-group-sm">
                             <button id="editButtons" class="btn btn-primary" title="Редактировать"><span class="glyphicon glyphicon-pencil"></span></button>
                             <button id="removeButtons" class="btn btn-danger" title="Удалить"><span class="glyphicon glyphicon-remove"></span></button>

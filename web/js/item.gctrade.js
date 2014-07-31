@@ -75,7 +75,7 @@ $("form#AddItemForm").submit(function( event ) {
 $('button#sync').click(function() {
     isClear = true;
     var table = $("table.AddItem:visible > tbody");
-    $("td#sp", table).spin('small');
+    $("td#sp", table).spin('show');
 
     setTimeout(function(){
         $("tr", table).each(function(index) {

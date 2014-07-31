@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use app\models\Item;
 use app\models\Price;
 
-$this->registerJsFile('@web/js/jquery.tablesorter.min.js', ['yii\web\JqueryAsset']);
+$this->registerJsFile('@web/js/jquery/jquery.tablesorter.min.js', ['yii\web\JqueryAsset']);
 
 $item = Item::find()->where(['alias' => $url])->one();
 $this->title = $item->name;
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <img src="/images/items/<?= $item->alias ?>.png" alt="<?= $item->name ?>" class="img-rounded">
+            <img src="/images/items/<?= $item->alias ?>.png" alt="<?= $item->name ?>" class="img-rounded" />
             <div class="info">
                 <p>ID: <?= $item->alias ?></p>
                 <p>Название: <?= $item->name ?></p>
@@ -36,9 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <tbody>
             <?php foreach($item->prices as $price): ?>
 
-                <tr data-href="<?= Yii::$app->urlManager->createUrl(['shop/view', 'alias' => $price->shop->alias]) ?>">
-                    <td><img src="<?= $price->shop->getLogo() ?>" alt="<?= $price->shop->name; ?>" align="left" class="small-icon img-rounded"></td>
-                    <td class="name"><?= $price->shop->name; ?></td>
+                <tr>
+                    <td><img src="<?= $price->shop->getLogo() ?>" alt="<?= $price->shop->name; ?>" align="left" class="small-icon img-rounded" /></td>
+                    <td class="name"><a href="<?= Yii::$app->urlManager->createUrl(['shop/view', 'alias' => $price->shop->alias]) ?>"><?= $price->shop->name; ?></a></td>
                     <td><?= (isset($price->price_sell))?round($price->price_sell/$price->stuck, 2):'—' ?></td>
                     <td><?= (isset($price->price_sell))?$price->price_sell:'—' ?></td>
                     <td><?= (isset($price->price_buy))?round($price->price_buy/$price->stuck, 2):'—' ?></td>

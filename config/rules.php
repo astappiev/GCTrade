@@ -20,7 +20,7 @@ return [
     // Контроллер [[API]]
     '<_controler:api>/<_action:[\w\-]+>' => '<_controler>/<_action>',
     '<_controler:api>/<_action:item>/<id:\d+>' => '<_controler>/<_action>',
-    '<_controler:api>/<_action:world>/<login:[a-zA-Z0-9_-]{3,20}+>' => '<_controler>/<_action>',
+    '<_controler:api>/<_action:(world|skins)>/<login:[a-zA-Z0-9_-]{3,20}+>' => '<_controler>/<_action>',
 
     // Служебные
     '<_module:(debug|gii)>/<_controler:\w+>/<_action:\w+>' => '<_module>/<_controler>/<_action>',

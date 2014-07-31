@@ -1,6 +1,7 @@
 <?php
-$this->registerJsFile('@web/js/intro.js');
-$this->registerCssFile('@web/css/introjs.css');
+$this->registerCssFile('@web/css/lib/introjs.min.css');
+$this->registerJsFile('@web/js/lib/introjs.min.js');
+
 $this->title = 'Приветствуем!';
 ?>
     <div class="site-index">
@@ -9,17 +10,18 @@ $this->title = 'Приветствуем!';
             <p class="lead">Здесь на GCTrade, вся экономика <strong><span id="green">Green</span>Cubes</strong> в одном месте!</p>
             <p><button class="btn btn-lg btn-success intro-finish">Ознакомиться с GCTrade</button></p>
         </div>
+
         <div class="body-content">
             <div class="row">
                 <div class="col-lg-4 intro-col1">
                     <h2>Для покупателей</h2>
                     <div style="margin-bottom: 15px;">
-                        <img src="/images/info/01_b.png" align="left" style="margin: 10px;">
+                        <img src="/images/info/01_b.png" align="left" style="margin: 10px;" />
                         <h4>Подбор магазина</h4>
                         <p>Вы можете найти свой любимый магазин: по расположению, по ценам, по удобству.</p>
                     </div>
                     <div style="margin-bottom: 15px;">
-                        <img src="/images/info/03_b.png" align="left" style="margin: 10px;">
+                        <img src="/images/info/03_b.png" align="left" style="margin: 10px;" />
                         <h4>Поиск товара</h4>
                         <p>Вы выбираете товар и смотрите в каких магазинах он в наличии.</p>
                     </div>
@@ -27,12 +29,12 @@ $this->title = 'Приветствуем!';
                 <div class="col-lg-4 intro-col2">
                     <h2>Для продавцов</h2>
                     <div style="margin-bottom: 15px;">
-                        <img src="/images/info/02_b.png" align="left" style="margin: 10px;">
+                        <img src="/images/info/02_b.png" align="left" style="margin: 10px;" />
                         <h4>Доступная информация</h4>
                         <p>Держите в курсе вашего покупателя об актуальных ценах. Поддерживайте конкурентоспособность.</p>
                     </div>
                     <div style="margin-bottom: 15px;">
-                        <img src="/images/info/04_b.png" align="left" style="margin: 10px;">
+                        <img src="/images/info/04_b.png" align="left" style="margin: 10px;" />
                         <h4>Простое управление</h4>
                         <p>Вашим прайсом очень легко управлять. Только попробуйте!</p>
                     </div>
@@ -40,12 +42,12 @@ $this->title = 'Приветствуем!';
                 <div class="col-lg-4 intro-col3">
                     <h2>Общая информация</h2>
                     <div style="margin-bottom: 15px;">
-                        <img src="/images/info/05_b.png" align="left" style="margin: 10px;">
+                        <img src="/images/info/05_b.png" align="left" style="margin: 10px;" />
                         <h4>Сравнение цен</h4>
                         <p>Хотели узнать где дешевле всего купить кровокамень? Мы укажем вам, где дешевле!</p>
                     </div>
                     <div style="margin-bottom: 15px;">
-                        <img src="/images/info/06_b.png" align="left" style="margin: 10px;">
+                        <img src="/images/info/06_b.png" align="left" style="margin: 10px;" />
                         <h4>Информация об экономике</h4>
                         <p>Вы всегда можете узнать актуальную цену продажи или покупки.</p>
                     </div>
@@ -53,10 +55,7 @@ $this->title = 'Приветствуем!';
             </div>
         </div>
     </div>
-<?php
-$this->registerJs("
-$(function(){
-    var introguide = introJs();
+<?php $this->registerJS("var introguide = introJs();
 
     introguide.setOptions({
         steps: [
@@ -67,7 +66,7 @@ $(function(){
             },
             {
                 element: '.intro-shop',
-                intro: 'Магазин — основной способ продажи материалов и вещей. Здесь вы можете продавать или покупать.',
+                intro: 'Магазин — основной способ продажи материалов и вещей. Здесь вы можете продавать или покупать. После авторизации сможете добавить свой магазин.',
                 position: 'bottom'
             },
             {
@@ -76,33 +75,18 @@ $(function(){
                 position: 'bottom'
             },
             {
-                element: '.intro-board',
-                intro: 'Объявления — раздел в котором вы можете оставить объявление о продаже региона, аукциона или небольшой продаже.',
-                position: 'bottom'
-            },
-            {
                 element: '.intro-economy',
                 intro: 'Краткие сводки и данные о экономике GreenCubes.',
                 position: 'bottom'
             },
             {
+                element: '.intro-maps',
+                intro: 'Карта магазинов, а так же после авторизации доступны другие полезные штучки связанные с картой.',
+                position: 'bottom'
+            },
+            {
                 element: '.intro-other',
                 intro: 'Прочие небольшие безделушки, которые могут быть полезны для вас.'
-            },
-            {
-                element: '.intro-register',
-                intro: 'Зарегистрируйтесь и воспользуйтесь данным сервисом прямо сейчас.',
-                position: 'left'
-            },
-            {
-                element: '.intro-login',
-                intro: 'Или войдите под своим логином.',
-                position: 'left'
-            },
-            {
-                element: '.intro-user',
-                intro: 'Редактирование и просмотр вашей личной информации.',
-                position: 'left'
             },
             {
                 element: '.body-content',
@@ -129,11 +113,14 @@ $(function(){
                 intro: 'Благодарю за ознакомление. Приятного использования данного сервиса.',
                 position: 'bottom'
             }
-        ]
+        ],
+        'skipLabel': 'Выход',
+        'nextLabel': 'Дальше →',
+        'prevLabel': '← Назад',
+        'doneLabel': 'Завершить',
+        'showStepNumbers': false
     });
 
     $('button.btn').click(function() {
         introguide.start();
-    });
-});
-");
+    });");

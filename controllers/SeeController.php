@@ -19,7 +19,7 @@ class SeeController extends Controller
         $model = new SeeForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->AddLogin()) {
-                Yii::$app->session->setFlash('success', 'Игрок '.$model->login.' добалвен, спасибо.');
+                Yii::$app->session->setFlash('success', 'Игрок '.$model->login.' добавлен, спасибо.');
             } else {
                 Yii::$app->session->setFlash('error', 'Возникла ошибка при добавлении игрока.');
             }

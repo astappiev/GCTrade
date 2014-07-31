@@ -6,9 +6,14 @@
 
 # Mod_Rewrite
 <IfModule mod_rewrite.c>
-  Options +FollowSymlinks
+  Options +SymLinksIfOwnerMatch
   # Включаем mod_rewrite
   RewriteEngine On
+
+  RewriteCond %{HTTP_HOST} !^(www\.)?gctrade\.ru$
+  RewriteCond %{HTTP_HOST} ^(.+)\.gctrade\.ru$
+  RewriteRule (.*) http://gctrade.ru/shop/%1$1 [R=301,L]
+
   IndexIgnore */*
   # Перенаправляем все запросы на входной скрипт
   RewriteRule ^([^/].*)?$ /web/$1

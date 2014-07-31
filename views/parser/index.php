@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <tbody>
             <?php foreach($grid as $line):
                 echo '<tr>';
-                echo '<td><img src="/images/items/'.$line["id"].'.png" alt="'.$line["name"].'" align="left" class="small-icon"></td>';
+                echo '<td><img src="/images/items/'.$line["id"].'.png" alt="'.$line["name"].'" align="left" class="small-icon" /></td>';
                 echo '<td>'.$line["id"].'</td>';
                 echo '<td class="name">'.$line["name"].'</td>';
                 echo '<td>'.$line["price_sell"].'</td>';

@@ -265,23 +265,20 @@ class ParserController extends Controller
             $price_sell = '—';
             $price_buy = '—';
             $stuck = 0;
-            foreach($line->item_price_out as $price)
+
+            $price_sell = $line->item_price_out->p_out;
+            $stuck = $line->item_price_out->q_out;
+
+            if($line->item_price_in->q_in == $stuck)
+                $price_buy = $line->item_price_in->p_in;
+            else if($stuck != 0)
+                $price_buy = round(($line->item_price_in->p_in/$line->item_price_in->q_in)*$stuck);
+            else
             {
-                $price_sell = $price->p_out;
-                $stuck = $price->q_out;
+                $price_buy = $line->item_price_in->p_in;
+                $stuck = $line->item_price_in->q_in;
             }
-            foreach($line->item_price_in as $price)
-            {
-                if($price->q_in == $stuck)
-                    $price_buy = $price->p_in;
-                else if($stuck != 0)
-                    $price_buy = round(($price->p_in/$price->q_in)*$stuck);
-                else
-                {
-                    $price_buy = $price->p_in;
-                    $stuck = $price->q_in;
-                }
-            }
+
             $item = Item::findByAlias($alias);
             $status = Price::addPrice($item->id, $id_shop, $price_sell, $price_buy, $stuck);
             $grid[] = ['id' => $item->alias, 'name' => $item->name, 'price_sell' => $price_sell, 'price_buy' => $price_buy, 'stuck' => $stuck, 'status' => $status];
@@ -308,23 +305,20 @@ class ParserController extends Controller
             $price_sell = '—';
             $price_buy = '—';
             $stuck = 0;
-            foreach($line->item_price_out as $price)
+
+            $price_sell = $line->item_price_out->p_out;
+            $stuck = $line->item_price_out->q_out;
+
+            if($line->item_price_in->q_in == $stuck)
+                $price_buy = $line->item_price_in->p_in;
+            else if($stuck != 0)
+                $price_buy = round(($line->item_price_in->p_in/$line->item_price_in->q_in)*$stuck);
+            else
             {
-                $price_sell = $price->p_out;
-                $stuck = $price->q_out;
+                $price_buy = $line->item_price_in->p_in;
+                $stuck = $line->item_price_in->q_in;
             }
-            foreach($line->item_price_in as $price)
-            {
-                if($price->q_in == $stuck)
-                    $price_buy = $price->p_in;
-                else if($stuck != 0)
-                    $price_buy = round(($price->p_in/$price->q_in)*$stuck);
-                else
-                {
-                    $price_buy = $price->p_in;
-                    $stuck = $price->q_in;
-                }
-            }
+
             $item = Item::findByAlias($alias);
             $status = Price::addPrice($item->id, $id_shop, $price_sell, $price_buy, $stuck);
             $grid[] = ['id' => $item->alias, 'name' => $item->name, 'price_sell' => $price_sell, 'price_buy' => $price_buy, 'stuck' => $stuck, 'status' => $status];

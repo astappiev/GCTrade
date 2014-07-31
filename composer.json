@@ -16,7 +16,7 @@
 		"forum": "https://forum.greencubes.org/viewtopic.php?f=267&t=24524",
 		"source": "https://github.com/astappev/GCTrade"
 	},
-	"minimum-stability": "beta",
+	"minimum-stability": "dev",
 	"require": {
 		"php": ">=5.4.0",
 		"yiisoft/yii2": "*",
@@ -27,11 +27,15 @@
 	},
 	"require-dev": {
 		"yiisoft/yii2-debug": "*",
-		"yiisoft/yii2-gii": "*"
+		"yiisoft/yii2-gii": "*",
+		"codeception/codeception": " 2.0.*",
+		"codeception/specify": " *",
+		"codeception/verify": " *"
 	},
 	"scripts": {
 		"post-create-project-cmd": [
-			"yii\\composer\\Installer::setPermission"
+            "yii\\composer\\Installer::setPermission",
+            "yii\\composer\\Installer::generateCookieValidationKey"
 		]
 	},
 	"config": {
@@ -42,6 +46,10 @@
 			"runtime",
 			"web/assets"
 		],
+        "config": [
+            "config/web.php",
+            "config/console.php"
+        ],
 		"executable": [
 			"yii"
 		]

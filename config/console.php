@@ -2,7 +2,7 @@
 Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
 
 $params = require(__DIR__ . '/params.php');
-$server = require(__DIR__ . '/web-server.php');
+$server = require(__DIR__ . '/console-server.php');
 
 $config = [
     'id' => 'gctrade-console',
@@ -24,7 +24,7 @@ $config = [
                 ],
             ],
         ],
-        'mail' => [
+        'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             //'useFileTransport' => true,
             'viewPath' => '@app/mails',

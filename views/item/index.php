@@ -1,8 +1,8 @@
 <?php
 use yii\helpers\Html;
 
-$this->registerJsFile('@web/js/jquery.tablesorter.min.js', ['yii\web\JqueryAsset']);
-$this->registerJsFile('@web/js/jquery.filtertable.min.js', ['yii\web\JqueryAsset']);
+$this->registerJsFile('@web/js/jquery/jquery.tablesorter.min.js', ['yii\web\JqueryAsset']);
+$this->registerJsFile('@web/js/jquery/jquery.filtertable.min.js', ['yii\web\JqueryAsset']);
 
 $this->title = 'Каталог товаров';
 $this->params['breadcrumbs'][] = $this->title;
@@ -32,10 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ->orderBy('ABS(alias)', SORT_ASC);
 
             foreach($query->each() as $item): ?>
-                <tr data-href="<?= Yii::$app->urlManager->createUrl(['item/view', 'alias' => $item["alias"]]) ?>">
-                    <td><img src="/images/items/<?= $item["alias"]; ?>.png" alt="<?= $item["name"]; ?>" align="left" class="small-icon"></td>
+                <tr>
+                    <td><img src="/images/items/<?= $item["alias"]; ?>.png" alt="<?= $item["name"]; ?>" align="left" class="small-icon" /></td>
                     <td><?= $item["alias"]; ?></td>
-                    <td class="name"><?= $item["name"]; ?></td>
+                    <td class="name"><a href="<?= Yii::$app->urlManager->createUrl(['item/view', 'alias' => $item["alias"]]) ?>"><?= $item["name"]; ?></a></td>
                     <td><?= ($item["sell"])?round($item["sell"], 2):'—' ?></td>
                     <td><?= ($item["buy"])?round($item["buy"], 2):'—' ?></td>
                 </tr>

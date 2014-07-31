@@ -66,7 +66,11 @@ class ShopController extends Controller
 
     public function actionView($alias)
     {
-        return $this->render('view', ['url' => $alias]);
+        $shop = Shop::find()->where(['alias' => $alias])->one();
+        if ($shop === null) {
+            throw new HttpException(404, 'Магазин не найден.');
+        }
+        return $this->render('view', ['shop' => $shop]);
     }
 
     public function actionUpdate($alias)
@@ -210,7 +214,7 @@ class ShopController extends Controller
         $shop = Shop::findByAlias($alias);
         if($shop->owner == Yii::$app->user->id)
         {
-            Yii::$app->session->setFlash('success', 'Магазин '.$shop->name.', успешно создан.');
+            Yii::$app->session->setFlash('success', 'Магазин '.$shop->name.', успешно удален.');
             $shop->delete();
             return $this->redirect(['shop/edit']);
         } else {

@@ -1,0 +1,793 @@
+html
+{
+    position: relative;
+
+    min-height: 100%;
+
+    box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+}
+
+body
+{
+    font-family: 'Ubuntu', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    margin-bottom: 60px;
+
+    background-color: transparent;
+}
+
+/* Font */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6
+{
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.body-content.calc #error {
+    line-height: 28px;
+    display: inline;
+    position: absolute;
+}
+
+.body-content.calc .form-inline .form-group {
+    padding-left: 0;
+}
+
+.body-content
+{
+    margin-bottom: 30px;
+    padding: 30px;
+
+    color: inherit;
+    border-radius: 6px;
+    background-color: #eee;
+}
+
+.form-inline-block .btn
+{
+    margin-top: -10px;
+}
+
+.input-multiselect
+{
+    overflow: auto;
+
+    min-height: 145px!important;
+}
+
+body > .container
+{
+    padding: 90px 15px 0;
+}
+
+.footer
+{
+    position: absolute;
+    bottom: 0;
+
+    width: 100%;
+    height: 60px;
+    padding: 20px 20px 0 !important;
+}
+.footer > .container
+{
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.hidden
+{
+    display: none !important;
+}
+.visible
+{
+    display: block !important;
+}
+span.green
+{
+    font-size: 200%;
+
+    color: #27782d;
+}
+span.blue
+{
+    font-size: 200%;
+
+    color: #233f84;
+}
+span.red
+{
+    font-size: 200%;
+
+    color: #7f1817;
+}
+.jumbotron
+{
+    text-align: center;
+
+    background-color: transparent;
+}
+.jumbotron .btn
+{
+    font-size: 21px;
+
+    padding: 14px 24px;
+}
+
+.not-set
+{
+    font-style: italic;
+
+    color: #c55;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after,
+a.desc:after
+{
+    font-family: 'Glyphicons Halflings';
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+
+    position: relative;
+    top: 1px;
+
+    display: inline-block;
+
+    padding-left: 5px;
+}
+
+a.asc:after
+{
+    content: /*"\e113"*/ '\e151';
+}
+
+a.desc:after
+{
+    content: /*"\e114"*/ '\e152';
+}
+
+.sort-numerical a.asc:after
+{
+    content: '\e153';
+}
+
+.sort-numerical a.desc:after
+{
+    content: '\e154';
+}
+
+.sort-ordinal a.asc:after
+{
+    content: '\e155';
+}
+
+.sort-ordinal a.desc:after
+{
+    content: '\e156';
+}
+
+.grid-view th
+{
+    white-space: nowrap;
+}
+
+.hint-block
+{
+    display: block;
+
+    margin-top: 5px;
+
+    color: #999;
+}
+
+.error-summary
+{
+    margin: 0 0 15px 0;
+    padding: 10px 20px;
+
+    color: #a94442;
+    border-left: 3px solid #eed3d7;
+    background: #fdf7f7;
+}
+
+#see-update-form
+{
+    padding: 10px 0 20px 0;
+}
+
+#see-update-form.form-inline #seeform-description
+{
+    width: 400px;
+}
+
+.shop-list img
+{
+    width: 150px;
+    height: auto;
+}
+
+.shop-list .well > a
+{
+    display: block;
+    float: left;
+}
+
+.shop-list .well
+{
+    min-height: 188px;
+}
+
+.shop-list .info
+{
+    display: block;
+
+    padding-left: 180px;
+}
+
+.shop-list h3
+{
+    margin: 2px 0;
+}
+
+.shop-list p
+{
+    margin: 0 0 8px;
+}
+
+
+/* Страница-карточка магазина/товара */
+.body-content.page .panel-heading
+{
+    min-height: 170px;
+}
+.body-content.page .panel-heading > img
+{
+    display: block;
+    float: left;
+
+    width: 150px;
+    height: auto;
+    max-height: 150px;
+}
+.body-content.page p
+{
+    margin: 0 0 8px;
+}
+.body-content.page .info
+{
+    display: block;
+
+    min-height: 150px;
+    padding-left: 172px;
+}
+#editButtons, #removeButtons {
+    z-index: 3;
+}
+
+
+/* Таблицы */
+.table > thead > tr > th
+{
+    height: 57px;
+
+    vertical-align: middle;
+}
+.table tbody > tr
+{
+    height: 40px;
+}
+.table tbody > tr > td:first-child
+{
+    padding: 3px;
+}
+.table img.small-icon
+{
+    float: none;
+
+    width: 40px;
+    max-height: 40px;
+
+    text-align: left;
+}
+
+.table.item-list td,
+.table.item-list th
+{
+    text-align: right;
+}
+.table.item-list td:nth-child(2),
+.table.item-list th:nth-child(2)
+{
+    text-align: center;
+}
+.table.item-list td.name,
+.table.item-list th.name
+{
+    text-align: left;
+}
+
+.table.see tbody > tr > td:first-child
+{
+    padding: 8px;
+}
+.table.see td,
+.table.see th
+{
+    text-align: left;
+}
+
+.table.pointer td.name,
+.table .complaint
+{
+    cursor: pointer;
+}
+
+.table.sort thead tr .header
+{
+    padding-right: 20px;
+
+    cursor: pointer;
+
+    background-image: url(../images/sort/bg.gif);
+    background-repeat: no-repeat;
+    background-position: center right;
+}
+.table.sort thead tr .headerSortUp
+{
+    background-image: url(../images/sort/asc.gif);
+}
+.table.sort thead tr .headerSortDown
+{
+    background-image: url(../images/sort/desc.gif);
+}
+.table.sort thead tr .headerSortDown,
+.table thead tr .headerSortUp
+{
+    background-color: rgba(0, 0, 0, .03);
+}
+
+.table.filter td.alt
+{
+    background-color: #ffd;
+}
+.table td.control
+{
+    text-align: right;
+}
+
+.table .complaint
+{
+    z-index: 3;
+    top: -2px;
+
+    padding-left: 2px;
+
+    color: #d6d6d6;
+}
+.table .complaint.bad
+{
+    color: orange;;
+}
+.table td.flag,
+th.flag
+{
+    padding: 0 !important;
+
+    text-align: left;
+}
+.table.table-striped th
+{
+    width: 25%;
+}
+
+/* Модальные окна */
+#AddModal .form-group input#InputID
+{
+    width: 130px;
+}
+#AddModal .form-group input#InputBuy
+{
+    width: 120px;
+}
+#AddModal .form-group input#InputSell
+{
+    width: 120px;
+}
+#AddModal .form-group input#InputStuck
+{
+    width: 80px;
+}
+
+.nav.edit-shop > li > a,
+.nav.edit-shop > li > a
+{
+    text-decoration: none;
+
+    background-color: #ecebeb;
+}
+
+.nav.edit-shop > li > a:hover,
+.nav.edit-shop > li > a:focus
+{
+    text-decoration: none;
+
+    background-color: #ddd;
+}
+
+/* Авторизация GC */
+.auth-clients
+{
+    display: inline;
+}
+.btn-greencubes
+{
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    color: #999;
+}
+.btn-greencubes:hover,
+.btn-greencubes:focus,
+.btn-greencubes:active,
+.btn-greencubes.active
+{
+    text-decoration: none;
+
+    color: #fff;
+    background-color: transparent;
+}
+
+/* Экономика */
+.morris-hover{position:absolute;z-index:1000}
+.morris-hover.morris-default-style{border-radius:10px;padding:6px;color:#666;background:rgba(255,255,255,0.8);border:solid 2px rgba(230,230,230,0.8);font-family:sans-serif;font-size:12px;text-align:center}
+.morris-hover.morris-default-style .morris-hover-row-label{font-weight:bold;margin:0.25em 0}
+.morris-hover.morris-default-style .morris-hover-point
+{
+    margin: .1em 0;
+
+    white-space: nowrap;
+    color: #338000 !important;
+}
+
+#graph circle
+{
+    fill: #338000;
+    stroke: #338000;
+}
+#graph path
+{
+    stroke: #338000;
+}
+
+
+/* Карта */
+.frame-full
+{
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+}
+#map {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+}
+.shop-popup p.plabel {
+    margin: 2px 0;
+}
+.shop-popup {
+    max-width: 160px;
+}
+.shop-popup h4 {
+    margin: 5px 0;
+}
+.shop-popup img {
+    width: 100%;
+}
+.usermap .panel-body
+{
+    padding: 2px;
+}
+.usermap dl
+{
+    margin: 0;
+}
+.usermap .dl-horizontal dd
+{
+    margin-left: 220px;
+}
+.usermap .dl-horizontal dt
+{
+    width: 200px;
+
+    white-space: normal;
+}
+.usermap .panel-heading .text-danger
+{
+    padding-left: 220px;
+}
+img.leaflet-tile.leaflet-tile-loaded {
+    filter: brightness(90%);
+    -webkit-filter: brightness(90%);
+    -moz-filter: brightness(90%);
+    -ms-filter: brightness(90%);
+    -o-filter: brightness(90%);
+}
+.usermap .leaflet-popup-content
+{
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+#customRegionTextarea {
+    overflow: hidden;
+}
+
+
+/* Аукционы */
+.auction
+{
+    display: inline-block;
+}
+.post
+{
+    z-index: 999;
+
+    margin: 10px 5px;
+
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,.3);
+}
+.post img
+{
+    width: 100%;
+}
+
+/* Salvattore Base Styles */
+.column
+{
+    float: left;
+}
+.size-1of4
+{
+    width: 25%;
+}
+.size-1of3
+{
+    width: 33.333%;
+}
+.size-1of2
+{
+    width: 50%;
+}
+
+@media screen and (max-width: 450px)
+{
+    #posts[data-columns]::before
+    {
+        content: '2 .column.size-1of2';
+    }
+    .post
+    {
+        padding: 15px;
+    }
+}
+
+@media screen and (min-width: 451px) and (max-width: 850px)
+{
+    #posts[data-columns]::before
+    {
+        content: '3 .column.size-1of3';
+    }
+    .post
+    {
+        padding: 9.9px;
+    }
+}
+
+@media screen and (min-width: 851px)
+{
+    #posts[data-columns]::before
+    {
+        content: '4 .column.size-1of4';
+    }
+    .post
+    {
+        padding: 7.5px;
+    }
+}
+
+/* Spin */
+@-webkit-keyframes spin {
+  0% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+}
+@-moz-keyframes spin {
+  0% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+}
+@-ms-keyframes spin {
+  0% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+}
+@-o-keyframes spin {
+  0% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+}
+@-keyframes spin {
+    0% {
+        opacity: 0.2;
+    }
+
+     100% {
+        opacity: 0.4;
+    }
+}
+.spin {
+  position: relative;
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  margin: -10px;
+}
+.spin.spin-gleam {
+    background: #444444;
+    border-radius: 16px;
+}
+.spin.spin-gleam > * {
+    background: #eeeeee;
+}
+.spin.spin-dusky {
+    background: #eeeeee;
+    border-radius: 16px;
+}
+.spin.spin-dusky > * {
+    background: #444444;
+}
+.spin > * {
+    opacity: 0.2;
+    position: absolute;
+    width: 8%;
+    height: 24%;
+    left: 46%;
+    top: 38%;
+    background: black;
+    border-radius: 128px;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+    -webkit-animation: spin 0.8s linear infinite;
+    -moz-animation: spin 0.8s linear infinite;
+    animation: spin 0.8s linear infinite;
+}
+.spin > *:nth-child(1) {
+    -webkit-transform: rotate(40deg) translate(0, -120%);
+    -moz-transform: rotate(40deg) translate(0, -120%);
+    -ms-transform: rotate(40deg) translate(0, -120%);
+    -o-transform: rotate(40deg) translate(0, -120%);
+    transform: rotate(40deg) translate(0, -120%);
+    -webkit-animation-delay: 0.08889s;
+    -moz-animation-delay: 0.08889s;
+    animation-delay: 0.08889s;
+}
+.spin > *:nth-child(2) {
+    -webkit-transform: rotate(80deg) translate(0, -120%);
+    -moz-transform: rotate(80deg) translate(0, -120%);
+    -ms-transform: rotate(80deg) translate(0, -120%);
+    -o-transform: rotate(80deg) translate(0, -120%);
+    transform: rotate(80deg) translate(0, -120%);
+    -webkit-animation-delay: 0.17778s;
+    -moz-animation-delay: 0.17778s;
+    animation-delay: 0.17778s;
+}
+.spin > *:nth-child(3) {
+    -webkit-transform: rotate(120deg) translate(0, -120%);
+    -moz-transform: rotate(120deg) translate(0, -120%);
+    -ms-transform: rotate(120deg) translate(0, -120%);
+    -o-transform: rotate(120deg) translate(0, -120%);
+    transform: rotate(120deg) translate(0, -120%);
+    -webkit-animation-delay: 0.26667s;
+    -moz-animation-delay: 0.26667s;
+    animation-delay: 0.26667s;
+}
+.spin > *:nth-child(4) {
+    -webkit-transform: rotate(160deg) translate(0, -120%);
+    -moz-transform: rotate(160deg) translate(0, -120%);
+    -ms-transform: rotate(160deg) translate(0, -120%);
+    -o-transform: rotate(160deg) translate(0, -120%);
+    transform: rotate(160deg) translate(0, -120%);
+    -webkit-animation-delay: 0.35556s;
+    -moz-animation-delay: 0.35556s;
+    animation-delay: 0.35556s;
+}
+.spin > *:nth-child(5) {
+    -webkit-transform: rotate(200deg) translate(0, -120%);
+    -moz-transform: rotate(200deg) translate(0, -120%);
+    -ms-transform: rotate(200deg) translate(0, -120%);
+    -o-transform: rotate(200deg) translate(0, -120%);
+    transform: rotate(200deg) translate(0, -120%);
+    -webkit-animation-delay: 0.44444s;
+    -moz-animation-delay: 0.44444s;
+    animation-delay: 0.44444s;
+}
+.spin > *:nth-child(6) {
+    -webkit-transform: rotate(240deg) translate(0, -120%);
+    -moz-transform: rotate(240deg) translate(0, -120%);
+    -ms-transform: rotate(240deg) translate(0, -120%);
+    -o-transform: rotate(240deg) translate(0, -120%);
+    transform: rotate(240deg) translate(0, -120%);
+    -webkit-animation-delay: 0.53333s;
+    -moz-animation-delay: 0.53333s;
+    animation-delay: 0.53333s;
+}
+.spin > *:nth-child(7) {
+    -webkit-transform: rotate(280deg) translate(0, -120%);
+    -moz-transform: rotate(280deg) translate(0, -120%);
+    -ms-transform: rotate(280deg) translate(0, -120%);
+    -o-transform: rotate(280deg) translate(0, -120%);
+    transform: rotate(280deg) translate(0, -120%);
+    -webkit-animation-delay: 0.62222s;
+    -moz-animation-delay: 0.62222s;
+    animation-delay: 0.62222s;
+}
+.spin > *:nth-child(8) {
+    -webkit-transform: rotate(320deg) translate(0, -120%);
+    -moz-transform: rotate(320deg) translate(0, -120%);
+    -ms-transform: rotate(320deg) translate(0, -120%);
+    -o-transform: rotate(320deg) translate(0, -120%);
+    transform: rotate(320deg) translate(0, -120%);
+    -webkit-animation-delay: 0.71111s;
+    -moz-animation-delay: 0.71111s;
+    animation-delay: 0.71111s;
+}
+.spin > *:nth-child(9) {
+    -webkit-transform: rotate(360deg) translate(0, -120%);
+    -moz-transform: rotate(360deg) translate(0, -120%);
+    -ms-transform: rotate(360deg) translate(0, -120%);
+    -o-transform: rotate(360deg) translate(0, -120%);
+    transform: rotate(360deg) translate(0, -120%);
+    -webkit-animation-delay: 0.8s;
+    -moz-animation-delay: 0.8s;
+    animation-delay: 0.8s;
+}
+
+
+/* Intro JS */
+.introjs-tooltip {
+    min-width: 215px;
+}
+.introjs-helperLayer {
+    background-color: rgba(255, 255, 255, 0.15);
+}

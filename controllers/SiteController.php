@@ -3,7 +3,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\web\Controller;
-use app\models\forms\ContactForm;
+use yii\helpers\Url;
 
 class SiteController extends Controller
 {
@@ -25,21 +25,14 @@ class SiteController extends Controller
 		return $this->render('index');
 	}
 
-	public function actionContact()
+    public function actionRaschet()
 	{
-		$model = new ContactForm();
-		if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-			if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-				Yii::$app->session->setFlash('success', 'Благодарю за обращение. Я отвечу как можно скорее.');
-			} else {
-				Yii::$app->session->setFlash('error', 'Возникла ошибка при отправке Email.');
-			}
-			return $this->refresh();
-		} else {
-			return $this->render('contact', [
-				'model' => $model,
-			]);
-		}
+        $this->redirect(Url::to('http://raschet.gctrade.ru'), NULL);
+	}
+
+	public function actionForum()
+	{
+        $this->redirect(Url::to('https://forum.greencubes.org/viewtopic.php?f=267&t=24524'), NULL);
 	}
 
     public function actionEconomy()

@@ -9,7 +9,7 @@ use app\extensions\fileapi\FileAPIAdvanced;
 <div id="<?= $selector; ?>" class="uploader">
     <div class="btn btn-default js-fileapi-wrapper">
         <div class="uploader-browse">
-            <?= FileAPIAdvanced::t('fileapi', 'Выбрать') ?>
+            <?= FileAPIAdvanced::t('fileapi', 'Загрузить') ?>
             <input type="file" name="<?= $fileVar ?>">
         </div>
         <div class="uploader-progress">

@@ -16,7 +16,7 @@ use app\extensions\fileapi\FileAPIAdvanced;
 
     <?php $form = ActiveForm::begin([
         'id' => 'shop-form',
-        'options' => ['class' => 'form-horizontal'],
+        'options' => ['class' => 'form-horizontal', 'type' => 'multipart/form-data'],
         'fieldConfig' => [
             'template' => "{label}\n<div class=\"col-md-10\">{input}</div>\n<div class=\"col-md-offset-2 col-md-10\">{error}</div>",
             'labelOptions' => ['class' => 'control-label col-md-2'],
@@ -59,7 +59,7 @@ use app\extensions\fileapi\FileAPIAdvanced;
         ]
     ]) ?>
 
-    <?= $form->field($model, 'source')->textInput(['placeholder' => 'В том случае есть существует независимый прайс, укажите его адрес', 'maxlength' => 90]) ?>
+    <?//= $form->field($model, 'source')->textInput(['placeholder' => 'В том случае есть существует независимый прайс, укажите его адрес', 'maxlength' => 90]) ?>
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">

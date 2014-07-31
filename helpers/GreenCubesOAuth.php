@@ -9,17 +9,18 @@ class GreenCubesOAuth extends OAuth2
     public $tokenUrl = 'https://api.greencubes.org/oauth/access_token';
     public $apiBaseUrl = 'https://api.greencubes.org';
 
-    public $scope = 'profile,email';
+    public $scope = 'profile,email,regions';
 
     protected function initUserAttributes()
     {
         return $this->api('user', 'GET');
     }
 
-    protected function apiInternal($accessToken, $url, $method, array $params)
+    protected function apiInternal($accessToken, $url, $method, array $params, array $headers = null)
     {
         $params['access_token'] = $accessToken->getToken();
         $params['access_token'] = $params['access_token']['token'];
+
         return $this->sendRequest($method, $url, $params);
     }
 

@@ -54,7 +54,7 @@ function isonline(login){
 };
 
 $(document).ready(function() {
-    $(".table > tbody td.status").spin('small');
+    $(".table > tbody td.status").spin('show');
 
     if (!("Notification" in window)) {
         alert("Ваш браузер не поддерживает HTML5 Notifications");
@@ -115,7 +115,7 @@ $(document).ready(function() {
                 var that = this;
                 var t = setTimeout(function() {
                     var text = $("td", that).eq(2).html();
-                    $("td", that).eq(2).empty().spin('small');
+                    $("td", that).eq(2).spin('show');
                     var login = $("td", that).eq(0).text();
                     var online = isonline(login);
                     if(online == true && text == '<span class="label label-info">В сети</span>')

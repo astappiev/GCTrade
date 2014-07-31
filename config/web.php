@@ -20,14 +20,27 @@ $config = [
             'driver' => 'GD',  //GD or Imagick
         ],
         'request' => [
-            'enableCsrfValidation' => true,
+            'enableCsrfValidation' => false,
             'enableCookieValidation' => true,
             'baseUrl' => '',
         ],
         'assetManager' => [
             'linkAssets' => false,
             'basePath' => '@webroot/assets',
-            'baseUrl' => '@web/assets'
+            'baseUrl' => '@web/assets',
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'js' => [YII_ENV_DEV ? 'jquery.js' : 'jquery.min.js'],
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'sourcePath' => '@vendor/twbs/bootstrap/dist',
+                    'js' => [YII_ENV_DEV ? 'js/bootstrap.js' : 'js/bootstrap.min.js'],
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'sourcePath' => '@vendor/twbs/bootstrap/dist',
+                    'css' => [YII_ENV_DEV ? 'css/bootstrap.css' : 'css/bootstrap.min.css'],
+                ],
+            ],
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -47,7 +60,7 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'mail' => [
+        'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             //'useFileTransport' => true,
             'viewPath' => '@app/mails',

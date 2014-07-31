@@ -2,9 +2,8 @@
 use yii\helpers\Html;
 use app\models\Shop;
 
-$this->registerJsFile('@web/js/jquery.tablesorter.min.js', ['yii\web\JqueryAsset']);
+$this->registerJsFile('@web/js/jquery/jquery.tablesorter.min.js', ['yii\web\JqueryAsset']);
 
-$shop = Shop::find()->where(['alias' => $url])->one();
 $this->title = $shop->name;
 $this->params['breadcrumbs'][] = ['label' => 'Магазины', 'url' => ['/shop/index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -24,32 +23,32 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
         <?php if(isset($shop->description)) echo'<div class="panel-body">'.$shop->description.'</div>' ?>
-        <table class="table table-hover sort pointer">
+        <table class="table table-hover item-list sort">
             <thead>
                 <tr>
                     <th width="5%"></th>
                     <th width="5%">ID</th>
                     <th class="name">Название</th>
                     <th width="15%">Цена продажи</th>
-                    <th width="15px" class="{sorter: false} flag"></th>
+                    <?php /*<th width="15px" class="{sorter: false} flag"></th> */ ?>
                     <th width="15%">Цена покупки</th>
-                    <th width="15px" class="{sorter: false} flag"></th>
+                     <?php /*<th width="15px" class="{sorter: false} flag"></th> */ ?>
                     <th width="15%">Кол-во за сделку</th>
                 </tr>
             </thead>
             <tbody>
             <?php foreach($shop->prices as $price):
-                $complaint_sell = ($price->complaint_sell == 0)?' ':' bad';
-                $complaint_buy = ($price->complaint_buy == 0)?' ':' complaint bad';
+                //$complaint_sell = ($price->complaint_sell == 0)?' ':' bad';
+                //$complaint_buy = ($price->complaint_buy == 0)?' ':' complaint bad';
             ?>
-                <tr data-href="<?= Yii::$app->urlManager->createUrl(['item/view', 'alias' => $price->item->alias]) ?>">
-                    <td><img src="/images/items/<?= $price->item->alias ?>.png" alt="<?= $price->item->name; ?>" align="left" class="small-icon" /></td>
+                <tr>
+                    <td><img src="/images/items/<?= $price->item->alias ?>.png" alt="<?= $price->item->name; ?>" class="small-icon"></td>
                     <td><?= $price->item->alias; ?></td>
-                    <td class="name"><?= $price->item->name; ?></td>
+                    <td class="name"><a href="<?= Yii::$app->urlManager->createUrl(['item/view', 'alias' => $price->item->alias]) ?>"><?= $price->item->name; ?></a></td>
                     <td><?= ($price->price_sell)?$price->price_sell:'—' ?></td>
-                    <td class="flag"><span class="glyphicon glyphicon-bookmark complaint<?= $complaint_sell ?>" data-type="sell"></span></td>
+                    <?php /*<td class="flag"><span class="glyphicon glyphicon-bookmark complaint<?= $complaint_sell ?>" data-type="sell"></span></td> */ ?>
                     <td><?= ($price->price_buy)?$price->price_buy:'—' ?></td>
-                    <td class="flag"><span class="glyphicon glyphicon-bookmark complaint<?= $complaint_buy ?>" data-type="buy"></span></td>
+                    <?php /*<td class="flag"><span class="glyphicon glyphicon-bookmark complaint<?= $complaint_buy ?>" data-type="buy"></span></td>  */ ?>
                     <td><?= $price->stuck; ?></td>
                 </tr>
             <?php endforeach; ?>

@@ -1,19 +1,17 @@
 <?php
 use yii\helpers\Html;
 use app\models\Shop;
-//$this->registerJsFile('@web/js/jquery.cookie.js', ['yii\web\JqueryAsset']);
-//$this->registerJsFile('@web/js/cord.gctrade.js', ['yii\web\JqueryAsset']);
 
 $this->title = 'Каталог магазинов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="body-content shop-list">
+<div class="body-content shop-list view">
 	<h1><?= Html::encode($this->title) ?></h1>
 
     <?php foreach (Shop::find()->orderBy(['updated_at' => SORT_DESC])->all() as $shop): ?>
 
         <div class="well">
-            <a href="<?= Yii::$app->urlManager->createUrl(['shop/view', 'alias' => $shop->alias]) ?>"><img src="<?= $shop->getLogo() ?>" alt="<?= $shop->name ?>" class="img-rounded"></a>
+            <a href="<?= Yii::$app->urlManager->createUrl(['shop/view', 'alias' => $shop->alias]) ?>"><img src="<?= $shop->getLogo() ?>" alt="<?= $shop->name ?>" class="img-rounded" /></a>
             <div class="info">
                 <h3><a href="<?= Yii::$app->urlManager->createUrl(['shop/view', 'alias' => $shop->alias]) ?>"><?= $shop->name ?></a></h3>
                 <p><?= $shop->about ?></p>

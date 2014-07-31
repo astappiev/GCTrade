@@ -78,8 +78,8 @@ class Tinymce extends InputWidget
 	    'height' => '200px',
 	    'menubar' => false,
 	    'statusbar' => false,
-	    'plugins' => ['advlist autolink link image lists hr table charmap media'],
-	    'toolbar' => 'bold italic underline strikethrough | bullist numlist | link unlink  | media image | hr table | blockquote charmap',
+	    'plugins' => ['advlist autolink link image lists hr table charmap media textcolor'],
+	    'toolbar' => 'bold italic underline strikethrough | forecolor backcolor | bullist numlist | link unlink  | media image | hr table | blockquote charmap',
     ];
 
 	/**
@@ -91,8 +91,8 @@ class Tinymce extends InputWidget
 	    'height' => '200px',
 	    'menubar' => false,
 	    'statusbar' => false,
-	    'plugins' => ['advlist autolink link image lists hr table pagebreak code'],
-	    'toolbar' => 'bold italic underline strikethrough | bullist numlist | link unlink image | hr table blockquote | pagebreak code'
+	    'plugins' => ['advlist autolink link image lists hr table pagebreak code textcolor'],
+	    'toolbar' => 'bold italic underline strikethrough | forecolor backcolor | bullist numlist | link unlink image | hr table blockquote | pagebreak code'
 	];
 
 	/**

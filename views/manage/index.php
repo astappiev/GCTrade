@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             foreach($query->each() as $line):
                 echo '<tr>';
-                echo '<td><img src="/images/items/'.$line["alias"].'.png" alt="'.$line["name"].'" align="left" class="small-icon"></td>';
+                echo '<td><img src="/images/items/'.$line["alias"].'.png" alt="'.$line["name"].'" align="left" class="small-icon" /></td>';
                 echo '<td>'.$line["id"].'</td>';
                 echo '<td class="name">'.$line["name"].'</td>';
                 echo '<td>'.$line["username"].'</td>';

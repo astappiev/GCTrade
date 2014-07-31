@@ -17,7 +17,7 @@ class MailController extends Controller
             $email = $email->queryOne();
             if($email["delivery"])
             {
-                \Yii::$app->mail->compose('flagsNotify', ['name' => $shop["name"], 'count' => $shop["count"]])
+                \Yii::$app->mailer->compose('flagsNotify', ['name' => $shop["name"], 'count' => $shop["count"]])
                     ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' роборот'])
                     ->setTo($email["email"])
                     ->setSubject('Уведомление о статусе товаров, для '.$shop["name"])

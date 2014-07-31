@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 
-$this->registerJsFile('@web/js/rail.gctrade.js', ['yii\web\JqueryAsset']);
+$this->registerJsFile('@web/js/rail.gctrade.min.js', ['yii\web\JqueryAsset']);
 
 $this->title = 'Статистика железной дороги';
 $this->params['breadcrumbs'][] = $this->title;

@@ -8,36 +8,23 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\helpers\Backgrounds;
-use app\assets\AppAsset;
+use app\web\assets\AppAsset;
 ?>
-
+<meta charset="<?= Yii::$app->charset ?>"/>
 <title><?= Html::encode($this->title).' — '.Yii::$app->params["siteName"] ?></title>
-<?php $this->registerLinkTag(['rel' => 'canonical', 'href' => Url::canonical()]);
-$this->registerMetaTag([
-    'charset' => Yii::$app->charset
-]);
-$this->registerMetaTag([
-    'http-equiv' => 'X-UA-Compatible',
-    'content' => 'IE=edge'
-]);
-$this->registerMetaTag([
-    'name' => 'viewport',
-    'content' => 'width=device-width, initial-scale=1'
-]);
-$this->registerLinkTag([
-    'href' => Yii::$app->getRequest()->baseUrl . '/favicon.png',
-    'rel' => 'icon',
-    'type' => 'image/png',
-    'sizes' => '48x48'
-]);
-$this->registerLinkTag([
-    'href' => Yii::$app->getRequest()->baseUrl . '/favicon.png',
-    'rel' => 'shortcut icon',
-    'type' => 'image/png',
-    'sizes' => '48x48'
-]);
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link type="image/png" href="/favicon.png" rel="icon" sizes="48x48">
+<link type="image/png" href="/favicon.png" rel="shortcut icon" sizes="48x48">
+<link type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans&amp;subset=latin,cyrillic" rel="stylesheet">
+<link type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu&amp;subset=latin,cyrillic" rel="stylesheet">
+
+<?php
+echo Html::csrfMetaTags();
+$this->registerLinkTag(['rel' => 'canonical', 'href' => Url::canonical()]);
 $this->head();
-AppAsset::register($this); ?>
+AppAsset::register($this);
+?>
 
 <style>
     html > body{
