@@ -4,7 +4,6 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use app\models\Item;
-use app\helpers\ParseHTML;
 
 class ManageController extends Controller
 {
@@ -30,18 +29,18 @@ class ManageController extends Controller
                 $item->alias = $id;
                 $item->name = $name;
                 if($item->save())
-                    $status = '<span class="glyphicon glyphicon-plus green"></span>';
+                    $status = '<span class="glyphicon glyphicon-plus twosize green"></span>';
                 else
-                    $status = '<span class="glyphicon glyphicon-remove red"></span>';
+                    $status = '<span class="glyphicon glyphicon-remove twosize red"></span>';
             }
 
             $icon = $_SERVER{'DOCUMENT_ROOT'}.'/web/images/items/'.$id.'.png';
             if (!file_exists($icon))
             {
                 if(file_put_contents($icon, file_get_contents($line->image_url)))
-                    $status .= '<span class="glyphicon glyphicon-floppy-save green"></span>';
+                    $status .= '<span class="glyphicon glyphicon-floppy-save twosize green"></span>';
                 else
-                    $status .= '<span class="glyphicon glyphicon-floppy-save red"></span>';
+                    $status .= '<span class="glyphicon glyphicon-floppy-save twosize red"></span>';
             }
 
             $grid[] = ['id' => $id, 'name' => $name, 'status' => $status];

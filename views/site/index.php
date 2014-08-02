@@ -7,7 +7,7 @@ $this->title = 'Приветствуем!';
     <div class="site-index">
         <div class="jumbotron">
             <h1>Приветствую</h1>
-            <p class="lead">Здесь на GCTrade, вся экономика <strong><span id="green">Green</span>Cubes</strong> в одном месте!</p>
+            <p class="lead">Здесь на GCTrade, вся экономика <strong><span class="green">Green</span>Cubes</strong> в одном месте!</p>
             <p><button class="btn btn-lg btn-success intro-finish">Ознакомиться с GCTrade</button></p>
         </div>
 

@@ -22,7 +22,7 @@ function MapsIndexShop()
     if(your_login) {
         var player, count = 0;
         var playerIcon = L.icon({
-            iconUrl: '/api/skins/' + your_login,
+            iconUrl: '/api/head/' + your_login,
             iconSize: [32, 32],
             iconAnchor: [16, 16]
         });

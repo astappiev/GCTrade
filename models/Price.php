@@ -69,9 +69,9 @@ class Price extends ActiveRecord
             $price->price_buy = $price_buy;
             $price->stuck = $stuck;
             if($price->save())
-                return '<span class="glyphicon glyphicon-plus green"></span>';
+                return '<span class="glyphicon glyphicon-plus twosize green"></span>';
             else
-                return '<span class="glyphicon glyphicon-remove red"></span>';
+                return '<span class="glyphicon glyphicon-remove twosize red"></span>';
         } else {
             if($price->price_sell == $price_sell && $price->price_buy == $price_buy && $price->stuck == $stuck) return '';
 
@@ -79,9 +79,9 @@ class Price extends ActiveRecord
             $price->price_buy = $price_buy;
             $price->stuck = $stuck;
             if($price->save())
-                return '<span class="glyphicon glyphicon-refresh blue"></span>';
+                return '<span class="glyphicon glyphicon-refresh twosize blue"></span>';
             else
-                return '<span class="glyphicon glyphicon-remove red"></span>';
+                return '<span class="glyphicon glyphicon-remove twosize red"></span>';
         }
     }
 }

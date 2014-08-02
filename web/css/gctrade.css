@@ -1,35 +1,17 @@
-html
-{
+html {
     position: relative;
-
     min-height: 100%;
-
     box-shadow: inset 0 0 100px rgba(0,0,0,.5);
 }
 
-body
-{
+body {
     font-family: 'Ubuntu', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
     margin-bottom: 60px;
-
     background-color: transparent;
 }
 
 /* Font */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6
-{
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -43,8 +25,7 @@ h6,
     padding-left: 0;
 }
 
-.body-content
-{
+.body-content {
     margin-bottom: 30px;
     padding: 30px;
 
@@ -53,25 +34,20 @@ h6,
     background-color: #eee;
 }
 
-.form-inline-block .btn
-{
+.form-inline-block .btn {
     margin-top: -10px;
 }
 
-.input-multiselect
-{
+.input-multiselect {
     overflow: auto;
-
     min-height: 145px!important;
 }
 
-body > .container
-{
+body > .container {
     padding: 90px 15px 0;
 }
 
-.footer
-{
+.footer {
     position: absolute;
     bottom: 0;
 
@@ -79,61 +55,44 @@ body > .container
     height: 60px;
     padding: 20px 20px 0 !important;
 }
-.footer > .container
-{
+.footer > .container {
     padding-right: 15px;
     padding-left: 15px;
 }
-.hidden
-{
+.hidden {
     display: none !important;
 }
-.visible
-{
+.visible {
     display: block !important;
 }
-span.green
-{
+span.twosize {
     font-size: 200%;
-
+}
+.green {
     color: #27782d;
 }
-span.blue
-{
-    font-size: 200%;
-
+.blue {
     color: #233f84;
 }
-span.red
-{
-    font-size: 200%;
-
+.red {
     color: #7f1817;
 }
-.jumbotron
-{
+.jumbotron {
     text-align: center;
-
     background-color: transparent;
 }
-.jumbotron .btn
-{
+.jumbotron .btn {
     font-size: 21px;
-
     padding: 14px 24px;
 }
 
-.not-set
-{
+.not-set {
     font-style: italic;
-
     color: #c55;
 }
 
 /* add sorting icons to gridview sort links */
-a.asc:after,
-a.desc:after
-{
+a.asc:after, a.desc:after {
     font-family: 'Glyphicons Halflings';
     font-weight: normal;
     font-style: normal;
@@ -141,58 +100,45 @@ a.desc:after
 
     position: relative;
     top: 1px;
-
     display: inline-block;
-
     padding-left: 5px;
 }
 
-a.asc:after
-{
+a.asc:after {
     content: /*"\e113"*/ '\e151';
 }
 
-a.desc:after
-{
+a.desc:after {
     content: /*"\e114"*/ '\e152';
 }
 
-.sort-numerical a.asc:after
-{
+.sort-numerical a.asc:after {
     content: '\e153';
 }
 
-.sort-numerical a.desc:after
-{
+.sort-numerical a.desc:after {
     content: '\e154';
 }
 
-.sort-ordinal a.asc:after
-{
+.sort-ordinal a.asc:after {
     content: '\e155';
 }
 
-.sort-ordinal a.desc:after
-{
+.sort-ordinal a.desc:after {
     content: '\e156';
 }
 
-.grid-view th
-{
+.grid-view th {
     white-space: nowrap;
 }
 
-.hint-block
-{
+.hint-block {
     display: block;
-
     margin-top: 5px;
-
     color: #999;
 }
 
-.error-summary
-{
+.error-summary {
     margin: 0 0 15px 0;
     padding: 10px 20px;
 
@@ -201,58 +147,48 @@ a.desc:after
     background: #fdf7f7;
 }
 
-#see-update-form
-{
+#see-update-form {
     padding: 10px 0 20px 0;
 }
 
-#see-update-form.form-inline #seeform-description
-{
+#see-update-form.form-inline #seeform-description {
     width: 400px;
 }
 
-.shop-list img
-{
+.shop-list img {
     width: 150px;
     height: auto;
 }
 
-.shop-list .well > a
-{
+.shop-list .well > a {
     display: block;
     float: left;
 }
 
-.shop-list .well
-{
+.shop-list .well {
     min-height: 188px;
 }
 
-.shop-list .info
-{
+.shop-list .info {
     display: block;
 
     padding-left: 180px;
 }
 
-.shop-list h3
-{
+.shop-list h3 {
     margin: 2px 0;
 }
 
-.shop-list p
-{
+.shop-list p {
     margin: 0 0 8px;
 }
 
 
 /* Страница-карточка магазина/товара */
-.body-content.page .panel-heading
-{
+.body-content.page .panel-heading {
     min-height: 170px;
 }
-.body-content.page .panel-heading > img
-{
+.body-content.page .panel-heading > img {
     display: block;
     float: left;
 
@@ -260,12 +196,10 @@ a.desc:after
     height: auto;
     max-height: 150px;
 }
-.body-content.page p
-{
+.body-content.page p {
     margin: 0 0 8px;
 }
-.body-content.page .info
-{
+.body-content.page .info {
     display: block;
 
     min-height: 150px;

@@ -158,7 +158,7 @@ class ShopController extends Controller
             $price->price_buy = $price_buy;
             $price->stuck = $stuck;
             if($price->save())
-                return '<span class="glyphicon glyphicon-ok-circle green" data-toggle="tooltip" title="Добавлено"></span>';
+                return '<span class="glyphicon glyphicon-ok-circle twosize green" data-toggle="tooltip" title="Добавлено"></span>';
         }
     }
 

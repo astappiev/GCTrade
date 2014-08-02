@@ -23,51 +23,57 @@ $this->params['breadcrumbs'][] = $this->title;
         "updated_at": 1398459841
     }
 ]</pre>
+    <p>Для фильтрации результатов можно использовать запрос следующего вида.</p>
+    <pre><?= Html::a(Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/shop']).'/эварис'), Yii::$app->urlManager->createAbsoluteUrl(['api/shop', 'request' => 'эварис']), ['target' => '_blank']) ?></pre>
+    <pre><?= 'GET '.Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/shop']).'?request=:name') ?></pre>
     <br><br>
 
 
     <p>Краткая информация и цены на товар, на основе GCTrade.</p>
-    <pre><?= Html::a(Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/item']).'/:id'), Yii::$app->urlManager->createAbsoluteUrl(['api/item', 'id' => 56.1]), ['target' => '_blank']) ?></pre>
-    <pre><?= 'GET '.Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/item'])).'?id=:id' ?></pre>
-<pre>{
-    "id": 56.1,
-    "name": "Декоративная алмазная руда",
-    "description": null,
-    "in_shop": 7,
-    "cost": {
-        "min": 10000,
-        "avg": 10571.42857143,
-        "max": 11000
+    <pre><?= Html::a(Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/item']).'/:request'), Yii::$app->urlManager->createAbsoluteUrl(['api/item', 'request' => 1]), ['target' => '_blank']) ?></pre>
+    <pre><?= 'GET '.Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/item'])).'?request=:id' ?></pre>
+<pre>[
+    {
+        "id": 1,
+        "name": "Камень",
+        "description": null,
+        "in_shop": {
+            "count": 17,
+            "min": 0.9375,
+            "avg": 1.15441176,
+            "max": 1.25
+        }
     }
-}</pre>
+]</pre>
+    <p>Для фильтрации результатов можно использовать запрос следующего вида.</p>
+    <pre><?= Html::a(Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/item']).'/камень'), Yii::$app->urlManager->createAbsoluteUrl(['api/item', 'request' => 'камень']), ['target' => '_blank']) ?></pre>
+    <pre><?= 'GET '.Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/item']).'?request=:name') ?></pre>
     <br><br>
 
 
-    <p>Последние 100 записей о состоянии экономики GreenCubes, на основе GCTrade.</p>
+    <p>Последние 100 записей о состоянии экономики <strong><span class="green">Green</span>Cubes</strong>, на основе GCTrade.</p>
     <pre><?= Html::a(Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/economy'])), Yii::$app->urlManager->createAbsoluteUrl(['api/economy']), ['target' => '_blank']) ?></pre>
     <pre><?= 'GET '.Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/economy'])) ?></pre>
 <pre>[
     {
         "date": "2014-07-30 23:15:06",
         "value": 4827453
-    },
-    {
-        "date": "2014-07-30 22:14:59",
-        "value": 4789015
-    },
-    {
-        "date": "2014-07-30 21:12:52",
-        "value": 5377462
     }
 ]</pre>
     <br><br>
 
 
-    <p>Лицо пользователя, на основе его скина GreenCubes.</p>
-    <pre><?= Html::a(Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/skins']).'/:login'), Yii::$app->urlManager->createAbsoluteUrl(['api/skins', 'login' => 'astappev']), ['target' => '_blank']) ?></pre>
-    <pre><?= 'GET '.Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/skins'])).'?login=:login' ?></pre>
+    <p>Лицо пользователя, на основе его скина <strong><span class="green">Green</span>Cubes</strong>.</p>
+    <pre><?= Html::a(Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/head']).'/:login'), Yii::$app->urlManager->createAbsoluteUrl(['api/head', 'login' => 'astappev']), ['target' => '_blank']) ?></pre>
+    <pre><?= 'GET '.Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/head'])).'?login=:login' ?></pre>
+    <pre><?= Html::img('/api/head/astappev').' '.Html::img('/api/head/silbersamurai').' '.Html::img('/api/head/noob').' '.Html::img('/api/head/Kernel').' '.Html::img('/api/head/Rena4ka') ?></pre>
+    <br><br>
 
-    <pre><?= Html::img('/api/skins/astappev').' '.Html::img('/api/skins/silbersamurai').' '.Html::img('/api/skins/noob').' '.Html::img('/api/skins/Kernel').' '.Html::img('/api/skins/Rena4ka') ?></pre>
+
+    <p>Вывод (изображением) всех <strong><span class="green">Green</span>Cubes</strong> значков пользователя.</p>
+    <pre><?= Html::a(Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/badges']).'/:login'), Yii::$app->urlManager->createAbsoluteUrl(['api/badges', 'login' => 'venus']), ['target' => '_blank']) ?></pre>
+    <pre><?= 'GET '.Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/badges'])).'?login=:login' ?></pre>
+    <pre><?= Html::img('/api/badges/venus') ?></pre>
     <br><br>
 
 
@@ -78,28 +84,9 @@ $this->params['breadcrumbs'][] = $this->title;
     {
         "name": "AndBo",
         "cord": "-4444 65 924"
-    },
-    {
-        "name": "Castor",
-        "cord": "-7856 74 -2369"
     }
 ]</pre>
-    <br><br>
-
-
-    <p>Получение информации о одном из игроков, массива world.</p>
+    <p>Для получение информации об одном из игроков, массива world используйте запрос вида.</p>
     <pre><?= Html::a(Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/world']).'/:login'), Yii::$app->urlManager->createAbsoluteUrl(['api/world', 'login' => 'Galik']), ['target' => '_blank']) ?></pre>
     <pre><?= 'GET '.Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/world'])).'?login=:login' ?></pre>
-    <p>Результат:</p>
-<pre>{
-    "status": 1,
-    "player": {
-        "name": "Galik",
-        "cord": "-8202 49 -526"
-    }
-}</pre>
-    <p>В случае если игрок не в сети:</p>
-<pre>{
-    "status": 0,
-}</pre>
 </div>
