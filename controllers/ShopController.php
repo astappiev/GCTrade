@@ -86,6 +86,9 @@ class ShopController extends Controller
     {
         $model = Shop::findByAlias($alias);
         if ($model != null) {
+            if($model->owner != Yii::$app->user->id)
+                throw new HttpException(403, 'Вы не являетесь владельцем данного магазина.');
+
             $model->scenario = 'update';
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
                 if ($model->save()) {
@@ -98,24 +101,8 @@ class ShopController extends Controller
                 return $this->render('update', ['model' => $model]);
             }
         }
-    }
 
-    public function actionLogo($alias)
-    {
-        $model = Shop::findByAlias($alias);
-        $model->setScenario('logo');
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            //return $this->redirect(['view', 'alias' => $model['alias']]);
-            return $this->refresh();
-        } elseif (Yii::$app->request->isAjax) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
-        } else {
-            return $this->render('logo', [
-                'model' => $model,
-            ]);
-        }
+        throw new HttpException(403, 'Магазин не найден.');
     }
 
     function actionDeleteLogo($id)
@@ -125,7 +112,7 @@ class ShopController extends Controller
             $model->setScenario('delete-logo');
             $model->save(false);
         } else {
-            throw new HttpException(403);
+            throw new HttpException(403, 'Вы не являетесь владельцем данного магазина.');
         }
     }
 

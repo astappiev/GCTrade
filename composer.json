@@ -23,7 +23,6 @@
 		"yiisoft/yii2-bootstrap": "*",
 		"yiisoft/yii2-swiftmailer": "*",
         "yiisoft/yii2-authclient": "*",
-        "yurkinx/yii2-image": "dev-master",
 		"vova07/yii2-imperavi-widget": "*"
 	},
 	"require-dev": {

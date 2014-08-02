@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c105db9f9d1def551101c7f6ce113d3d",
+    "hash": "8889cb3848ad317d064a7de75d8e6788",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -50,7 +50,7 @@
                     "name": "Carsten Brandt",
                     "email": "mail@cebe.cc",
                     "homepage": "http://cebe.cc/",
-                    "role": "Creator"
+                    "role": "Core framework development"
                 }
             ],
             "description": "A super fast highly extensible markdown parser for PHP",
@@ -567,49 +567,6 @@
                 "yii2"
             ],
             "time": "2014-07-29 22:40:46"
-        },
-        {
-            "name": "yurkinx/yii2-image",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yurkinx/yii2-image.git",
-                "reference": "094488a6c644ebb2678858b82c335d24ddf46961"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yurkinx/yii2-image/zipball/094488a6c644ebb2678858b82c335d24ddf46961",
-                "reference": "094488a6c644ebb2678858b82c335d24ddf46961",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0",
-                "yiisoft/yii2": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-0": {
-                    "yii\\image\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Yuri Kileev",
-                    "email": "kileev@gmail.com"
-                }
-            ],
-            "description": "Yii2 extension for image manipulating using Kohana Image Library.",
-            "homepage": "https://github.com/yurkinx/yii2-image",
-            "keywords": [
-                "extension",
-                "image",
-                "yii2"
-            ],
-            "time": "2014-07-09 21:11:29"
         }
     ],
     "packages-dev": [
@@ -1002,7 +959,7 @@
                 {
                     "name": "Marco Pivetta",
                     "email": "ocramius@gmail.com",
-                    "homepage": "http://marco-pivetta.com/",
+                    "homepage": "http://ocramius.github.com/",
                     "role": "Developer"
                 }
             ],
@@ -1057,7 +1014,7 @@
                 {
                     "name": "Marco Pivetta",
                     "email": "ocramius@gmail.com",
-                    "homepage": "http://marco-pivetta.com/",
+                    "homepage": "http://ocramius.github.com/",
                     "role": "Developer"
                 }
             ],
@@ -1360,12 +1317,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "59a0d044bcb06ab71f1d719cc1a18ad1f1990e21"
+                "reference": "f54732b51bb6d7c3450e487b48c54327d655a38c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/59a0d044bcb06ab71f1d719cc1a18ad1f1990e21",
-                "reference": "59a0d044bcb06ab71f1d719cc1a18ad1f1990e21",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/f54732b51bb6d7c3450e487b48c54327d655a38c",
+                "reference": "f54732b51bb6d7c3450e487b48c54327d655a38c",
                 "shasum": ""
             },
             "require": {
@@ -1426,7 +1383,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-08-01 23:44:55"
+            "time": "2014-08-02 12:06:02"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2211,9 +2168,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "yurkinx/yii2-image": 20
-    },
+    "stability-flags": [],
     "platform": {
         "php": ">=5.4.0"
     },
