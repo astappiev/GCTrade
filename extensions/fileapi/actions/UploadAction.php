@@ -236,8 +236,8 @@ class UploadAction extends Action
 		} else {
 			$this->path = FileHelper::normalizePath($this->path) . DIRECTORY_SEPARATOR;
 		}
-		$this->_validatorOptions = [
-			'types' => $this->types,
+        $this->_validatorOptions = [
+            //'types' => $this->types,
             'minSize' => $this->minSize,
             'maxSize' => $this->maxSize,
             'maxFiles' => $this->maxFiles,
@@ -245,7 +245,7 @@ class UploadAction extends Action
             'uploadRequired' => $this->uploadRequired,
             'tooBig' => $this->tooBig,
             'tooSmall' => $this->tooSmall,
-            'wrongType' => $this->wrongType,
+            //'wrongType' => $this->wrongType,
             'tooMany' => $this->tooMany
         ];
 		if ($this->imageValidator === true) {
@@ -265,7 +265,6 @@ class UploadAction extends Action
 			$this->_validator = 'file';
 		}
 	}
-
 	/**
 	 * @inheritdoc
 	 */

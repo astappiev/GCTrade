@@ -8,7 +8,7 @@ return [
     '<_controler:[\w\-]+>' => '<_controler>/index',
 
     // Контроллер [[Shop]]
-    '<_controler:shop>/<_action:(uploadTempLogo|deleteTempLogo|complaint|delete-logo|edit|create|delete|export|edititem|removeitem|clearitem)>' => '<_controler>/<_action>',
+    '<_controler:shop>/<_action:(uploadTempLogo|deleteTempLogo|complaint|delete-logo|edit|create|delete|export|edititem|removeitem|clearitem|image-upload)>' => '<_controler>/<_action>',
     '<_controler:shop>/<_action:(update|logo|item)>/<alias:[a-zA-Z0-9_-]{3,20}+>' => '<_controler>/<_action>',
     '<_controler:shop>/parser/<_action>' => 'parser/<_action>',
     '<_controler:shop>/<alias:[a-zA-Z0-9_-]{3,20}+>' => '<_controler>/view',

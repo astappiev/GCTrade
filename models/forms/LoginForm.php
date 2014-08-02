@@ -43,12 +43,12 @@ class LoginForm extends Model
 	 * Validates the password.
 	 * This method serves as the inline validation for password.
 	 */
-	public function validatePassword()
+	public function validatePassword($attribute, $params)
 	{
 		if (!$this->hasErrors()) {
 			$user = $this->getUser();
 			if (!$user || !$user->validatePassword($this->password)) {
-				$this->addError('password', 'Неверно имя пользователя или пароль.');
+				$this->addError($attribute, 'Неверное имя пользователя или пароль.');
 			}
 		}
 	}

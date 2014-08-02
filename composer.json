@@ -23,7 +23,8 @@
 		"yiisoft/yii2-bootstrap": "*",
 		"yiisoft/yii2-swiftmailer": "*",
         "yiisoft/yii2-authclient": "*",
-        "yurkinx/yii2-image": "dev-master"
+        "yurkinx/yii2-image": "dev-master",
+		"vova07/yii2-imperavi-widget": "*"
 	},
 	"require-dev": {
 		"yiisoft/yii2-debug": "*",
@@ -34,8 +35,7 @@
 	},
 	"scripts": {
 		"post-create-project-cmd": [
-            "yii\\composer\\Installer::setPermission",
-            "yii\\composer\\Installer::generateCookieValidationKey"
+            "yii\\composer\\Installer::setPermission"
 		]
 	},
 	"config": {
@@ -46,10 +46,6 @@
 			"runtime",
 			"web/assets"
 		],
-        "config": [
-            "config/web.php",
-            "config/console.php"
-        ],
 		"executable": [
 			"yii"
 		]

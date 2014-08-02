@@ -47,14 +47,23 @@ class ShopController extends Controller
                 'path' => 'images/shop/tmp/',
                 'types' => ['jpg', 'png', 'gif'],
                 'minHeight' => 100,
-                'maxHeight' => 1000,
+                'maxHeight' => 1200,
                 'minWidth' => 100,
-                'maxWidth' => 1000,
+                'maxWidth' => 1200,
                 'maxSize' => 3145728, // 3*1024*1024 = 3MB
             ],
             'deleteTempLogo' => [
                 'class' => 'app\extensions\fileapi\actions\DeleteAction',
                 'path' => 'images/shop/tmp/',
+            ],
+            'image-upload' => [
+                'class' => 'vova07\imperavi\actions\UploadAction',
+                'url' => 'http://gctrade.ru/images/shop/description/',
+                'path' => 'images/shop/description/',
+                'validatorOptions' => [
+                    'maxWidth' => 1600,
+                    'maxHeight' => 2000
+                ]
             ]
         ];
     }

@@ -1,11 +1,11 @@
 <?php
-namespace common\extensions\fileapi\actions;
+namespace app\extensions\fileapi\actions;
 
 use Yii;
 use yii\base\Action;
 use yii\base\InvalidConfigException;
 use yii\helpers\FileHelper;
-use common\extensions\fileapi\models\Upload;
+use app\extensions\fileapi\models\Upload;
 
 /**
  * DeleteAction действие для удаления загруженных файлов.

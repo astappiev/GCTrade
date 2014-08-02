@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-use app\extensions\tinymce\Tinymce;
+use vova07\imperavi\Widget;
 use app\extensions\fileapi\FileAPIAdvanced;
 
 /**
@@ -29,7 +29,17 @@ use app\extensions\fileapi\FileAPIAdvanced;
 
     <?= $form->field($model, 'about')->textArea(['rows' => 2, 'placeholder' => 'Небольшое описание, для отображения в списке', 'maxlength' => 200]) ?>
 
-    <?= $form->field($model, 'description')->widget(Tinymce::className()); ?>
+    <?= $form->field($model, 'description')->widget(Widget::className(), [
+        'settings' => [
+            'lang' => 'ru',
+            'minHeight' => 200,
+            'pastePlainText' => true,
+            'plugins' => [
+                'fullscreen'
+            ],
+            'imageUpload' => Url::to(['/shop/image-upload'])
+        ]
+    ]); ?>
 
     <?= $form->field($model, 'subway', [
         'template' => "{label}\n<div class=\"col-md-10\"><div class=\"input-group\"><span class=\"input-group-addon\">/go</span>{input}</div></div>\n<div class=\"col-md-offset-2 col-md-10\">{error}</div>",
@@ -49,13 +59,13 @@ use app\extensions\fileapi\FileAPIAdvanced;
 
     <?= $form->field($model, 'logo_url')->widget(FileAPIAdvanced::className(), [
         'url' => '/images/shop/',
-        'deleteUrl' => Url::toRoute('delete-logo'),
-        'deleteTempUrl' => Url::toRoute('deleteTempLogo'),
+        'deleteUrl' => Url::to(['/shop/delete-logo']),
+        'deleteTempUrl' => Url::to(['/shop/deleteTempLogo']),
         'crop' => true,
         'cropResizeWidth' => 150,
         'cropResizeHeight' => 150,
         'settings' => [
-            'url' => Url::toRoute('uploadTempLogo'),
+            'url' => Url::to(['/shop/uploadTempLogo']),
         ]
     ]) ?>
 

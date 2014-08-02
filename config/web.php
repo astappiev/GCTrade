@@ -20,7 +20,7 @@ $config = [
             'driver' => 'GD',  //GD or Imagick
         ],
         'request' => [
-            'enableCsrfValidation' => false,
+            'enableCsrfValidation' => true,
             'enableCookieValidation' => true,
             'baseUrl' => '',
         ],
