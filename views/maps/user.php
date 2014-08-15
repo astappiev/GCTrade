@@ -4,7 +4,7 @@ use yii\helpers\Html;
 $this->registerCssFile('@web/css/lib/leaflet.min.css');
 $this->registerJsFile('@web/js/lib/leaflet.min.js');
 $this->registerJsFile('@web/js/jquery/jquery.autosize.min.js', ['yii\web\JqueryAsset']);
-$this->registerJsFile('@web/js/maps.gctrade.min.js');
+$this->registerJsFile('@web/js/maps.gctrade.min.js', ['yii\web\JqueryAsset']);
 
 $this->title = 'Карта регионов пользователя';
 ?>
@@ -24,9 +24,9 @@ $this->title = 'Карта регионов пользователя';
                     <p class="text-danger">Внимание! Функции не учитывают пересечение регионов.</p>
                 </div>
                 <div class="col-xs-6 col-md-4">
-                    <button class="btn btn-default pull-right" data-toggle="modal" data-target=".customRegionModal" id="editCustomRegion">Добавить регионы</button>
+                    <button class="btn btn-default pull-right" data-toggle="modal" data-target="#customRegionModal">Добавить регионы</button>
 
-                    <div class="modal fade customRegionModal" tabindex="-1" role="dialog" aria-labelledby="customRegionModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="customRegionModal" tabindex="-1" role="dialog" aria-labelledby="customRegionModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-sm">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -34,11 +34,11 @@ $this->title = 'Карта регионов пользователя';
                                     <h4 class="modal-title" id="customRegionModalLabel">Дополнительные регионы</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <textarea class="form-control" rows="3" id="customRegionTextarea"></textarea>
+                                    <textarea class="form-control autosize" rows="3" id="customRegionTextarea"></textarea>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                                    <button type="button" class="btn btn-primary">Сохранить</button>
+                                    <button type="button" class="btn btn-primary" id="add-custom-regions">Сохранить</button>
                                 </div>
                             </div>
                         </div>
@@ -52,4 +52,4 @@ $this->title = 'Карта регионов пользователя';
         </div>
     </div>
 </div>
-<?php $this->registerJS('region_list = '.$region_list.'; yii_login = "'.Yii::$app->user->identity->username.'"; MapsUserRegions();'); ?>
+<?php $this->registerJS('MapsUserRegions();'); ?>

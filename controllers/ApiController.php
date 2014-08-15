@@ -117,6 +117,28 @@ class ApiController extends Controller
         return self::renderJSON(['message' => 'Error response from database']);
     }
 
+    public function actionRegions()
+    {
+        if(Yii::$app->user->isGuest)
+            return self::renderJSON(['message' => 'You must be logged in']);
+
+        if(Yii::$app->user->identity->getAccessToken() == null)
+            return self::renderJSON(['message' => 'It is a trouble with accessToken']);
+
+        $request = "https://api.greencubes.org/user/regions?access_token=".Yii::$app->user->identity->getAccessToken();
+
+        $curl_handle =  curl_init();
+        curl_setopt($curl_handle, CURLOPT_URL, $request);
+        curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
+        curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl_handle, CURLOPT_USERAGENT, 'GCTrade');
+        $regions = curl_exec($curl_handle);
+        curl_close($curl_handle);
+
+        return self::renderJSON(json_decode($regions));
+    }
+
     public function actionWorld($login = null)
     {
         $world = @file_get_contents("http://srv1.greencubes.org/up/world/world");

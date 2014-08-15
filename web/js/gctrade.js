@@ -105,3 +105,5 @@ $(document).ready(function(){
         if(!question) event.preventDefault();
     });
 });
+
+$("textarea.autosize").autosize();

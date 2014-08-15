@@ -79,24 +79,55 @@ function MapsIndexShop()
 
 function MapsUserRegions()
 {
-    $("#customRegionTextarea").autosize();
+    var area = 0, volume = 0, cost = 0;
 
-    console.log(region_list);
-    if(region_list["message"] == "Forbidden. Need authorization")
-    {
-        $("#map").append('<div class="alert alert-danger" role="alert">Ошибка Access_token-а, API GreenCubes не принимает наш ключик. Пишите Kernel-у.</div>');
-        return;
-    }
-    if(region_list["message"] == "Rate limit exceeded, retry later")
-    {
-        $("#map").append('<div class="alert alert-warning" role="alert">Вы исчерпали лимит запросов к GreenCubes API, попробуйте позже.</div>');
-        return;
-    }
+    $.ajax({
+        type: 'GET',
+        url: '/api/regions',
+        dataType: 'json',
+        async: false,
+        success: function(regions){
+            if(regions["message"] == "You must be logged in")
+            {
+                $("#map").append('<div class="alert alert-danger" role="alert">Сбой ауторизации.</div>').height('52px');
+                return;
+            }
+            if(regions["message"] == "It is a trouble with accessToken")
+            {
+                $("#map").append('<div class="alert alert-danger" role="alert">Ошибка Access_token-а, API GreenCubes не принимает наш ключик. Пишите Kernel-у.</div>').height('52px');
+                return;
+            }
+            if(regions["message"] == "Rate limit exceeded, retry later")
+            {
+                $("#map").append('<div class="alert alert-warning" role="alert">Вы исчерпали лимит запросов к GreenCubes API, попробуйте позже.</div>').height('52px');
+                return;
+            }
 
-    var buildLayers = new L.LayerGroup(), fullLayers = new L.LayerGroup();
-    map = L.map('map', { maxZoom: 15, minZoom: 10, crs: L.CRS.Simple, layers: [fullLayers, buildLayers] }).setView([-0.35764, 0.11951], 13);
+            for (var i = regions.length; i--;) {
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://api.greencubes.org/main/regions/' + regions[i]["name"],
+                    dataType: 'json',
+                    success: function(region){
+                        if(region["name"]) {
+                            pos1 = region["coordinates"]["first"].split(' ');
+                            pos2 = region["coordinates"]["second"].split(' ');
+
+                            var x = Math.abs(pos1[0]-pos2[0]), y = Math.abs(pos1[1]-pos2[1]), z = Math.abs(pos1[2]-pos2[2]);
+                            area += x*z, volume += x*y*z, cost += Math.round(x*z*10+(x*y*z*10)/256);
+                            DrawPolygon(pos1, pos2, region);
+                            outSats();
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+    var buildLayers = new L.LayerGroup(), fullLayers = new L.LayerGroup(), customLayers = new L.LayerGroup();
+    map = L.map('map', { maxZoom: 15, minZoom: 10, crs: L.CRS.Simple, layers: [fullLayers, buildLayers, customLayers] }).setView([-0.35764, 0.11951], 13);
     L.tileLayer('http://maps.gctrade.ru/tiles/{z}/tile_{x}_{y}.png', { noWrap: true }).addTo(map);
-    L.control.layers(null, { "Полный доступ": fullLayers, "Частичный доступ": buildLayers }).addTo(map);
+    L.control.layers(null, { "Полный доступ": fullLayers, "Частичный доступ": buildLayers, "Добавленые регионы": customLayers }).addTo(map);
 
     function AdaptCords(pos) {
         var t = parseInt(pos[0], 10);
@@ -106,7 +137,7 @@ function MapsUserRegions()
     }
 
     function isFull(rights) {
-        for(var i = rights.length; i--; ) if(rights[i] == yii_login) return true;
+        for(var i = rights.length; i--; ) if(rights[i] == userLogin) return true;
         return false;
     }
 
@@ -125,26 +156,6 @@ function MapsUserRegions()
         else buildLayers.addLayer(rectangle);
     }
 
-    var area = 0, volume = 0, cost = 0;
-    for (var i = region_list.length; i--;) {
-         $.ajax({
-         type: 'GET',
-         url: 'https://api.greencubes.org/main/regions/' + region_list[i]["name"],
-         dataType: 'json',
-         success: function(region){
-             if(region["name"]) {
-                 pos1 = region["coordinates"]["first"].split(' ');
-                 pos2 = region["coordinates"]["second"].split(' ');
-
-                 var x = Math.abs(pos1[0]-pos2[0]), y = Math.abs(pos1[1]-pos2[1]), z = Math.abs(pos1[2]-pos2[2]);
-                 area += x*z, volume += x*y*z, cost += Math.round(x*z*10+(x*y*z*10)/256);
-                 DrawPolygon(pos1, pos2, region);
-                 outSats();
-             }
-             }
-         });
-     }
-
     function cutText(text, num) {
         text = text.toString();
         if (text.length > num) return text.slice(0, num-3) + '...';
@@ -162,4 +173,36 @@ function MapsUserRegions()
         $('#cost', $list_usermap).text(price_separator(cost));
         $('#percent', $list_usermap).text(cutText((area*100)/area_world, 15));
     }
+
+    $('#add-custom-regions').on('click', function() {
+        var text = $('#customRegionTextarea').val();
+        $('#customRegionModal').modal('hide');
+
+        var customRegions = text.split(/(?:,| |;|\n)+/);
+        customLayers.clearLayers();
+
+        for (var i = customRegions.length; i--;) {
+            $.ajax({
+                type: 'GET',
+                url: 'https://api.greencubes.org/main/regions/' + customRegions[i],
+                dataType: 'json',
+                success: function(region){
+                    if(region["name"]) {
+                        pos1 = region["coordinates"]["first"].split(' ');
+                        pos2 = region["coordinates"]["second"].split(' ');
+
+                        pos1 = AdaptCords(pos1), pos2 = AdaptCords(pos2);
+                        var rectangle = L.rectangle([
+                            map.unproject([pos1[0], pos1[2]], map.getMaxZoom()),
+                            map.unproject([pos2[0], pos2[2]], map.getMaxZoom())
+                        ], { color: 'orange', weight: 3, fillOpacity: 0.4 });
+                        var parent = region["parent"] ? '<br><i>Родительский:</i> ' + region["parent"] : '';
+                        rectangle.bindPopup('<b>' + region["name"] + '</b>' + parent + '<br><br><b>Владельцы:</b><br>' + region["full_access"] + '<br><b>Могут строить:</b><br>' + region["build_access"]).on('click', function (e) { this.bringToBack(); });
+
+                        customLayers.addLayer(rectangle);
+                    }
+                }
+            });
+        }
+    });
 }
