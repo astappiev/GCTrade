@@ -8,7 +8,7 @@ $rules = require(__DIR__ . '/rules.php');
 $config = [
     'id' => 'gctrade',
     'name' => 'GCTrade',
-    'language'=>'ru',
+    'language' => 'ru',
     'charset' => 'utf-8',
     'timeZone' => 'Europe/Kiev',
     'basePath' => dirname(__DIR__),
@@ -93,6 +93,20 @@ $config = [
             'password' => '',
             'charset' => 'utf8',
             'tablePrefix' => 'tg_',
+        ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+                'yii' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                ],
+            ],
         ],
     ],
     'params' => $params,

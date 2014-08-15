@@ -1,6 +1,15 @@
 <?php
 use yii\helpers\Html;
 
+
+if($exception->statusCode === 403) {
+    $name = \Yii::t('app/error', 'Forbidden');
+}
+else if($exception->statusCode === 404) {
+    $name = \Yii::t('app/error', 'Not Found');
+    $message = \Yii::t('app/error', 'Unable to resolve the request');
+}
+
 $this->title = $name;
 ?>
 <div class="site-index">

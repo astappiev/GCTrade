@@ -27,14 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
-    <p id="error" class="text-danger"></p>
+    <p id="error" class="text-danger">Эу! Только цифры же!</p>
     <br /><br />
     <h4 class="text-info">Стоимость региона: <code id="result">0</code> зелени.</h4>
 
 </div>
 <?php $this->registerJS("$('input').keypress(function (e) {
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-            $('#error').html('Эу! Только цифры же!').show().fadeOut('slow');
+            $('#error').css('display', 'inline').fadeOut('slow');
             return false;
         }
     });
