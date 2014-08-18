@@ -32,5 +32,19 @@ phpunit.phar
 # Config file
 config/console-server.php
 config/web-server.php
-/web/**/*.min.js
-/web/**/*.min.css
+web/**/*.min.js
+web/**/*.min.css
+
+# Assets
+web/assets
+!web/assets/.gitignore
+!web/assets/AppAsset.php
+
+# Runtime
+runtime/*
+
+# Images
+web/images/shop/*
+web/images/items/*
+web/images/auction/*
+web/images/background/original
