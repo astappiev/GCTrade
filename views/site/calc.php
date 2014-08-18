@@ -48,7 +48,18 @@ $this->params['breadcrumbs'][] = $this->title;
         }
     });
 
+    var delay = (function(){
+        var timer = 0;
+        return function(callback, ms){
+            clearTimeout (timer);
+            timer = setTimeout(callback, ms);
+        };
+    })();
+
     $(document).on('keyup', 'input.number', calc);
+    $(document).on('keyup', 'input#reg-name', function() {
+        delay(calc, 1000);
+    });
     $(document).on('change', 'input', calc);
 
     function calc() {
