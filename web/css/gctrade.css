@@ -357,7 +357,7 @@ th.flag {
 }
 
 /* Calc Regions */
-.body-content.calc #error {
+.body-content.calc #error, .body-content.calc #not-found {
     line-height: 28px;
     display: none;
     position: absolute;
@@ -365,6 +365,12 @@ th.flag {
 
 .body-content.calc .form-inline .form-group {
     padding-left: 0;
+    margin-bottom: 5px;
+}
+.body-content.calc .form-inline label {
+    font-weight: normal;
+    line-height: 30px;
+    margin: 0 20px 0 5px;
 }
 
 

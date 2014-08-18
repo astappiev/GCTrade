@@ -1,5 +1,9 @@
 area_world = 24016*8016;
 
+function price_separator(str, separator){
+    return str.toString().replace(/\d(?=(?:\d{3})+\b)/g, "$&" + (separator||' '));
+}
+
 $(function($){
     $.fn.superLink = function(link) {
         link = link || 'a:first';
@@ -105,5 +109,3 @@ $(document).ready(function(){
         if(!question) event.preventDefault();
     });
 });
-
-$("textarea.autosize").autosize();

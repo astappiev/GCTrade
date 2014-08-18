@@ -1,3 +1,5 @@
+$("textarea.autosize").autosize();
+
 function MapsIndexShop()
 {
     var playerLayers = new L.LayerGroup(), shopsLayers = new L.LayerGroup();

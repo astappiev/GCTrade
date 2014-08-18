@@ -12,6 +12,9 @@ nbproject
 # windows thumbnail cache
 Thumbs.db
 
+# Mac DS_Store Files
+.DS_Store
+
 # composer vendor dir
 vendor
 
@@ -21,9 +24,6 @@ tests
 # composer itself is not needed
 composer.phar
 
-# Mac DS_Store Files
-.DS_Store
-
 # phpunit itself is not needed
 phpunit.phar
 # local phpunit config
@@ -32,3 +32,5 @@ phpunit.phar
 # Config file
 config/console-server.php
 config/web-server.php
+/web/**/*.min.js
+/web/**/*.min.css
