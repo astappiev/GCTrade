@@ -32,12 +32,10 @@ phpunit.phar
 # Config file
 config/console-server.php
 config/web-server.php
-web/**/*.min.js
-web/**/*.min.css
+web/**/*.min.*
 
 # Assets
-web/assets
-!web/assets/.gitignore
+web/assets/*
 !web/assets/AppAsset.php
 
 # Runtime

@@ -22,7 +22,7 @@ $this->beginPage() ?>
 	<footer class="footer text-muted">
 		<div class="container">
 		<p class="pull-left">&copy; Oleg Astappev <?= date('Y') ?></p>
-		<p class="pull-right"><?= Yii::powered() ?></p>
+		<p class="pull-right">Powered by <a href="https://greencubes.org/" rel="external" target="_blank"><span class="green">Green</span>Cubes</a></p>
 		</div>
 	</footer>
 	<?php $this->endBody() ?>

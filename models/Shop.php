@@ -4,6 +4,7 @@ namespace app\models;
 use yii;
 use yii\db\ActiveRecord;
 use app\extensions\fileapi\behaviors\UploadBehavior;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * Class Shop
@@ -42,13 +43,7 @@ class Shop extends ActiveRecord
     public function behaviors()
     {
         return [
-            'timestampBehavior' => [
-                'class' => 'yii\behaviors\TimestampBehavior',
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
-                ],
-            ],
+            TimestampBehavior::className(),
             'uploadBehavior' => [
                 'class' => UploadBehavior::className(),
                 'attributes' => ['logo_url'],

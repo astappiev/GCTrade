@@ -7,7 +7,7 @@ use yii\helpers\Html;
  */
 
 $this->title = 'Создание магазина';
-$this->params['breadcrumbs'][] = ['label' => 'Магазины', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Магазины', 'url' => ['shop/edit']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="body-content">

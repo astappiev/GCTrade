@@ -237,7 +237,7 @@ class UploadAction extends Action
 			$this->path = FileHelper::normalizePath($this->path) . DIRECTORY_SEPARATOR;
 		}
         $this->_validatorOptions = [
-            //'types' => $this->types,
+            'extensions' => $this->types,
             'minSize' => $this->minSize,
             'maxSize' => $this->maxSize,
             'maxFiles' => $this->maxFiles,
@@ -245,7 +245,7 @@ class UploadAction extends Action
             'uploadRequired' => $this->uploadRequired,
             'tooBig' => $this->tooBig,
             'tooSmall' => $this->tooSmall,
-            //'wrongType' => $this->wrongType,
+            'wrongExtension' => $this->wrongType,
             'tooMany' => $this->tooMany
         ];
 		if ($this->imageValidator === true) {

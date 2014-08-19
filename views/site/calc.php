@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     $(document).on('keyup', 'input.number', calc);
     $(document).on('keyup', 'input#reg-name', function() {
-        delay(calc, 1000);
+        delay(calc, 750);
     });
     $(document).on('change', 'input', calc);
 
