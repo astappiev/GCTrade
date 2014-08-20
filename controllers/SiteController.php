@@ -40,6 +40,11 @@ class SiteController extends Controller
         return $this->render('economy');
     }
 
+    public function actionDonate()
+    {
+        return $this->render('donate');
+    }
+
     public function actionRail()
     {
         return $this->render('rail');

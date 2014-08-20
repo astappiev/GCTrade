@@ -7,6 +7,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="body-content calc">
 	<h1><?= Html::encode($this->title) ?></h1>
 
+    <p>С помощью калькулятора регионов <span class="green">Green</span>Cubes, вы сможете узнать стоимость (а так же площадь и объем) нужного вам региона или узнать сколько стоит уже существующий регион. <?= Html::a('Формулы.', 'https://wiki.greencubes.org/%D0%A0%D0%B5%D0%B3%D0%B8%D0%BE%D0%BD%D1%8B#.D0.9C.D0.B5.D1.85.D0.B0.D0.BD.D0.B8.D0.BA.D0.B0_.D1.80.D0.B0.D1.81.D1.87.D0.B5.D1.82.D0.B0_.D1.81.D1.82.D0.BE.D0.B8.D0.BC.D0.BE.D1.81.D1.82.D0.B8_.D1.80.D0.B5.D0.B3.D0.B8.D0.BE.D0.BD.D0.B0', ['target' => '_blank']) ?></p>
     <form class="form-inline" role="form" autocomplete="off">
         <div class="form-group col-xs-2">
             <div class="input-group">

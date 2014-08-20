@@ -179,8 +179,22 @@ function MapsUserRegions()
     $('#add-custom-regions').on('click', function() {
         var text = $('#customRegionTextarea').val();
         $('#customRegionModal').modal('hide');
+        text = text.split(/(?:,| |;|\n)+/).toString();
+        localStorage["customRegions"] = text;
+        drowCustomRegions();
+    });
 
-        var customRegions = text.split(/(?:,| |;|\n)+/);
+    $(document).ready(function() {
+        if(localStorage["customRegions"])
+        {
+            $('#customRegionTextarea').val(localStorage["customRegions"])
+            drowCustomRegions();
+        }
+    });
+
+    function drowCustomRegions() {
+        var customRegions = localStorage["customRegions"].split(',');
+
         customLayers.clearLayers();
 
         for (var i = customRegions.length; i--;) {
@@ -206,5 +220,5 @@ function MapsUserRegions()
                 }
             });
         }
-    });
+    };
 }

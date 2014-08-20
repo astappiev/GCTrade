@@ -55,6 +55,7 @@ if (!\Yii::$app->user->isGuest) {
         '<li class="divider"></li>',
         ['label' => 'API', 'url' => ['/api/index']],
         '<li class="divider"></li>',
+        ['label' => 'Помощь проекту', 'url' => ['/site/donate']],
         ['label' => 'Форум поддержки', 'linkOptions' => ['target' => '_blank'], 'url' => ['/site/forum']],
     ]];
 } else if(\Yii::$app->has('authClientCollection')) {

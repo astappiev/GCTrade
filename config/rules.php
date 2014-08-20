@@ -2,7 +2,7 @@
 return [
     // Контроллер [[Site]]
     '' => 'site/index',
-    '<_action:(contact|economy|rail|calc)>' => 'site/<_action>',
+    '<_action:(contact|economy|rail|calc|donate)>' => 'site/<_action>',
 
     // Общие правила
     '<_controler:[\w\-]+>' => '<_controler>/index',
