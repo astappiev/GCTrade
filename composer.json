@@ -24,6 +24,7 @@
 		"yiisoft/yii2-swiftmailer": "*",
         "yiisoft/yii2-authclient": "*",
 		"vova07/yii2-imperavi-widget": "*",
+        "vova07/yii2-fileapi-widget": "*"
 	},
 	"require-dev": {
 		"yiisoft/yii2-debug": "*",

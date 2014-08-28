@@ -6,9 +6,9 @@ use yii\web\Controller;
 use app\models\Shop;
 use app\models\Price;
 use app\models\Item;
-use yii\web\Response;
-use yii\widgets\ActiveForm;
 use yii\web\HttpException; // throw new HttpException(404);
+use vova07\fileapi\actions\UploadAction as FileAPIUpload;
+use vova07\imperavi\actions\UploadAction as ImperaviUpload;
 
 class ShopController extends Controller
 {
@@ -42,22 +42,12 @@ class ShopController extends Controller
     public function actions()
     {
         return [
-            'uploadTempLogo' => [
-                'class' => 'app\extensions\fileapi\actions\UploadAction',
-                'path' => 'images/shop/tmp/',
-                'types' => ['jpg', 'png', 'gif'],
-                'minHeight' => 100,
-                'maxHeight' => 1200,
-                'minWidth' => 100,
-                'maxWidth' => 1200,
-                'maxSize' => 3145728, // 3*1024*1024 = 3MB
-            ],
-            'deleteTempLogo' => [
-                'class' => 'app\extensions\fileapi\actions\DeleteAction',
-                'path' => 'images/shop/tmp/',
+            'logo-upload' => [
+                'class' => FileAPIUpload::className(),
+                'path' => 'images/shop/tmp/'
             ],
             'image-upload' => [
-                'class' => 'vova07\imperavi\actions\UploadAction',
+                'class' => ImperaviUpload::className(),
                 'url' => 'http://gctrade.ru/images/shop/description/',
                 'path' => 'images/shop/description/',
                 'validatorOptions' => [
@@ -229,7 +219,7 @@ class ShopController extends Controller
             } else {
                 Yii::$app->session->setFlash('error', 'Возникла ошибка при сохранении магазина.');
             }
-            return $this->refresh();
+            return $this->redirect('/shop/edit');
         } else {
             return $this->render('create', [
                 'model' => $model,

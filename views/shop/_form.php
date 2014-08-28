@@ -2,8 +2,8 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-use vova07\imperavi\Widget;
-use app\extensions\fileapi\FileAPIAdvanced;
+use vova07\imperavi\Widget as Imperavi;
+use vova07\fileapi\Widget as FileAPI;
 
 /**
  * @var yii\web\View $this
@@ -29,7 +29,7 @@ use app\extensions\fileapi\FileAPIAdvanced;
 
     <?= $form->field($model, 'about')->textArea(['rows' => 2, 'placeholder' => 'Небольшое описание, для отображения в списке', 'maxlength' => 200]) ?>
 
-    <?= $form->field($model, 'description')->widget(Widget::className(), [
+    <?= $form->field($model, 'description')->widget(Imperavi::className(), [
         'settings' => [
             'lang' => 'ru',
             'minHeight' => 200,
@@ -57,16 +57,13 @@ use app\extensions\fileapi\FileAPIAdvanced;
         ])->textInput(['placeholder' => 'Координата по Z', 'maxlength' => 6]) ?>
     </div>
 
-    <?= $form->field($model, 'logo_url')->widget(FileAPIAdvanced::className(), [
-        'url' => '/images/shop/',
-        'deleteUrl' => Url::to(['/shop/delete-logo']),
-        'deleteTempUrl' => Url::to(['/shop/deleteTempLogo']),
+    <?= $form->field($model, 'logo_url')->widget(FileAPI::className(), [
+        'settings' => [
+            'url' => Url::to(['/shop/logo-upload']),
+        ],
         'crop' => true,
         'cropResizeWidth' => 150,
         'cropResizeHeight' => 150,
-        'settings' => [
-            'url' => Url::to(['/shop/uploadTempLogo']),
-        ]
     ]) ?>
 
     <?//= $form->field($model, 'source')->textInput(['placeholder' => 'В том случае есть существует независимый прайс, укажите его адрес', 'maxlength' => 90]) ?>

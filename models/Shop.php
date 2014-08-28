@@ -3,7 +3,7 @@ namespace app\models;
 
 use yii;
 use yii\db\ActiveRecord;
-use app\extensions\fileapi\behaviors\UploadBehavior;
+use vova07\fileapi\behaviors\UploadBehavior;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -46,14 +46,14 @@ class Shop extends ActiveRecord
             TimestampBehavior::className(),
             'uploadBehavior' => [
                 'class' => UploadBehavior::className(),
-                'attributes' => ['logo_url'],
-                'deleteScenarios' => [
-                    'logo_url' => 'delete-logo',
+                'attributes' => [
+                    'logo_url' => [
+                        'path' => 'images/shop/',
+                        'tempPath' => 'images/shop/tmp/',
+                        'url' => '/images/shop'
+                    ],
                 ],
-                'scenarios' => ['create', 'update', 'logo'],
-                'path' => 'images/shop/',
-                'tempPath' => 'images/shop/tmp/',
-            ]
+            ],
         ];
     }
 
