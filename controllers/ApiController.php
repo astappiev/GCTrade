@@ -63,14 +63,18 @@ class ApiController extends Controller
     {
         $json = json_decode(@file_get_contents('https://api.greencubes.org/users/'.$login))->badges;
 
+        $width_badges = 32;
+        $in_line = 14;
+        $margin = 8;
+        $line_width = ($width_badges * $in_line) + ($margin * ($in_line - 1));
         if(!empty($json))
         {
             $i = 0;
             foreach($json as $badge)
                 $i += $badge->count;
 
-            $width = ($i > 6)?434:64 * $i + (($i - 1) * 10);
-            $height = ceil($i/6)*64 + ((ceil($i/6) - 1) * 10);
+            $width = ($i > $in_line) ? $line_width : ($width_badges * $i + (($i - 1) * $margin));
+            $height = ceil($i/$in_line) * $width_badges + ((ceil($i/$in_line) - 1) * $margin);
             $current_height = $current_width = 0;
             $img = imagecreatetruecolor($width, $height);
             $black = imagecolorallocate($img, 0, 0, 0);
@@ -88,12 +92,12 @@ class ApiController extends Controller
 
                 for($i = $badge->count; $i > 0; --$i)
                 {
-                    imagecopy($img, $badge_img, $current_width, $current_height, 0, 0, 64, 64);
-                    $current_width += 64 + 10;
-                    if($current_width > 434)
+                    imagecopy($img, $badge_img, $current_width, $current_height, 0, 0, $width_badges, $width_badges);
+                    $current_width += $width_badges + $margin;
+                    if($current_width > $line_width)
                     {
                         $current_width = 0;
-                        $current_height += 64 + 10;
+                        $current_height += $width_badges + $margin;
                     }
                 }
             }
@@ -104,17 +108,6 @@ class ApiController extends Controller
         }
 
         return self::renderJSON(['message' => 'User not found or user hasn\'t badges']);
-    }
-
-    public function actionEconomy()
-    {
-        $query = (new Query)->select('time AS date, value')->from('tg_economy')->limit(100)->orderBy(['time' => SORT_DESC]);
-        $rows = $query->createCommand(Yii::$app->db_analytics)->queryAll();
-
-        if(!empty($rows))
-            return self::renderJSON($rows);
-
-        return self::renderJSON(['message' => 'Error response from database']);
     }
 
     public function actionRegions()

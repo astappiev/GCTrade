@@ -25,19 +25,14 @@ class SiteController extends Controller
 		return $this->render('index');
 	}
 
-    public function actionRaschet()
+    public function actionPrivacy()
 	{
-        $this->redirect(Url::to('http://raschet.gctrade.ru'), NULL);
+        return $this->render('privacy');
 	}
 
-	public function actionForum()
-	{
-        $this->redirect(Url::to('https://forum.greencubes.org/viewtopic.php?f=267&t=24524'), NULL);
-	}
-
-    public function actionEconomy()
+    public function actionStatistics()
     {
-        return $this->render('economy');
+        return $this->render('statistics');
     }
 
     public function actionDonate()

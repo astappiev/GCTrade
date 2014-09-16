@@ -6,8 +6,7 @@ if($exception->statusCode === 403) {
     $name = \Yii::t('app/error', 'Forbidden');
 }
 else if($exception->statusCode === 404) {
-    $name = \Yii::t('app/error', 'Not Found');
-    $message = \Yii::t('app/error', 'Unable to resolve the request');
+    $name = \Yii::t('app/error', '404 Error');
 }
 
 $this->title = $name;

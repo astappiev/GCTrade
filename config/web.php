@@ -1,5 +1,6 @@
 <?php
 $server = require(__DIR__ . '/web-server.php');
+$local = require(__DIR__ . '/web-local.php');
 $debug = require(__DIR__ . '/web-debug.php');
 
 $params = require(__DIR__ . '/params.php');
@@ -8,21 +9,19 @@ $rules = require(__DIR__ . '/rules.php');
 $config = [
     'id' => 'gctrade',
     'name' => 'GCTrade',
-    'language' => 'ru',
+    'language' => 'ru-RU',
+    'sourceLanguage' => 'system',
     'charset' => 'utf-8',
     'timeZone' => 'Europe/Kiev',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'shop', 'users'],
     'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'),
     'components' => [
-        'image' => [
-            'class' => 'yii\image\ImageDriver',
-            'driver' => 'GD',  //GD or Imagick
-        ],
         'request' => [
             'enableCsrfValidation' => true,
             'enableCookieValidation' => true,
             'baseUrl' => '',
+            'cookieValidationKey' => 'VALIDATION_KEY'
         ],
         'assetManager' => [
             'linkAssets' => false,
@@ -42,13 +41,23 @@ $config = [
                 ],
             ],
         ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'greencubes' => [
+                    'class' => 'app\helpers\GreenCubesOAuth',
+                    'clientId' => 'CLIENT_ID',
+                    'clientSecret' => 'CLIENT_SECRET',
+                ],
+            ],
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\modules\users\models\User',
             'enableAutoLogin' => true,
-            'loginUrl' => ['user/login'],
+            'loginUrl' => ['user/default/login'],
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -80,19 +89,19 @@ $config = [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=gctrade',
-            'username' => 'root',
-            'password' => '',
+            'dsn' => 'mysql:host=DB1_HOST;dbname=DB1_NAME',
+            'username' => 'DB1_USERNAME',
+            'password' => 'DB1_PASSWORD',
             'charset' => 'utf8',
-            'tablePrefix' => 'tg_',
+            'tablePrefix' => 'DB1_PREFIX',
         ],
         'db_analytics' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=gctrade_analytics',
-            'username' => 'root',
-            'password' => '',
+            'dsn' => 'mysql:host=DB2_HOST;dbname=DB2_NAME',
+            'username' => 'DB2_USERNAME',
+            'password' => 'DB2_PASSWORD',
             'charset' => 'utf8',
-            'tablePrefix' => 'tg_',
+            'tablePrefix' => 'DB2_PREFIX',
         ],
         'i18n' => [
             'translations' => [
@@ -100,6 +109,8 @@ $config = [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'fileMap' => [
                         'app' => 'app.php',
+                        'app/shop' => 'shop.php',
+                        'app/users' => 'users.php',
                         'app/error' => 'error.php',
                     ],
                 ],
@@ -109,10 +120,20 @@ $config = [
             ],
         ],
     ],
+    'modules' => [
+        'shop' => [
+            'class' => 'app\modules\shop\Modules',
+        ],
+        'users' => [
+            'class' => 'app\modules\users\Modules',
+        ],
+    ],
     'params' => $params,
 ];
 
-if(!WEB_LOCAL){
+if(WEB_LOCAL) {
+    $config = yii\helpers\ArrayHelper::merge($config, $local);
+} else {
     $config = yii\helpers\ArrayHelper::merge($config, $server);
 }
 

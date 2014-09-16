@@ -4,7 +4,7 @@ use yii\helpers\Html;
 $this->registerCssFile('@web/css/lib/leaflet.min.css');
 $this->registerJsFile('@web/js/lib/leaflet.min.js');
 $this->registerJsFile('@web/js/jquery/jquery.autosize.min.js', ['yii\web\JqueryAsset']);
-$this->registerJsFile('@web/js/maps.gctrade.min.js', ['yii\web\JqueryAsset']);
+$this->registerJsFile('@web/js/maps.gctrade.js', ['yii\web\JqueryAsset']);
 
 $this->title = 'Карта регионов пользователя';
 ?>

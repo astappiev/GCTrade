@@ -51,18 +51,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <br><br>
 
 
-    <p>Последние 100 записей о состоянии экономики <strong><span class="green">Green</span>Cubes</strong>, на основе GCTrade.</p>
-    <pre><?= Html::a(Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/economy'])), Yii::$app->urlManager->createAbsoluteUrl(['api/economy']), ['target' => '_blank']) ?></pre>
-    <pre><?= 'GET '.Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/economy'])) ?></pre>
-<pre>[
-    {
-        "date": "2014-07-30 23:15:06",
-        "value": 4827453
-    }
-]</pre>
-    <br><br>
-
-
     <p>Лицо пользователя, на основе его скина <strong><span class="green">Green</span>Cubes</strong>.</p>
     <pre><?= Html::a(Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/head']).'/:login'), Yii::$app->urlManager->createAbsoluteUrl(['api/head', 'login' => 'astappev']), ['target' => '_blank']) ?></pre>
     <pre><?= 'GET '.Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['api/head'])).'?login=:login' ?></pre>

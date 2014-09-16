@@ -71,41 +71,9 @@ $(document).ready(function(){
         placement: "bottom"
     });
 
-    $('tbody tr, .shop-list.view div.well').mouseover(function(){
+    $('tbody tr').mouseover(function(){
         $(this).addClass('active');
     }).mouseout(function(){
         $(this).removeClass('active');
     }).superLink();
-
-    $('span.complaint').click(function() {
-        var flag = $(this);
-        var that = $(flag).parents("tr");
-        var type = $(flag).attr("data-type");
-        var id_shop = $("div.body-content").attr('id');
-        var id_item = $("td", that).eq(1).text();
-
-        //console.log('item: ' + id_item + ', shop: ' + id_shop + ', type: ' + type);
-
-        $.ajax({
-            type: "GET",
-            url: "/shop/complaint",
-            cache: false,
-            async: false,
-            data: { id_item: id_item, id_shop: id_shop, type: type },
-            success: function(text) {
-                console.log(text);
-                if(text == 'add')
-                    $(flag).addClass("bad")
-                else if(text == 'del')
-                    $(flag).removeClass("bad")
-                else if(text == 'guest')
-                    alert('Вы должны быть авторизованы.');
-            }
-        });
-    });
-
-    $('.deleteShopItemMenu a').click(function(event){
-        var question = confirm("Вы действительно хотите удалить магазин?");
-        if(!question) event.preventDefault();
-    });
 });

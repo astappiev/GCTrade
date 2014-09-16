@@ -24,7 +24,9 @@
 		"yiisoft/yii2-swiftmailer": "*",
         "yiisoft/yii2-authclient": "*",
 		"vova07/yii2-imperavi-widget": "*",
-        "vova07/yii2-fileapi-widget": "*"
+        "vova07/yii2-fileapi-widget": "*",
+        "miloschuman/yii2-highcharts-widget": "*",
+		"bburim/flot": "master"
 	},
 	"require-dev": {
 		"yiisoft/yii2-debug": "*",

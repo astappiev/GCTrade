@@ -54,7 +54,7 @@ $("form#AddItemForm").submit(function( event ) {
         $("table#AddItemTable tbody").empty();
         isClear = false;
     }
-    var item_id = $("input#InputID").val();
+    var item_id = $("input#InputID").val().replace(',', '.');
     var price_sell = $("input#InputBuy").val();
     var price_buy = $("input#InputSell").val();
     var stuck = $("input#InputStuck").val();
@@ -85,19 +85,21 @@ $('button#sync').click(function() {
                 var price_sell = $("td", that).eq(1).text();
                 var price_buy = $("td", that).eq(2).text();
                 var stuck = $("td", that).eq(3).text();
-                if (isNaN(price_sell)) price_sell = null;
-                if (isNaN(price_buy)) price_buy = null;
+                if (isNaN(price_sell)) price_sell = 0;
+                if (isNaN(price_buy)) price_buy = 0;
+
                 console.log(price_sell + ':' + price_buy);
                 var update = $.ajax({
-                    type: "GET",
-                    url: "/shop/edititem",
+                    type: 'GET',
+                    url: '/shop/cpanel/item-edit',
                     cache: false,
                     async: false,
-
+                    dataType: 'json',
                     data: { id_shop: id_shop, id_item: id_item,  price_sell: price_sell, price_buy: price_buy, stuck: stuck }
                 }).responseText;
 
-                $("td", that).eq(4).html(update);
+                update = $.parseJSON(update);
+                $("td", that).eq(4).html('<span class="glyphicon glyphicon-' + (update.status != 0 ? (update.status == 1 ? 'refresh blue' : 'ok-circle green') : 'ban-circle red' ) + ' twosize" data-toggle="tooltip" title="' + update.message + '"></span>');
             }, 100 * index);
         });
     }, 300);
@@ -113,8 +115,8 @@ $("button#editButtons").click(function() {
     var id_item = $('td', that).eq(1).text();
     var name = $('td', that).eq(2).text();
     var price_sell = $('td', that).eq(3).text();
-    var price_buy = $('td', that).eq(5).text();
-    var stuck = $('td', that).eq(7).text();
+    var price_buy = $('td', that).eq(4).text();
+    var stuck = $('td', that).eq(5).text();
 
     if (isNaN(price_sell)) price_sell = null;
     if (isNaN(price_buy)) price_buy = null;
@@ -138,7 +140,7 @@ $(".modal#EditModal button#editButtonModal").click(function(e){
 
     $.ajax({
         type: "GET",
-        url: "/shop/edititem",
+        url: "/shop/cpanel/item-edit",
         cache: false,
         async: false,
         data: { id_item: id_item, id_shop: id_shop, price_sell: price_sell, price_buy: price_buy, stuck: stuck },
@@ -147,8 +149,8 @@ $(".modal#EditModal button#editButtonModal").click(function(e){
             if (!price_sell) price_sell = '—';
             if (!price_buy) price_buy = '—';
             $('td', that).eq(3).text(price_sell);
-            $('td', that).eq(5).text(price_buy);
-            $('td', that).eq(7).text(stuck);
+            $('td', that).eq(4).text(price_buy);
+            $('td', that).eq(5).text(stuck);
         }
     });
     e.preventDefault();
@@ -173,7 +175,7 @@ $('#ImportFileModal').on('hidden.bs.modal', function() {
 $('button#removeButtons').click(function() {
     that = $(this).parents('tr');
     var id_item = $('td', that).eq(1).text();
-    $.get("/shop/removeitem", { id_shop: id_shop, id_item: id_item }).done(function() {
+    $.get("/shop/cpanel/item-remove", { id_shop: id_shop, id_item: id_item }).done(function() {
         $(that).hide('slow', function(){
             $(that).remove();
         });

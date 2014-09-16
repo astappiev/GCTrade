@@ -22,7 +22,6 @@ class Backgrounds
 
             Yii::$app->cache->set('background', $img, 600);
         }
-        //else Yii::$app->cache->set('background', false, 900);
         return $img;
     }
 }
