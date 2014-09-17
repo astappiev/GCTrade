@@ -21,10 +21,10 @@ function MapsIndexShop()
         return pos;
     }
 
-    if(your_login) {
+    if(userLogin) {
         var player, count = 0;
         var playerIcon = L.icon({
-            iconUrl: '/api/head/' + your_login,
+            iconUrl: '/api/head/' + userLogin,
             iconSize: [32, 32],
             iconAnchor: [16, 16]
         });
@@ -33,7 +33,7 @@ function MapsIndexShop()
         setUser();
 
         function setUser() {
-            $.getJSON( "/api/world/" + your_login, function(user_data) {
+            $.getJSON( "/api/world/" + userLogin, function(user_data) {
                 if(user_data["status"] == 1)
                 {
                     var pos = [user_data["player"]["x"], user_data["player"]["z"]];

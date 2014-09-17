@@ -6,7 +6,7 @@
 
 $this->registerCssFile('@web/css/lib/leaflet.min.css');
 $this->registerJsFile('@web/js/lib/leaflet.min.js');
-$this->registerJsFile('@web/js/maps.gctrade.min.js');
+$this->registerJsFile('@web/js/maps.gctrade.min.js', ['yii\web\JqueryAsset']);
 
 $this->title = \Yii::t('app/shop', 'CATALOG_SHOP');
 $this->params['breadcrumbs'][] = $this->title;
