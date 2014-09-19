@@ -8,7 +8,9 @@
     "authors": [
         {
             "name": "Astappev Oleg",
-            "email": "astappev@gmail.com"
+            "email": "astappev@gmail.com",
+            "homepage": "http://astappev.info/",
+            "role": "Back-End Development"
         }
     ],
 	"support": {
@@ -22,18 +24,15 @@
 		"yiisoft/yii2": "*",
 		"yiisoft/yii2-bootstrap": "*",
 		"yiisoft/yii2-swiftmailer": "*",
-        "yiisoft/yii2-authclient": "*",
+		"yiisoft/yii2-authclient": "*",
 		"vova07/yii2-imperavi-widget": "*",
         "vova07/yii2-fileapi-widget": "*",
-        "miloschuman/yii2-highcharts-widget": "*",
 		"bburim/flot": "master"
 	},
 	"require-dev": {
 		"yiisoft/yii2-debug": "*",
 		"yiisoft/yii2-gii": "*",
-		"codeception/codeception": " 2.0.*",
-		"codeception/specify": " *",
-		"codeception/verify": " *"
+		"codeception/codeception": " 2.0.*"
 	},
 	"scripts": {
 		"post-create-project-cmd": [
@@ -44,12 +43,18 @@
 		"process-timeout": 1800
 	},
 	"extra": {
-		"writable": [
-			"runtime",
-			"web/assets"
-		],
-		"executable": [
-			"yii"
-		]
-	}
+        "yii\\composer\\Installer::postCreateProject": {
+            "setPermission": [
+                {
+                    "runtime": "0777",
+                    "web/assets": "0777",
+                    "yii": "0755"
+                }
+            ]
+        },
+		"asset-installer-paths": {
+            "npm-asset-library": "vendor/npm",
+            "bower-asset-library": "vendor/bower"
+        }
+    }
 }

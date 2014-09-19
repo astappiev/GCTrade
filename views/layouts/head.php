@@ -8,7 +8,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\helpers\Backgrounds;
-use app\web\assets\AppAsset;
+use app\assets\AppAsset;
 ?>
 <meta charset="<?= Yii::$app->charset ?>"/>
 <title><?= Html::encode($this->title).' — '.Yii::$app->params["siteName"] ?></title>

@@ -21,8 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php echo ListView::widget([
         'dataProvider' => $dataProvider,
         'pager' => [
-            'nextPageLabel'     => Glyph::icon(Glyph::ICON_STEP_FORWARD),
-            'prevPageLabel'     => Glyph::icon(Glyph::ICON_STEP_BACKWARD),
+            'nextPageLabel' => '<span class="glyphicon glyphicon-step-forward"></span>',
+            'prevPageLabel' => '<span class="glyphicon glyphicon-step-backward"></span>',
             'disabledPageCssClass' => 'disabled',
         ],
         'layout' => '<div class="text-right">{summary}</div>{items}<div class="text-center">{pager}</div>',

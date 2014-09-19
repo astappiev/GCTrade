@@ -40,7 +40,6 @@ web/**/*.min.*
 
 # Assets
 web/assets/*
-!web/assets/AppAsset.php
 
 # Runtime
 runtime/*

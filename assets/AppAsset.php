@@ -1,11 +1,11 @@
 <?php
-namespace app\web\assets;
+namespace app\assets;
 
 use yii\web\AssetBundle;
 
 class AppAsset extends AssetBundle
 {
-    public $basePath = '@webroot/web';
+    public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
         'css/gctrade.min.css',

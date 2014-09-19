@@ -15,31 +15,24 @@ $config = [
     'timeZone' => 'Europe/Kiev',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', 'shop', 'users'],
-    'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'),
+    'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'), //???
     'components' => [
         'request' => [
-            'enableCsrfValidation' => true,
-            'enableCookieValidation' => true,
             'baseUrl' => '',
             'cookieValidationKey' => 'VALIDATION_KEY'
         ],
         'assetManager' => [
-            'linkAssets' => false,
-            'basePath' => '@webroot/assets',
-            'baseUrl' => '@web/assets',
-            'bundles' => [
+			'bundles' => [
                 'yii\web\JqueryAsset' => [
                     'js' => [YII_ENV_DEV ? 'jquery.js' : 'jquery.min.js'],
                 ],
                 'yii\bootstrap\BootstrapPluginAsset' => [
-                    'sourcePath' => '@vendor/twbs/bootstrap/dist',
-                    'js' => [YII_ENV_DEV ? 'js/bootstrap.js' : 'js/bootstrap.min.js'],
+                    'js' => [YII_ENV_DEV ? 'dist/js/bootstrap.js' : 'dist/js/bootstrap.min.js'],
                 ],
                 'yii\bootstrap\BootstrapAsset' => [
-                    'sourcePath' => '@vendor/twbs/bootstrap/dist',
-                    'css' => [YII_ENV_DEV ? 'css/bootstrap.css' : 'css/bootstrap.min.css'],
+                    'css' => [YII_ENV_DEV ? 'dist/css/bootstrap.css' : 'dist/css/bootstrap.min.css'],
                 ],
-            ],
+            ]
         ],
         'authClientCollection' => [
             'class' => 'yii\authclient\Collection',
@@ -63,7 +56,6 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => true,
-            //'suffix' => '.html',
             'rules' => $rules,
         ],
         'errorHandler' => [
@@ -71,7 +63,6 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            //'useFileTransport' => true,
             'viewPath' => '@app/mails',
             'messageConfig' => [
                 'from' => $params['supportEmail'],

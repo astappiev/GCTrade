@@ -1,10 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ListView;
 use yii\grid\GridView;
 use yii\data\ActiveDataProvider;
-use app\helpers\Glyph;
 use app\modules\users\models\Message;
 
 /**
