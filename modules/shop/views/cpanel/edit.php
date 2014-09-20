@@ -9,8 +9,8 @@ use app\modules\shop\models\Price;
  * @var app\modules\shop\models\Shop $model
  */
 
-$this->registerJsFile('@web/js/jquery/jquery.spin.min.js', ['yii\web\JqueryAsset']);
-$this->registerJsFile('@web/js/item.gctrade.min.js', ['yii\web\JqueryAsset']);
+$this->registerJsFile('@web/js/jquery/jquery.spin.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/item.gctrade.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->title = 'Обновление товара';
 $this->params['breadcrumbs'][] = ['label' => 'Панель управления', 'url' => ['index']];

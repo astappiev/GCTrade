@@ -2,8 +2,8 @@
 
 use yii\helpers\Html;
 
-$this->registerJsFile('@web/js/jquery/jquery.tablesorter.min.js', ['yii\web\JqueryAsset']);
-$this->registerJsFile('@web/js/jquery/jquery.filtertable.min.js', ['yii\web\JqueryAsset']);
+$this->registerJsFile('@web/js/jquery/jquery.tablesorter.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/jquery/jquery.filtertable.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 /**
  * @var $this yii\web\View

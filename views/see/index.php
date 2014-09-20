@@ -4,8 +4,8 @@ use yii\bootstrap\Alert;
 use yii\widgets\ActiveForm;
 use app\models\See;
 
-$this->registerJsFile('@web/js/jquery/jquery.spin.min.js', ['yii\web\JqueryAsset']);
-$this->registerJsFile('@web/js/see.gctrade.min.js', ['yii\web\JqueryAsset']);
+$this->registerJsFile('@web/js/jquery/jquery.spin.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/see.gctrade.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->title = 'Наблюдение за активностью';
 $this->params['breadcrumbs'][] = $this->title;

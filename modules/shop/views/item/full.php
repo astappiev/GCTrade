@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use app\modules\shop\models\Item;
 
-$this->registerJsFile('@web/js/jquery/jquery.filtertable.min.js', ['yii\web\JqueryAsset']);
+$this->registerJsFile('@web/js/jquery/jquery.filtertable.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 /**
  * @var $this yii\web\View
