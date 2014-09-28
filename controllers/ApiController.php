@@ -164,7 +164,8 @@ class ApiController extends Controller
 
     public function actionItem($request)
     {
-        $query = (new Query())->select('id, alias, name')->from('tg_item')->where('alias=:id', [':id' => $request]);
+        $id = explode(".", $request);
+        $query = (new Query())->select('id, id_primary, id_meta, name')->from('tg_item')->where('tg_item.id_primary=:id_primary AND tg_item.id_meta=:id_meta', [':id_primary' => $id[0], ':id_meta' => isset($id[1]) ? $id[1] : 0]);
         $items = $query->createCommand()->queryAll();
         if(empty($items))
         {
@@ -180,7 +181,7 @@ class ApiController extends Controller
                 $price = (new Query())->select('count(*) as count, min(price_sell/stuck) as min, avg(price_sell/stuck) as avg, max(price_sell/stuck) as max')->from('tg_price')->where('id_item=:id', [':id' => $items[$i]["id"]])->one();
 
                 $items[$i] = [
-                    'id' => $items[$i]["alias"],
+                    'id' => ($items[$i]["id_meta"]) ? $items[$i]["id_primary"].'.'.$items[$i]["id_meta"] : $items[$i]["id_primary"],
                     'name' => $items[$i]["name"],
                     'description' => null,
                     'in_shop' => $price
@@ -188,6 +189,55 @@ class ApiController extends Controller
             }
 
             return self::renderJSON($items);
+        }
+
+        return self::renderJSON(['message' => 'Nothing found']);
+    }
+
+    public function actionPrice($request)
+    {
+        $id = explode(".", $request);
+        $query = (new Query())->select('id, id_primary, id_meta, name')->from('tg_item')->where('tg_item.id_primary=:id_primary AND tg_item.id_meta=:id_meta', [':id_primary' => $id[0], ':id_meta' => isset($id[1]) ? $id[1] : 0]);
+        $items = $query->createCommand()->queryAll();
+        if(empty($items))
+        {
+            $query->orWhere(['like', 'name', $request]);
+            $items = $query->createCommand()->queryAll();
+        }
+
+        if(!empty($items))
+        {
+            $lenght = count($items);
+            for($i = 0; $i < $lenght; ++$i)
+            {
+                $prices = (new Query())->select('id_shop, price_sell, price_buy, stuck')->from('tg_price')->where('id_item=:id', [':id' => $items[$i]["id"]])->orderBy('IFNULL(`price_sell`, \'1\') / `stuck` ASC')->createCommand()->queryAll();
+
+                if(!empty($prices)) {
+                    $lenght_p = count($prices);
+                    for ($i_p = 0; $i_p < $lenght_p; ++$i_p) {
+
+                        $shop = (new Query())->select('name, logo_url')->from('tg_shop')->where('id=:id', [':id' => $prices[$i_p]["id_shop"]])->one();
+
+                        $shop["logo_url"] = ($shop["logo_url"] == null) ? null : 'http://gctrade.ru/images/shop/'.$shop["logo_url"];
+
+                        $prices[$i_p] = [
+                            'price_sell' => $prices[$i_p]["price_sell"],
+                            'price_buy' => $prices[$i_p]["price_buy"],
+                            'stuck' => $prices[$i_p]["stuck"],
+                            'shop' => $shop
+                        ];
+                    }
+                }
+
+                $items[$i] = [
+                    'id' => ($items[$i]["id_meta"]) ? $items[$i]["id_primary"].'.'.$items[$i]["id_meta"] : $items[$i]["id_primary"],
+                    'name' => $items[$i]["name"],
+                    'description' => null,
+                    'in_shop' => $prices
+                ];
+            }
+
+            return self::renderJSON(($lenght == 1) ? $items[0] : $items);
         }
 
         return self::renderJSON(['message' => 'Nothing found']);

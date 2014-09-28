@@ -7,7 +7,7 @@ return [
     // Controller [[API]]
     '<_controler:api>/<_action:[\w\-]+>' => '<_controler>/<_action>',
     '<_controler:api>/<_action:(world|head|badges)>/<login:[a-zA-Z0-9_-]{3,20}+>' => '<_controler>/<_action>',
-    '<_controler:api>/<_action:(shop|item)>/<request>' => '<_controler>/<_action>',
+    '<_controler:api>/<_action:(shop|item|price)>/<request>' => '<_controler>/<_action>',
 
     // General
     '<_controler:[\w\-]+>' => '<_controler>/index',
