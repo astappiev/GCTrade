@@ -1,11 +1,11 @@
 <?php
 namespace app\modules\shop\models;
 
+use app\modules\users\models\User;
 use yii;
 use yii\db\ActiveRecord;
 use vova07\fileapi\behaviors\UploadBehavior;
 use yii\behaviors\TimestampBehavior;
-use yii\web\NotFoundHttpException;
 
 /**
  * Class Shop
@@ -13,8 +13,9 @@ use yii\web\NotFoundHttpException;
  * Model Shop.
  *
  * @property integer $id
- * @property integer $owner
+ * @property integer $user_id
  * @property integer $status
+ * @property integer $type
  * @property string $alias
  * @property string $name
  * @property string $about
@@ -26,6 +27,9 @@ use yii\web\NotFoundHttpException;
  * @property string $source
  * @property integer $created_at
  * @property integer $updated_at
+ *
+ * @property \app\modules\users\models\User $user
+ * @property string $logo
  */
 class Shop extends ActiveRecord
 {
@@ -34,6 +38,9 @@ class Shop extends ActiveRecord
     const STATUS_DEPENDS = 8;
     const STATUS_ACTIVE = 10;
 
+    const TYPE_GOODS = 0;
+    const TYPE_BOOKS = 1;
+
     protected $_logo;
 
     /**
@@ -41,9 +48,12 @@ class Shop extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'tg_shop';
+        return '{{%shop}}';
     }
 
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -61,16 +71,22 @@ class Shop extends ActiveRecord
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function scenarios()
     {
         return [
-            'create' => ['name', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'logo_url', 'source'],
+            'create' => ['name', 'type', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'logo_url', 'source'],
             'update' => ['name', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'logo_url', 'source'],
             'update_date' => ['updated_at'],
             'delete-logo' => [],
         ];
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public static function findId($id)
     {
         return static::findOne($id);
@@ -86,11 +102,28 @@ class Shop extends ActiveRecord
         return static::find()->where(['alias' => $alias])->one();
     }
 
-    public function getPrices()
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProducts()
     {
-        return $this->hasMany(Price::className(), ['id_shop' => 'id'])->orderBy('id_item');
+        if($this->type === self::TYPE_GOODS) {
+            return $this->hasMany(Good::className(), ['shop_id' => 'id'])->orderBy('item_id');
+        }
+        return null;
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * @return string
+     */
     public function getLogo()
     {
         if ($this->_logo === null) {
@@ -99,6 +132,9 @@ class Shop extends ActiveRecord
         return $this->_logo;
     }
 
+    /**
+     * @return array
+     */
     public static function getStatusArray()
     {
         return [
@@ -109,12 +145,38 @@ class Shop extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array
+     */
+    public static function getTypeArray()
+    {
+        return [
+            self::TYPE_GOODS => 'Товарный',
+            self::TYPE_BOOKS => 'Книжный',
+        ];
+    }
+
+    /**
+     * @return string
+     */
     public function getStatus()
     {
         $status = self::getStatusArray();
         return $status[$this->status];
     }
 
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        $status = self::getTypeArray();
+        return $status[$this->type];
+    }
+
+    /**
+     * @return string
+     */
     public function getUpdateTime()
     {
         return \Yii::$app->formatter->asDate($this->updated_at, 'd.m.Y');
@@ -127,8 +189,9 @@ class Shop extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'owner' => 'Владелец',
+            'user' => 'Пользователь',
             'status' => 'Статус',
+            'type' => 'Тип магазина',
             'alias' => 'Алиас',
             'name' => 'Название',
             'about' => 'Вступительный текст',
@@ -138,19 +201,22 @@ class Shop extends ActiveRecord
             'z_cord' => 'Координата Z',
             'logo_url' => 'Логотип магазина',
             'source' => 'Источник',
-            'created_at' => 'Дата создания',
-            'updated_at' => 'Дата обновления'
+            'created_at' => 'Создано',
+            'updated_at' => 'Последнее обновление',
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function beforeSave($insert)
     {
         if(parent::beforeSave($insert)) {
             // Проверяем если это новая запись.
             if ($this->isNewRecord) {
                 // Определяем автора в случае его отсутсвия.
-                if (!$this->owner) {
-                    $this->owner = \Yii::$app->user->id;
+                if (!$this->user_id) {
+                    $this->user_id = \Yii::$app->user->id;
                 }
                 // Определяем статус.
                 if (!$this->status) {
@@ -168,10 +234,13 @@ class Shop extends ActiveRecord
     public function rules()
     {
         return [
-            ['owner', 'default', 'value' => Yii::$app->user->id],
+            ['user_id', 'default', 'value' => Yii::$app->user->id],
 
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => array_keys(self::getStatusArray())],
+
+            ['type', 'default', 'value' => self::TYPE_GOODS],
+            ['type', 'in', 'range' => array_keys(self::getTypeArray())],
 
             [['alias', 'name', 'about'], 'required'],
 

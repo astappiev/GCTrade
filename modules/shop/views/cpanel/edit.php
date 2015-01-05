@@ -2,15 +2,15 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\Modal;
-use app\modules\shop\models\Price;
+use app\modules\shop\models\Good;
 
 /**
  * @var yii\web\View $this
  * @var app\modules\shop\models\Shop $model
  */
 
-$this->registerJsFile('@web/js/jquery/jquery.spin.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('@web/js/item.gctrade.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile(YII_ENV_PROD ? '@web/js/jquery/jquery.spin.min.js' : '@web/js/jquery/jquery.spin.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile(YII_ENV_PROD ? '@web/js/item.gctrade.min.js' : '@web/js/item.gctrade.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->title = 'Обновление товара';
 $this->params['breadcrumbs'][] = ['label' => 'Панель управления', 'url' => ['index']];
@@ -25,10 +25,10 @@ $this->params['breadcrumbs'][] = $this->title . ' - ' . $model->name;
             <button class="btn btn-warning" data-toggle="modal" data-target="#ImportFileModal" role="button"><span class="glyphicon glyphicon-import"></span> Импорт</button>
             <a class="btn btn-info" href="<?= Yii::$app->urlManager->createUrl(['shop/cpanel/export', 'alias' => $model->alias]) ?>" role="button"><span class="glyphicon glyphicon-export"></span> Экспорт</a>
             <button class="btn btn-primary" data-toggle="modal" data-target="#AddModal" role="button"><span class="glyphicon glyphicon-plus"></span> Добавить товар</button>
-            <a class="btn btn-danger" href="<?= Yii::$app->urlManager->createUrl(['shop/cpanel/item-clear', 'id_shop' => $model->id]) ?>" role="button"><span class="glyphicon glyphicon-exclamation-sign"></span> Удалить все</a>
+            <a class="btn btn-danger" href="<?= Yii::$app->urlManager->createUrl(['shop/cpanel/item-clear', 'shop_id' => $model->id]) ?>" role="button"><span class="glyphicon glyphicon-exclamation-sign"></span> Удалить все</a>
             <?php if($model->status == 8) echo '<a class="btn btn-success" href="'.Yii::$app->urlManager->createUrl(['shop/parser/'.$model->alias]).'" role="button"><span class="glyphicon glyphicon-download"></span> Синхронизировать</a>'; ?>
         </div>
-        <?php if(empty($model->prices)): ?>
+        <?php if(empty($model->products)): ?>
             <div class="panel-body text-center">У данного магазина, нет товара.</div>
         <?php else: ?>
             <table class="table table-hover item-list sort not-cursor">
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title . ' - ' . $model->name;
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach(Price::find()->where(['id_shop' => $model->id])->orderBy(['id_item' => SORT_ASC])->all() as $price): ?>
+                <?php foreach(Good::find()->where(['shop_id' => $model->id])->orderBy(['item_id' => SORT_ASC])->all() as $price): ?>
                     <tr>
                         <td><img src="/images/items/<?= $price->item->alias; ?>.png" alt="<?= $price->item->name; ?>" align="left" class="small-icon" /></td>
                         <td><?= $price->item->alias; ?></td>
@@ -131,7 +131,7 @@ $this->params['breadcrumbs'][] = $this->title . ' - ' . $model->name;
     'footer' => '<button type="button" id="editButtonModal" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Изменить</button>',
 ]); ?>
     <form class="form-horizontal" role="form" id="EditItemForm">
-        <input type="text" class="hide" id="IdHide">
+        <input type="hidden" class="hide" id="IdHide">
         <div class="form-group">
             <label class="col-sm-4 control-label" id="name" data-id=""></label>
             <div class="col-sm-6">

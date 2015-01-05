@@ -1,11 +1,17 @@
 <?php
+
+/**
+ * @var yii\web\View $this
+ * @var app\modules\auction\models\search\Lot $searchModel
+ */
+
 use yii\helpers\Html;
-use yii\bootstrap\Alert;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use app\models\See;
 
 $this->registerJsFile('@web/js/jquery/jquery.spin.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('@web/js/see.gctrade.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/jquery/jquery.timeago.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/see.gctrade.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->title = 'Наблюдение за активностью';
 $this->params['breadcrumbs'][] = $this->title;
@@ -52,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     echo '<td>'.$login->login.'</td>';
                     echo '<td>'.$login->description.'</td>';
                     echo '<td class="status"></td>';
-                    echo '<td aling="right"><button class="btn btn-xs btn-danger" type="button" id="delete">Удалить</button></td>';
+                    echo '<td><button class="btn btn-xs btn-danger" type="button" id="delete">Удалить</button></td>';
                     echo '</tr>';
                 endforeach; ?>
 

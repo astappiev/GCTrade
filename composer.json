@@ -10,7 +10,7 @@
             "name": "Astappev Oleg",
             "email": "astappev@gmail.com",
             "homepage": "http://astappev.info/",
-            "role": "Back-End Development"
+            "role": "Development"
         }
     ],
 	"support": {
@@ -21,18 +21,20 @@
 	"minimum-stability": "dev",
 	"require": {
 		"php": ">=5.4.0",
-		"yiisoft/yii2": "*",
-		"yiisoft/yii2-bootstrap": "*",
-		"yiisoft/yii2-swiftmailer": "*",
-		"yiisoft/yii2-authclient": "*",
+		"yiisoft/yii2": "@stable",
+		"yiisoft/yii2-bootstrap": "@stable",
+		"yiisoft/yii2-swiftmailer": "@stable",
+		"yiisoft/yii2-authclient": "@stable",
 		"vova07/yii2-imperavi-widget": "*",
         "vova07/yii2-fileapi-widget": "*",
-		"bburim/flot": "master"
+	  	"bower-asset/flot": "*",
+	  	"bower-asset/leaflet-dist": "*",
+	  	"bower-asset/intro.js": "*"
 	},
 	"require-dev": {
-		"yiisoft/yii2-debug": "*",
-		"yiisoft/yii2-gii": "*",
-		"codeception/codeception": " 2.0.*"
+		"yiisoft/yii2-debug": "@stable",
+		"yiisoft/yii2-gii": "@stable",
+		"codeception/codeception": "@stable"
 	},
 	"scripts": {
 		"post-create-project-cmd": [

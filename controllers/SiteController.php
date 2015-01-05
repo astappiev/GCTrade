@@ -1,9 +1,9 @@
 <?php
+
 namespace app\controllers;
 
 use Yii;
 use yii\web\Controller;
-use yii\helpers\Url;
 
 class SiteController extends Controller
 {
@@ -43,10 +43,5 @@ class SiteController extends Controller
     public function actionRail()
     {
         return $this->render('rail');
-    }
-
-    public function actionCalc()
-    {
-        return $this->render('calc');
     }
 }

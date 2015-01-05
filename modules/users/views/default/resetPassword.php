@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 $this->title = 'Новый пароль';
 $this->params['breadcrumbs'][] = $this->title;

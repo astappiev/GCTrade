@@ -3,7 +3,7 @@ namespace app\modules\shop\controllers;
 
 use Yii;
 use yii\web\Controller;
-use app\models\Item;
+use app\modules\shop\models\Item;
 
 class ManageController extends Controller
 {
@@ -19,19 +19,22 @@ class ManageController extends Controller
         $grid = [];
         foreach($source as $line):
             $id = ($line->data === 0)?$line->id:$line->id.'.'.$line->data;
-            $name = $line->name;
             $status = '';
 
-            $item = Item::findByAlias($id);
+            $item = Item::find()->where(['id_primary' => $line->id, 'id_meta' => $line->data])->one();
             if(!$item)
             {
                 $item = new Item();
-                $item->alias = $id;
-                $item->name = $name;
+                $item->id_primary = $line->id;
+                $item->id_meta = $line->data;
+                $item->name = $line->name;
                 if($item->save())
                     $status = '<span class="glyphicon glyphicon-plus twosize green"></span>';
                 else
                     $status = '<span class="glyphicon glyphicon-remove twosize red"></span>';
+            } else {
+                $item->name = $line->name;
+                $item->save();
             }
 
             $icon = $_SERVER{'DOCUMENT_ROOT'}.'/web/images/items/'.$id.'.png';
@@ -43,7 +46,7 @@ class ManageController extends Controller
                     $status .= '<span class="glyphicon glyphicon-floppy-save twosize red"></span>';
             }
 
-            $grid[] = ['id' => $id, 'name' => $name, 'status' => $status];
+            $grid[] = ['id' => $id, 'name' => $line->name, 'status' => $status];
         endforeach;
 
         return $this->render('item', [

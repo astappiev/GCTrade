@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\modules\shop\models\Shop;
-use yii\bootstrap\Nav;
 
 $this->title = 'Магазины';
 $this->params['breadcrumbs'][] = ['label' => 'Панель управления', 'url' => ['index']];
@@ -13,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<h1><?= Html::encode($this->title) ?></h1>
 
     <?php
-    $shops = Shop::find()->where(['owner' => Yii::$app->user->id])->orderBy(['updated_at' => SORT_ASC])->all();
+    $shops = Shop::find()->where(['user_id' => Yii::$app->user->id])->orderBy(['updated_at' => SORT_ASC])->all();
 
     if(empty($shops))
     {
@@ -25,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="well" id="<?= $shop->id ?>">
             <a href="<?= Yii::$app->urlManager->createUrl(['shop/default/view', 'alias' => $shop->alias]) ?>"><img
-                    src="<?= $shop->getLogo() ?>" alt="<?= $shop->name ?>" class="img-rounded" /></a>
+                    src="<?= $shop->logo ?>" alt="<?= $shop->name ?>" class="img-rounded" /></a>
             <div class="info">
                 <h3><a href="<?= Yii::$app->urlManager->createUrl(['shop/default/view', 'alias' => $shop->alias]) ?>"><?= $shop->name ?></a></h3>
                 <p><?= $shop->about ?></p>

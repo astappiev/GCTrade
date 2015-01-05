@@ -5,7 +5,7 @@ use Yii;
 use yii\web\Controller;
 use app\helpers\ParseHTML;
 use app\modules\shop\models\Item;
-use app\modules\shop\models\Price;
+use app\modules\shop\models\Good;
 use app\modules\shop\models\Shop;
 
 class ParserController extends Controller
@@ -13,10 +13,10 @@ class ParserController extends Controller
     public function actionTorCubovo()
     {
         $url = 'http://cubovo.strana.de/';
-        $id_shop_tor = 44; // Тор
-        $id_shop = 45; // Перекресток
-        $shop_tor = Shop::findOne($id_shop_tor);
-        $shop = Shop::findOne($id_shop);
+        $shop_id_tor = 44; // Тор
+        $shop_id = 45; // Перекресток
+        $shop_tor = Shop::findOne($shop_id_tor);
+        $shop = Shop::findOne($shop_id);
 
         $grid = [];
         $html = new ParseHTML(file_get_contents($url));
@@ -47,9 +47,9 @@ class ParserController extends Controller
 
                 $status = '';
                 if($isCubovo)
-                    $status .= Price::addPrice($item->id, $id_shop, $price_sell, $price_buy, $stuck);
+                    $status .= Good::addPrice($item->id, $shop_id, $price_sell, $price_buy, $stuck);
                 if($isTor)
-                    $status .= Price::addPrice($item->id, $id_shop_tor, $price_sell, $price_buy, $stuck);
+                    $status .= Good::addPrice($item->id, $shop_id_tor, $price_sell, $price_buy, $stuck);
                 $grid[] = ['id' => $item->alias, 'name' => $item->name, 'price_sell' => $price_sell, 'price_buy' => $price_buy, 'stuck' => $stuck, 'status' => $status];
             }
         }
@@ -63,8 +63,8 @@ class ParserController extends Controller
     public function actionMagazin()
     {
         $url = 'http://romashkax.valuehost.ru/shop.php';
-        $id_shop = 48; // Магазин "Магазин"
-        $shop = Shop::findOne($id_shop);
+        $shop_id = 48; // Магазин "Магазин"
+        $shop = Shop::findOne($shop_id);
 
         $grid = [];
         $html = new ParseHTML(file_get_contents($url));
@@ -80,7 +80,7 @@ class ParserController extends Controller
                 $price_buy = (isset($tr["td"][4]["#text"]))?$tr["td"][4]["#text"]:NULL;
                 $stuck = $tr["td"][2]["#text"];
 
-                $status = Price::addPrice($item->id, $id_shop, $price_sell, $price_buy, $stuck);
+                $status = Good::addPrice($item->id, $shop_id, $price_sell, $price_buy, $stuck);
                 $grid[] = ['id' => $item->alias, 'name' => $item->name, 'price_sell' => $price_sell, 'price_buy' => $price_buy, 'stuck' => $stuck, 'status' => $status];
             }
         }
@@ -94,8 +94,8 @@ class ParserController extends Controller
     public function actionKaktyc()
     {
         $url = 'http://kaktyc.ovesnovs.com/';
-        $id_shop = 4; // Кактус
-        $shop = Shop::findOne($id_shop);
+        $shop_id = 4; // Кактус
+        $shop = Shop::findOne($shop_id);
 
         $grid = [];
         $html = new ParseHTML(file_get_contents($url));
@@ -111,7 +111,7 @@ class ParserController extends Controller
             $price_buy = (is_numeric($tr["td"][4]["#text"]))?$tr["td"][4]["#text"]:NULL;
             $stuck = $tr["td"][2]["#text"];
 
-            $status = Price::addPrice($item->id, $id_shop, $price_sell, $price_buy, $stuck);
+            $status = Good::addPrice($item->id, $shop_id, $price_sell, $price_buy, $stuck);
             $grid[] = ['id' => $item->alias, 'name' => $item->name, 'price_sell' => $price_sell, 'price_buy' => $price_buy, 'stuck' => $stuck, 'status' => $status];
         }
 
@@ -124,8 +124,8 @@ class ParserController extends Controller
     public function actionUnderlake()
     {
         $url = 'http://kaktyc.ovesnovs.com/underlake.htm';
-        $id_shop = 53; // Кактус
-        $shop = Shop::findOne($id_shop);
+        $shop_id = 53; // Кактус
+        $shop = Shop::findOne($shop_id);
 
         $grid = [];
         $html = new ParseHTML(file_get_contents($url));
@@ -141,7 +141,7 @@ class ParserController extends Controller
             $price_buy = (is_numeric($tr["td"][4]["#text"]))?$tr["td"][4]["#text"]:NULL;
             $stuck = $tr["td"][2]["#text"];
 
-            $status = Price::addPrice($item->id, $id_shop, $price_sell, $price_buy, $stuck);
+            $status = Good::addPrice($item->id, $shop_id, $price_sell, $price_buy, $stuck);
             $grid[] = ['id' => $item->alias, 'name' => $item->name, 'price_sell' => $price_sell, 'price_buy' => $price_buy, 'stuck' => $stuck, 'status' => $status];
         }
 
@@ -154,8 +154,8 @@ class ParserController extends Controller
     public function actionJib()
     {
         $url = 'http://kaktyc.ovesnovs.com/jib.htm';
-        $id_shop = 42; // Кактус
-        $shop = Shop::findOne($id_shop);
+        $shop_id = 42; // Кактус
+        $shop = Shop::findOne($shop_id);
 
         $grid = [];
         $html = new ParseHTML(file_get_contents($url));
@@ -171,7 +171,7 @@ class ParserController extends Controller
             $price_buy = (is_numeric($tr["td"][4]["#text"]))?$tr["td"][4]["#text"]:NULL;
             $stuck = $tr["td"][2]["#text"];
 
-            $status = Price::addPrice($item->id, $id_shop, $price_sell, $price_buy, $stuck);
+            $status = Good::addPrice($item->id, $shop_id, $price_sell, $price_buy, $stuck);
             $grid[] = ['id' => $item->alias, 'name' => $item->name, 'price_sell' => $price_sell, 'price_buy' => $price_buy, 'stuck' => $stuck, 'status' => $status];
         }
 
@@ -184,8 +184,8 @@ class ParserController extends Controller
     public function actionIshop()
     {
         $url = 'http://ishop-gc.ru/';
-        $id_shop = 54;
-        $shop = Shop::findOne($id_shop);
+        $shop_id = 54;
+        $shop = Shop::findOne($shop_id);
 
         $grid = [];
         $html = new ParseHTML(file_get_contents($url));
@@ -203,7 +203,7 @@ class ParserController extends Controller
                     $price_buy = $tr["td"][4]["p"][0]["span"]["#text"];
 
                     $item = Item::findByName($name);
-                    $status = Price::addPrice($item->id, $id_shop, $price_sell, $price_buy, $stuck);
+                    $status = Good::addPrice($item->id, $shop_id, $price_sell, $price_buy, $stuck);
                     $grid[] = ['id' => $item->alias, 'name' => $item->name, 'price_sell' => $price_sell, 'price_buy' => $price_buy, 'stuck' => $stuck, 'status' => $status];
                 }
             }
@@ -218,8 +218,8 @@ class ParserController extends Controller
     public function actionTwix()
     {
         $url = file_get_contents('http://www.macmax.ru/twix/price/twix/');
-        $id_shop = 1; // Twix
-        $shop = Shop::findOne($id_shop);
+        $shop_id = 1; // Twix
+        $shop = Shop::findOne($shop_id);
 
         $grid = [];
         $table = json_decode($url);
@@ -245,7 +245,7 @@ class ParserController extends Controller
             }
 
             $item = Item::findByAlias($alias);
-            $status = Price::addPrice($item->id, $id_shop, $price_sell, $price_buy, $stuck);
+            $status = Good::addPrice($item->id, $shop_id, $price_sell, $price_buy, $stuck);
             $grid[] = ['id' => $item->alias, 'name' => $item->name, 'price_sell' => $price_sell, 'price_buy' => $price_buy, 'stuck' => $stuck, 'status' => $status];
         }
 
@@ -258,8 +258,8 @@ class ParserController extends Controller
     public function actionSvgrad()
     {
         $url = file_get_contents('http://www.macmax.ru/twix/price/sg/');
-        $id_shop = 3; // Svgrad
-        $shop = Shop::findOne($id_shop);
+        $shop_id = 3; // Svgrad
+        $shop = Shop::findOne($shop_id);
 
         $grid = [];
         $table = json_decode($url);
@@ -285,7 +285,7 @@ class ParserController extends Controller
             }
 
             $item = Item::findByAlias($alias);
-            $status = Price::addPrice($item->id, $id_shop, $price_sell, $price_buy, $stuck);
+            $status = Good::addPrice($item->id, $shop_id, $price_sell, $price_buy, $stuck);
             $grid[] = ['id' => $item->alias, 'name' => $item->name, 'price_sell' => $price_sell, 'price_buy' => $price_buy, 'stuck' => $stuck, 'status' => $status];
         }
 

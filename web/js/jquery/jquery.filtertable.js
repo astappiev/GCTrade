@@ -60,7 +60,7 @@ $(document).ready(function(){ $('table.filter').filterTable(); });
 					if (settings.hideTFootOnFilter) { // hide footer if the setting was specified
 						table.find('tfoot').hide();
 					}
-					tbody.find('td').removeClass(settings.highlightClass).filter(':filterTableFind("'+q.replace(/(['"])/g,'\\$1')+'")').addClass(settings.highlightClass).closest('tr').show().addClass(settings.visibleClass); // highlight (class=alt) only the cells that match the query and show their rows
+					tbody.find('td.td-filter').removeClass(settings.highlightClass).filter(':filterTableFind("'+q.replace(/(['"])/g,'\\$1')+'")').addClass(settings.highlightClass).closest('tr').show().addClass(settings.visibleClass); // highlight (class=alt) only the cells that match the query and show their rows
 				}
 				if (settings.callback) { // call the callback function
 					settings.callback(q, table);

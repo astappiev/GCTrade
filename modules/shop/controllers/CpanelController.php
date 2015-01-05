@@ -4,7 +4,7 @@ namespace app\modules\shop\controllers;
 
 use Yii;
 use app\modules\shop\models\Shop;
-use app\modules\shop\models\Price;
+use app\modules\shop\models\Good;
 use app\modules\shop\models\Item;
 use yii\helpers\Json;
 use yii\web\ForbiddenHttpException;
@@ -140,60 +140,61 @@ class CpanelController extends DefaultController
         ]);
     }
 
-    public function actionItemEdit($id_shop, $id_item, $price_sell, $price_buy, $stuck)
+    public function actionItemEdit($shop_id, $item_id, $price_sell, $price_buy, $stuck)
     {
         if($price_sell < 0 || $price_buy < 0 || $stuck < 1)
             return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'ERROR_TRANSMITTED_DATA')]);
 
-        if(($shop = Shop::findOne($id_shop)) === null)
+        if(($shop = Shop::findOne($shop_id)) === null)
             return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'SHOP_NOT_FOUND')]);
 
-        if($shop->owner !== Yii::$app->user->id)
+        if($shop->user_id !== Yii::$app->user->id)
             throw new ForbiddenHttpException(Yii::t('app/shop', 'SHOP_NO_PERMISSION'));
 
-        if(($item = Item::findByAlias($id_item)) === null)
+        if(($item = Item::findByAlias($item_id)) === null)
             return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'ITEM_NOT_FOUND')]);
 
-        if(($price = Price::find()->where(['id_shop' => $id_shop, 'id_item' => $item->id])->one()) !== null)
+        if(($price = Good::find()->where(['shop_id' => $shop_id, 'item_id' => $item->id])->one()) !== null)
         {
             $price->price_sell = ($price_sell == 0) ? null : $price_sell;
             $price->price_buy = ($price_buy == 0) ? null : $price_buy;
             $price->stuck = $stuck;
             if($price->save()) return Json::encode(['status' => 1, 'message' => Yii::t('app/shop', 'ITEM_UPDATED')]);
         } else {
-            $price = new Price();
-            $price->id_item = $item->id;
-            $price->id_shop = $id_shop;
+            $price = new Good();
+            $price->item_id = $item->id;
+            $price->shop_id = $shop_id;
             $price->price_sell = ($price_sell == 0) ? null : $price_sell;
             $price->price_buy = ($price_buy == 0) ? null : $price_buy;
             $price->stuck = $stuck;
             if($price->save()) return Json::encode(['status' => 2, 'message' => Yii::t('app/shop', 'ITEM_CREATED')]);
         }
+        return false;
     }
 
-    public function actionItemRemove($id_shop, $id_item)
+    public function actionItemRemove($shop_id, $item_id)
     {
-        if(($item = Item::findByAlias($id_item)) !== null && ($shop = Shop::findOne($id_shop)) !== null)
+        if(($item = Item::findByAlias($item_id)) !== null && ($shop = Shop::findOne($shop_id)) !== null)
         {
-            if($shop->owner != Yii::$app->user->id)
+            if($shop->user_id != Yii::$app->user->id)
                 throw new ForbiddenHttpException(Yii::t('app/shop', 'SHOP_NO_PERMISSION'));
 
-            if(($price = Price::find()->where(['id_item' => $item->id, 'id_shop' => $id_shop])->one()) !== null && $price->delete())
+            if(($price = Good::find()->where(['item_id' => $item->id, 'shop_id' => $shop_id])->one()) !== null && $price->delete())
                 return Json::encode(['status' => 1, 'message' => Yii::t('app/shop', 'ITEM_REMOVED')]);
         }
 
         return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'ERROR_TRANSMITTED_DATA')]);
     }
 
-    public function actionItemClear($id_shop)
+    public function actionItemClear($shop_id)
     {
-        if(($shop = Shop::findOne($id_shop)) === null)
+        if(($shop = Shop::findOne($shop_id)) === null)
             throw new NotFoundHttpException(Yii::t('app/shop', 'SHOP_NOT_FOUND'));
 
-        if($shop->owner !== Yii::$app->user->id)
+        if($shop->user_id !== Yii::$app->user->id)
             throw new ForbiddenHttpException(Yii::t('app/shop', 'SHOP_NO_PERMISSION'));
 
-        Price::deleteAll(['id_shop' => $id_shop]);
+        Good::deleteAll(['shop_id' => $shop_id]);
         return $this->redirect(['cpanel/edit', 'alias' => $shop->alias]);
     }
 

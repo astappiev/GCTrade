@@ -1,6 +1,5 @@
 #!/usr/bin/env php
 <?php
-defined('WEB_LOCAL') or define('WEB_LOCAL', false);
 defined('YII_DEBUG') or define('YII_DEBUG', false);
 
 // fcgi doesn't have STDIN and STDOUT defined by default

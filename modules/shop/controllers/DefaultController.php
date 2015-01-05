@@ -67,7 +67,7 @@ class DefaultController extends Controller
     {
         if (($model = Shop::find()->where(['alias' => $alias])->one()) !== null) {
 
-            if($access === true && $model->owner != \Yii::$app->user->id)
+            if($access === true && $model->user_id != \Yii::$app->user->id)
                 throw new ForbiddenHttpException(Yii::t('app/shop', 'SHOP_NO_PERMISSION'));
 
             return $model;

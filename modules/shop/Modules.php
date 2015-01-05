@@ -43,6 +43,5 @@ class Modules extends \yii\base\Module implements \yii\base\BootstrapInterface
     public function init()
     {
         parent::init();
-
     }
 }

@@ -14,6 +14,6 @@ $user = User::findOne(\Yii::$app->user->id);
         <dt>Ваш логин:</dt><dd><?= Html::encode($user->username) ?></dd>
         <dt>Ваш email:</dt><dd><?= Html::encode($user->email) ?></dd>
         <dt>Дата регистрации:</dt><dd><?= Html::encode($user->created_at) ?></dd>
-        <dt>Магазинов создано:</dt><dd><?= Shop::find()->where('owner=:id', [':id' => Yii::$app->user->id])->count() ?></dd>
+        <dt>Магазинов создано:</dt><dd><?= Shop::find()->where('user_id=:id', [':id' => Yii::$app->user->id])->count() ?></dd>
     </dl>
 </div>

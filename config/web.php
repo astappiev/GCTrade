@@ -14,7 +14,7 @@ $config = [
     'charset' => 'utf-8',
     'timeZone' => 'Europe/Kiev',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'shop', 'users'],
+    'bootstrap' => ['log', 'shop', 'auction', 'users'],
     'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'), //???
     'components' => [
         'request' => [
@@ -85,6 +85,8 @@ $config = [
             'password' => 'DB1_PASSWORD',
             'charset' => 'utf8',
             'tablePrefix' => 'DB1_PREFIX',
+            'enableSchemaCache' => true,
+            'schemaCacheDuration' => 3600,
         ],
         'db_analytics' => [
             'class' => 'yii\db\Connection',
@@ -93,6 +95,8 @@ $config = [
             'password' => 'DB2_PASSWORD',
             'charset' => 'utf8',
             'tablePrefix' => 'DB2_PREFIX',
+            'enableSchemaCache' => true,
+            'schemaCacheDuration' => 3600,
         ],
         'i18n' => [
             'translations' => [
@@ -115,6 +119,9 @@ $config = [
         'shop' => [
             'class' => 'app\modules\shop\Modules',
         ],
+        'auction' => [
+            'class' => 'app\modules\auction\Modules',
+        ],
         'users' => [
             'class' => 'app\modules\users\Modules',
         ],
@@ -122,7 +129,7 @@ $config = [
     'params' => $params,
 ];
 
-if(WEB_LOCAL) {
+if(!YII_ENV_PROD) {
     $config = yii\helpers\ArrayHelper::merge($config, $local);
 } else {
     $config = yii\helpers\ArrayHelper::merge($config, $server);

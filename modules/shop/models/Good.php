@@ -1,46 +1,61 @@
 <?php
+
 namespace app\modules\shop\models;
 
 use yii\db\ActiveRecord;
-use Yii;
 
 /**
- * Price model
+ * Class Good
+ * @package app\modules\shop\models
+ * Model Good.
+ *
  * @property integer $id
- * @property integer $id_shop
- * @property integer $id_item
+ * @property integer $shop_id
+ * @property integer $item_id
  * @property integer $price_sell
  * @property integer $price_buy
  * @property integer $stuck
- * @property integer $complaint_buy
- * @property integer $complaint_sel
+ * @property integer $created_at
+ * @property integer $updated_at
+ *
+ * @property Shop $shop
+ * @property Item $item
  */
-class Price extends ActiveRecord
+class Good extends ActiveRecord
 {
+    /**
+     * @inheritdoc
+     */
     public static function tableName()
     {
-        return 'tg_price';
+        return '{{%shop_good}}';
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getItem()
     {
-        return $this->hasOne(Item::className(), ['id' => 'id_item']);
+        return $this->hasOne(Item::className(), ['id' => 'item_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getShop()
     {
-        return $this->hasOne(Shop::className(), ['id' => 'id_shop']);
+        return $this->hasOne(Shop::className(), ['id' => 'shop_id']);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function beforeSave($insert)
     {
         if(parent::beforeSave($insert)) {
-            $shop = Shop::findOne($this->id_shop);
-            if($shop->owner === Yii::$app->user->id)
+            $shop = Shop::findOne($this->shop_id);
+            if($shop->user_id === \Yii::$app->user->id)
             {
-                $this->complaint_buy = 0;
-                $this->complaint_sell = 0;
-
                 $shop->scenario = 'update_date';
                 if ($shop->save()) {
                     return $shop;
@@ -48,23 +63,25 @@ class Price extends ActiveRecord
                     return null;
                 }
             }
-
             return true;
         }
         return false;
     }
 
-    public static function addPrice($id_item, $id_shop, $price_sell, $price_buy, $stuck)
+    /**
+     * @inheritdoc
+     */
+    public static function addPrice($item_id, $shop_id, $price_sell, $price_buy, $stuck)
     {
         $price_sell = (is_numeric($price_sell))?$price_sell:null;
         $price_buy = (is_numeric($price_buy))?$price_buy:null;
 
-        $price = static::find()->where(['id_item' => $id_item, 'id_shop' => $id_shop])->one();
+        $price = self::find()->where(['item_id' => $item_id, 'shop_id' => $shop_id])->one();
         if(!$price)
         {
-            $price = new Price();
-            $price->id_shop = $id_shop;
-            $price->id_item = $id_item;
+            $price = new self();
+            $price->shop_id = $shop_id;
+            $price->item_id = $item_id;
             $price->price_sell = $price_sell;
             $price->price_buy = $price_buy;
             $price->stuck = $stuck;

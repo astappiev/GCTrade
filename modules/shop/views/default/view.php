@@ -2,12 +2,12 @@
 
 use yii\helpers\Html;
 
-$this->registerJsFile('@web/js/jquery/jquery.tablesorter.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-
 /**
- * @var yii\base\View $this
+ * @var $this yii\web\View
  * @var $model app\modules\shop\models\Shop
  */
+
+$this->registerJsFile('@web/js/jquery/jquery.tablesorter.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app/shop', 'SHOP'), 'url' => ['/shop/default/index']];
@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </thead>
             <tbody>
 
-                <?php foreach($model->prices as $price): ?>
+                <?php foreach($model->products as $price): ?>
 
                     <tr>
                         <td><img src="/images/items/<?= $price->item->getAlias() ?>.png" alt="<?= $price->item->name; ?>" class="small-icon"></td>
@@ -70,24 +70,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php \yii\bootstrap\Modal::begin([
     'id' => 'reviewToOwner',
-    'toggleButton' => ['label' => 'click me'],
     'header' => '<h3 class="modal-title">Сообщение владельцу</h3>',
     'footer' => '<button type="button" id="review-shop-send" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Отправить</button>',
 ]); ?>
     <?php
     $message = new \app\modules\users\models\Message();
-    $form = \yii\widgets\ActiveForm::begin([
+    $form = \yii\bootstrap\ActiveForm::begin([
         'id' => 'review-shop',
         'action' => ['/users/message/create'],
     ]); ?>
 
-    <?= Html::activeHiddenInput($message, 'id_recipient', ['value' => $model->owner]) ?>
+    <?= Html::activeHiddenInput($message, 'id_recipient', ['value' => $model->user_id]) ?>
 
     <?= $form->field($message, 'title')->textInput(['readonly' => true, 'value' => 'Отзыв о магазине «'.$model->name.'»']) ?>
 
     <?= $form->field($message, 'text')->textArea(['rows' => 8, 'placeholder' => 'Текст сообщения', 'maxlength' => 4000]) ?>
 
-<?php \yii\widgets\ActiveForm::end(); ?>
+<?php \yii\bootstrap\ActiveForm::end(); ?>
 <?php \yii\bootstrap\Modal::end(); ?>
 <?php
 $this->registerJs('

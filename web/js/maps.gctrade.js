@@ -1,9 +1,8 @@
 $("textarea.autosize").autosize();
 
-function MapsIndexShop()
-{
+function MapsIndexShop() {
     var playerLayers = new L.LayerGroup(), shopsLayers = new L.LayerGroup();
-    map = L.map('map', { maxZoom: 15, minZoom: 10, crs: L.CRS.Simple, layers: [playerLayers, shopsLayers] }).setView([-0.35764, 0.11951], 13);
+    var map = L.map('map', { maxZoom: 15, minZoom: 10, crs: L.CRS.Simple, layers: [playerLayers, shopsLayers] }).setView([-0.35764, 0.11951], 13);
     L.tileLayer('http://maps.gctrade.ru/tiles/{z}/tile_{x}_{y}.png', { noWrap: true }).addTo(map);
     L.control.layers(null, { "Персонаж": playerLayers, "Магазины": shopsLayers }).addTo(map);
 
@@ -34,7 +33,7 @@ function MapsIndexShop()
 
         function setUser() {
             $.getJSON( "/api/world/" + userLogin, function(user_data) {
-                if(user_data["status"] == 1)
+                if(user_data["status"] === 1)
                 {
                     var pos = [user_data["player"]["x"], user_data["player"]["z"]];
                     pos = AdaptCords(pos);
@@ -83,6 +82,11 @@ function MapsUserRegions()
 {
     var area = 0, volume = 0, cost = 0;
 
+    var buildLayers = new L.LayerGroup(), fullLayers = new L.LayerGroup(), customLayers = new L.LayerGroup();
+    map = L.map('map', { maxZoom: 15, minZoom: 10, crs: L.CRS.Simple, layers: [fullLayers, buildLayers, customLayers] }).setView([-0.35764, 0.11951], 13);
+    L.tileLayer('http://maps.gctrade.ru/tiles/{z}/tile_{x}_{y}.png', { noWrap: true }).addTo(map);
+    L.control.layers(null, { "Полный доступ": fullLayers, "Частичный доступ": buildLayers, "Добавленые регионы": customLayers }).addTo(map);
+
     $.ajax({
         type: 'GET',
         url: '/api/regions',
@@ -106,31 +110,19 @@ function MapsUserRegions()
             }
 
             for (var i = regions.length; i--;) {
-                $.ajax({
-                    type: 'GET',
-                    url: 'https://api.greencubes.org/main/regions/' + regions[i]["name"],
-                    dataType: 'json',
-                    success: function(region){
-                        if(region["name"]) {
-                            pos1 = region["coordinates"]["first"].split(' ');
-                            pos2 = region["coordinates"]["second"].split(' ');
+                pos1 = regions[i]["coordinates"]["first"].split(' ');
+                pos2 = regions[i]["coordinates"]["second"].split(' ');
 
-                            var x = Math.abs(pos1[0]-pos2[0]), y = Math.abs(pos1[1]-pos2[1]), z = Math.abs(pos1[2]-pos2[2]);
-                            area += x*z, volume += x*y*z, cost += Math.round(x*z*10+(x*y*z*10)/256);
-                            DrawPolygon(pos1, pos2, region);
-                            outSats();
-                        }
-                    }
-                });
+                var x = Math.abs(pos1[0]-pos2[0]), y = Math.abs(pos1[1]-pos2[1]), z = Math.abs(pos1[2]-pos2[2]);
+                area += x*z;
+                volume += x*y*z;
+                cost += Math.round(x*z*10+(x*y*z*10)/256);
+                DrawPolygon(pos1, pos2, regions[i]);
+                outSats();
             }
         }
     });
-
-    var buildLayers = new L.LayerGroup(), fullLayers = new L.LayerGroup(), customLayers = new L.LayerGroup();
-    map = L.map('map', { maxZoom: 15, minZoom: 10, crs: L.CRS.Simple, layers: [fullLayers, buildLayers, customLayers] }).setView([-0.35764, 0.11951], 13);
-    L.tileLayer('http://maps.gctrade.ru/tiles/{z}/tile_{x}_{y}.png', { noWrap: true }).addTo(map);
-    L.control.layers(null, { "Полный доступ": fullLayers, "Частичный доступ": buildLayers, "Добавленые регионы": customLayers }).addTo(map);
-
+    
     function AdaptCords(pos) {
         var t = parseInt(pos[0], 10);
         pos[0] = -(parseInt(pos[2], 10)-2607);
@@ -138,21 +130,19 @@ function MapsUserRegions()
         return pos;
     }
 
-    function isFull(rights) {
-        for(var i = rights.length; i--; ) if(rights[i] == userLogin) return true;
-        return false;
-    }
-
     function DrawPolygon(pos1, pos2, region) {
-        rights = isFull(region["full_access"]);
-        color = (rights) ? 'blue' : 'red';
-        pos1 = AdaptCords(pos1), pos2 = AdaptCords(pos2);
+        rights = (region["rights"][0] === "full") ? 1 : 0;
+        color = !rights ?  'blue' : 'red';
+        pos1 = AdaptCords(pos1);
+        pos2 = AdaptCords(pos2);
         var rectangle = L.rectangle([
             map.unproject([pos1[0], pos1[2]], map.getMaxZoom()),
             map.unproject([pos2[0], pos2[2]], map.getMaxZoom())
         ], { color: color, weight: 3, fillOpacity: 0.3 });
-        var parent = region["parent"] ? '<br><i>Родительский:</i> ' + region["parent"] : '';
-        rectangle.bindPopup('<b>' + region["name"] + '</b>' + parent + '<br><br><b>Владельцы:</b><br>' + region["full_access"] + '<br><b>Могут строить:</b><br>' + region["build_access"]).on('click', function (e) { this.bringToBack(); });
+        rectangle.bindPopup('<b>' + region["name"] + '</b><br>' + '<a href="http://handbook.gctrade.ru/r:' + region["name"] + '" target="_blank">Информация о регионе</a>');
+        rectangle.on('click', function () {
+            this.bringToBack();
+        });
 
         if(rights) fullLayers.addLayer(rectangle);
         else buildLayers.addLayer(rectangle);
@@ -187,7 +177,7 @@ function MapsUserRegions()
     $(document).ready(function() {
         if(localStorage["customRegions"])
         {
-            $('#customRegionTextarea').val(localStorage["customRegions"])
+            $('#customRegionTextarea').val(localStorage["customRegions"]);
             drowCustomRegions();
         }
     });
@@ -204,21 +194,20 @@ function MapsUserRegions()
                 dataType: 'json',
                 success: function(region){
                     if(region["name"]) {
-                        pos1 = region["coordinates"]["first"].split(' ');
-                        pos2 = region["coordinates"]["second"].split(' ');
-
-                        pos1 = AdaptCords(pos1), pos2 = AdaptCords(pos2);
+                        pos1 = AdaptCords(region["coordinates"]["first"].split(' '));
+                        pos2 = AdaptCords(region["coordinates"]["second"].split(' '));
                         var rectangle = L.rectangle([
                             map.unproject([pos1[0], pos1[2]], map.getMaxZoom()),
                             map.unproject([pos2[0], pos2[2]], map.getMaxZoom())
                         ], { color: 'orange', weight: 3, fillOpacity: 0.4 });
                         var parent = region["parent"] ? '<br><i>Родительский:</i> ' + region["parent"] : '';
-                        rectangle.bindPopup('<b>' + region["name"] + '</b>' + parent + '<br><br><b>Владельцы:</b><br>' + region["full_access"] + '<br><b>Могут строить:</b><br>' + region["build_access"]).on('click', function (e) { this.bringToBack(); });
+                        rectangle.bindPopup('<b>' + region["name"] + '</b>' + parent + '<br><br><b>Владельцы:</b><br>' + region["full_access"] + '<br><b>Могут строить:</b><br>' + region["build_access"]);
+                        rectangle.on('click', function () { this.bringToBack(); });
 
                         customLayers.addLayer(rectangle);
                     }
                 }
             });
         }
-    };
+    }
 }

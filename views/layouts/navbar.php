@@ -20,32 +20,30 @@ $mainMenu = [
         ['label' => 'Все товары', 'url' => ['/shop/item/full']],
         ['label' => 'Товары в наличии', 'url' => ['/shop/item/index']],
     ]],
-    //['label' => 'Аукционы', 'linkOptions' => ['class' => 'intro-auction'], 'url' => ['/auction/index']],
+    ['label' => 'Аукционы', 'linkOptions' => ['class' => 'intro-auction'], 'url' => ['/auction/default/index']],
     ['label' => 'Инструменты', 'linkOptions' => ['class' => 'intro-tools'], 'items' => [
         ['label' => ' Наблюдение за активностью', 'icon' => 'search', 'url' => ['/see/index']],
         ['label' => ' Карта регионов пользователя', 'icon' => 'flag', 'url' => ['/maps/user']],
-        ['label' => ' Калькулятор регионов', 'icon' => 'resize-full', 'url' => ['/site/calc']],
         ['label' => ' Статистика ЖД', 'icon' => 'stats', 'url' => ['/site/rail']],
         '<li class="divider"></li>',
         '<li role="presentation" class="dropdown-header">Наши друзья</li>',
         ['label' => 'Расчёты связаные с белым камнем', 'linkOptions' => ['target' => '_blank'], 'url' => 'http://raschet.gctrade.ru/'],
     ]],
     ['label' => 'Статистика', 'linkOptions' => ['class' => 'intro-economy'], 'url' => ['/site/statistics']],
+    ['label' => 'Handbook', 'linkOptions' => ['class' => 'intro-handbook', 'target' => '_blank'], 'url' => 'http://handbook.gctrade.ru/'],
 ];
 
 if (!Yii::$app->user->isGuest) {
 
     $userMenu = [
-        /*['label' => ' ', 'icon' => 'plus', 'items' => [
+        ['label' => ' ', 'icon' => 'plus', 'items' => [
             ['label' => 'Добавить магазин', 'url' => ['/shop/cpanel/create']],
             ['label' => 'Добавить лот', 'url' => ['/auction/cpanel/create']],
         ]],
         ['label' => ' ', 'icon' => 'cog', 'items' => [
-            ['label' => 'Редактировать магазины', 'url' => ['/shop/cpanel/edit']],
-            ['label' => 'Редактировать лоты', 'url' => ['/auction/cpanel/create']],
-        ]],*/
-        ['label' => ' ', 'icon' => 'plus', 'url' => ['/shop/cpanel/create']],
-        ['label' => ' ', 'icon' => 'cog', 'url' => ['/shop/cpanel/index']],
+            ['label' => 'Редактировать магазины', 'url' => ['/shop/cpanel/index']],
+            ['label' => 'Редактировать лоты', 'url' => ['/auction/cpanel/index']],
+        ]],
         ['label' => ' ', 'icon' => 'comment', 'url' => ['/users/message/index'], 'badge' => Message::getCount()],
         ['label' => ' '.Yii::$app->user->identity->username, 'icon' => 'user', 'linkOptions' => ['class' => 'intro-user'], 'items' => [
             ['label' => 'Твой профиль', 'url' => ['/users/default/index']],

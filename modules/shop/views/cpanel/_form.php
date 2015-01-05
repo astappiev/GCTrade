@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use vova07\imperavi\Widget as Imperavi;
 use vova07\fileapi\Widget as FileAPI;
 
@@ -24,6 +24,8 @@ use vova07\fileapi\Widget as FileAPI;
     ]); ?>
 
     <?= $form->field($model, 'name')->textInput(['placeholder' => 'Название магазина', 'minlength' => 3,'maxlength' => 90]) ?>
+
+    <?= $form->field($model, 'type')->dropDownList($model->getTypeArray(), (!$model->isNewRecord) ? ['readonly' => true] : []) ?>
 
     <?= $form->field($model, 'alias')->textInput(['placeholder' => 'Краткое название на латинице', 'minlength' => 3,'maxlength' => 30]) ?>
 

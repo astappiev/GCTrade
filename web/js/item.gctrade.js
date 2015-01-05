@@ -1,6 +1,6 @@
 var isClear = false; // чистая ли таблица с данными
 var isSave = false; // нужна ли перегрузка после закрытия окна
-var id_shop = $("div.body-content.edit-shop").attr('id'); // id магазина
+var shop_id = $("div.body-content.edit-shop").attr('id'); // id магазина
 
 /* Обработка input файла, в форме импорта */
 $('#InputFile').change(function(e){
@@ -81,7 +81,7 @@ $('button#sync').click(function() {
         $("tr", table).each(function(index) {
             var that = this;
             var t = setTimeout(function() {
-                var id_item = $(that).attr("id");
+                var item_id = $(that).attr("id");
                 var price_sell = $("td", that).eq(1).text();
                 var price_buy = $("td", that).eq(2).text();
                 var stuck = $("td", that).eq(3).text();
@@ -95,7 +95,7 @@ $('button#sync').click(function() {
                     cache: false,
                     async: false,
                     dataType: 'json',
-                    data: { id_shop: id_shop, id_item: id_item,  price_sell: price_sell, price_buy: price_buy, stuck: stuck }
+                    data: { shop_id: shop_id, item_id: item_id,  price_sell: price_sell, price_buy: price_buy, stuck: stuck }
                 }).responseText;
 
                 update = $.parseJSON(update);
@@ -112,7 +112,7 @@ var that;
 $("button#editButtons").click(function() {
     that = $(this).parents("tr");
     $("#EditModal").modal('show');
-    var id_item = $('td', that).eq(1).text();
+    var item_id = $('td', that).eq(1).text();
     var name = $('td', that).eq(2).text();
     var price_sell = $('td', that).eq(3).text();
     var price_buy = $('td', that).eq(4).text();
@@ -121,9 +121,9 @@ $("button#editButtons").click(function() {
     if (isNaN(price_sell)) price_sell = null;
     if (isNaN(price_buy)) price_buy = null;
 
-    $(".modal#EditModal label#name").html('<img class="small-icon" src="/images/items/' + id_item + '.png" alt="' + name + '">');
-    $(".modal#EditModal p#name").text(name + ' (' + id_item + ')');
-    $(".modal#EditModal #IdHide").val(id_item);
+    $(".modal#EditModal label#name").html('<img class="small-icon" src="/images/items/' + item_id + '.png" alt="' + name + '">');
+    $(".modal#EditModal p#name").text(name + ' (' + item_id + ')');
+    $(".modal#EditModal #IdHide").val(item_id);
     $(".modal#EditModal #Sell").val(price_sell);
     $(".modal#EditModal #Buy").val(price_buy);
     $(".modal#EditModal #Stuck").val(stuck);
@@ -133,7 +133,7 @@ $("button#editButtons").click(function() {
 $(".modal#EditModal button#editButtonModal").click(function(e){
     var form = $("form#EditItemForm");
 
-    var id_item = $("#IdHide", form).val();
+    var item_id = $("#IdHide", form).val();
     var price_sell = $("#Sell", form).val();
     var price_buy = $("#Buy", form).val();
     var stuck = $("#Stuck", form).val();
@@ -143,7 +143,7 @@ $(".modal#EditModal button#editButtonModal").click(function(e){
         url: "/shop/cpanel/item-edit",
         cache: false,
         async: false,
-        data: { id_item: id_item, id_shop: id_shop, price_sell: price_sell, price_buy: price_buy, stuck: stuck },
+        data: { item_id: item_id, shop_id: shop_id, price_sell: price_sell, price_buy: price_buy, stuck: stuck },
         success: function() {
             $("#EditModal").modal('hide');
             if (!price_sell) price_sell = '—';
@@ -174,8 +174,8 @@ $('#ImportFileModal').on('hidden.bs.modal', function() {
 
 $('button#removeButtons').click(function() {
     that = $(this).parents('tr');
-    var id_item = $('td', that).eq(1).text();
-    $.get("/shop/cpanel/item-remove", { id_shop: id_shop, id_item: id_item }).done(function() {
+    var item_id = $('td', that).eq(1).text();
+    $.get("/shop/cpanel/item-remove", { shop_id: shop_id, item_id: item_id }).done(function() {
         $(that).hide('slow', function(){
             $(that).remove();
         });
