@@ -24,8 +24,6 @@ use yii\behaviors\TimestampBehavior;
  * @property string $auth_key
  * @property integer $created_at
  * @property integer $updated_at
- * @property integer $mail_delivery
- * @property integer $mail_see
  * @property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -76,7 +74,6 @@ class User extends ActiveRecord implements IdentityInterface
             ['username', 'unique'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
-            [['mail_delivery', 'mail_see'], 'boolean'],
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
@@ -146,8 +143,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'mail_delivery' => 'Получать уведомления от сайта',
-            'mail_see' => 'Получать уведомления, когда отслеживаемый пользователь перестает играть',
             'email' => 'Email',
         ];
     }

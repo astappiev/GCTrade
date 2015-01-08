@@ -499,10 +499,6 @@ img.leaflet-tile.leaflet-tile-loaded {
     float: left;
 }
 
-.auction .well {
-    min-height: 188px;
-}
-
 .auction .pull-right img {
     width: 150px;
     height: auto;
@@ -534,6 +530,14 @@ img.leaflet-tile.leaflet-tile-loaded {
 
 .auction .preview .panel-heading {
     padding: 0;
+}
+
+.auction .posts .panel {
+    margin-bottom: 0;
+}
+
+.auction .posts .panel-body p:last-of-type {
+    margin: 0;
 }
 
 .auction .preview.land .map {

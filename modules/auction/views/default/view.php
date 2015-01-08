@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php if(!\Yii::$app->user->isGuest): ?>
+    <?php if(\Yii::$app->user->id == $model->user_id): ?>
     <p>
         <?= Html::a('Изменить', ['cpanel/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Удалить', ['cpanel/delete', 'id' => $model->id], [
@@ -97,19 +97,25 @@ $this->params['breadcrumbs'][] = $this->title;
                         Блиц цена <span class="badge"><?= \Yii::$app->formatter->asInteger($model->price_blitz) ?> зелени</span>
                     </li>
                     <li class="list-group-item list-group-item-danger clearfix">
-                        <form method="post" id="add-bid" action="<?= Yii::$app->urlManager->createUrl(['auction/bid/create']) ?>">
-                            <input type="hidden" name="_csrf" value="<?= Yii::$app->request->getCsrfToken() ?>">
-                            <input type="hidden" name="lot_id" value="<?= $model->id ?>">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <label for="inputCost" class="sr-only">Стоимость</label>
-                                    <input type="text" name="cost" class="form-control" id="inputCost" placeholder="Сумма ставки">
+                        <?php if(\Yii::$app->user->id == $model->user_id): ?>
+                            Нельзя делать ставки на свой аукцион
+                        <?php elseif(!\Yii::$app->user->isGuest): ?>
+                            <form method="post" id="add-bid" action="<?= Yii::$app->urlManager->createUrl(['auction/bid/create']) ?>">
+                                <input type="hidden" name="_csrf" value="<?= Yii::$app->request->getCsrfToken() ?>">
+                                <input type="hidden" name="lot_id" value="<?= $model->id ?>">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label for="inputCost" class="sr-only">Стоимость</label>
+                                        <input type="text" name="cost" class="form-control" id="inputCost" placeholder="Сумма ставки">
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <input type="submit" class="btn btn-danger" value="Сделать ставку">
+                                    </div>
                                 </div>
-                                <div class="col-xs-6 text-right">
-                                    <input type="submit" class="btn btn-danger" value="Сделать ставку">
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        <?php else: ?>
+                            Вы должны быть авторизованы
+                        <?php endif; ?>
                     </li>
                 <?php endif; ?>
             </ul>

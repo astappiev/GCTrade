@@ -23,7 +23,7 @@ $item = Json::decode($model->metadata, FALSE);
 
         <?php elseif($model->type_id === Lot::TYPE_LAND): ?>
 
-            <?= $this->render('type/region', [
+            <?= $this->render('type/region-short', [
                 'model' => $model,
             ]) ?>
 
@@ -40,16 +40,12 @@ $item = Json::decode($model->metadata, FALSE);
                     <?php if($model->updated_at + 14*24*60*60 < time() || ($model->bid && $model->bid->updated_at + 24*60*60 < time())): ?>
                         <a href="#" class="btn btn-success disabled" role="button">Аукцион закрыт</a>
                         <a href="#" class="btn btn-primary disabled" role="button"><?= ($model->bid) ? \Yii::$app->formatter->asInteger($model->bid->cost).' зелени' : 'нет ставок' ?></a>
-                        <a href="<?= Yii::$app->urlManager->createUrl(['auction/default/view', 'id' => $model->id]) ?>" class="btn btn-danger" role="button">Просмотр</a>
+                    <?php elseif($bid = $model->bid): ?>
+                        <a href="#" class="btn btn-success disabled countdown" role="button" data-time="<?= $bid->updated_at + 24*60*60 ?>">00:00:00</a>
+                        <a href="#" class="btn btn-primary disabled" role="button"><?= \Yii::$app->formatter->asInteger($bid->cost) ?> зелени</a>
                     <?php else: ?>
-                        <?php if($bid = $model->bid): ?>
-                            <a href="#" class="btn btn-success disabled countdown" role="button" data-time="<?= $bid->updated_at + 24*60*60 ?>">00:00:00</a>
-                            <a href="#" class="btn btn-primary disabled" role="button"><?= \Yii::$app->formatter->asInteger($bid->cost) ?> зелени</a>
-                        <?php else: ?>
-                            <a href="#" class="btn btn-success disabled countdown" role="button" data-time="<?= $model->updated_at + 14*24*60*60 ?>">00:00:00</a>
-                            <a href="#" class="btn btn-primary disabled" role="button">нет ставок</a>
-                        <?php endif; ?>
-                        <a href="<?= Yii::$app->urlManager->createUrl(['auction/default/view', 'id' => $model->id]) ?>" class="btn btn-danger" role="button">Сделать ставку</a>
+                        <a href="#" class="btn btn-success disabled countdown" role="button" data-time="<?= $model->updated_at + 14*24*60*60 ?>">00:00:00</a>
+                        <a href="#" class="btn btn-primary disabled" role="button">нет ставок</a>
                     <?php endif; ?>
                 </div>
             </li>

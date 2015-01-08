@@ -6,6 +6,7 @@ use Yii;
 use app\modules\shop\models\Shop;
 use app\modules\shop\models\Good;
 use app\modules\shop\models\Item;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Json;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
@@ -59,7 +60,21 @@ class CpanelController extends DefaultController
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $dataProvider = new ActiveDataProvider([
+            'query' => Shop::find()->where(['user_id' => \Yii::$app->user->id]),
+            'sort' => [
+                'defaultOrder' => [
+                    'updated_at' => SORT_ASC,
+                ]
+            ],
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

@@ -5,7 +5,7 @@ namespace app\modules\auction\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\auction\models\lot as LotModel;
+use app\modules\auction\models\Lot as LotModel;
 
 /**
  * Lot represents the model behind the search form about `app\models\Lot`.

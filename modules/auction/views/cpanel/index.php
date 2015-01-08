@@ -7,13 +7,16 @@ use yii\widgets\ListView;
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
  */
-$this->title = 'Ваши Магазины';
+$this->registerJsFile('@web/js/jquery/jquery.countdown.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/auction.gctrade.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
+$this->title = 'Ваши Аукционы';
 $this->params['breadcrumbs'][] = ['label' => 'Панель управления', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="body-content shop-cpanel">
+<div class="body-content lot-cpanel">
 
-	<h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <?php echo ListView::widget([
         'dataProvider' => $dataProvider,
@@ -26,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'layout' => "<div class=\"posts clearfix\">{items}</div>\n{pager}\n{summary}",
         'options' => [
             'tag' => 'div',
-            'class' => 'shop-list',
+            'class' => 'auction',
         ],
         'itemOptions' => [
             'tag' => 'div',
@@ -34,12 +37,4 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'itemView' => '_list_item',
     ]); ?>
-
-    <?php
-    /*if(empty($shops))
-    {
-        echo '<div class="alert alert-danger" role="alert">У тебя все еще нет своего магазина. Если это не так, ты '.Html::a("должен его добавить", Url::toRoute('shop/cpanel/create')).'!</div>';
-    }*/
-    ?>
-
 </div>

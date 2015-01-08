@@ -4,6 +4,7 @@ namespace app\modules\auction\controllers;
 
 use Yii;
 use app\modules\auction\models\Lot;
+use yii\data\ActiveDataProvider;
 use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 use vova07\fileapi\actions\UploadAction as FileAPIUpload;
@@ -56,7 +57,22 @@ class CpanelController extends DefaultController
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $dataProvider = new ActiveDataProvider([
+            'query' => Lot::find(),
+            'sort' => [
+                'defaultOrder' => [
+                    'name' => SORT_ASC,
+                    'time_elapsed' => SORT_DESC
+                ]
+            ],
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
@@ -73,7 +89,7 @@ class CpanelController extends DefaultController
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', 'Лот '.$model->name.', успешно создан.');
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['default/view', 'id' => $model->id]);
             } else {
                 Yii::$app->session->setFlash('error', 'Возникла ошибка при сохранении.');
                 return false;
