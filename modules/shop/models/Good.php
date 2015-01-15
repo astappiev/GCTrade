@@ -2,6 +2,7 @@
 
 namespace app\modules\shop\models;
 
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
 /**
@@ -32,6 +33,54 @@ class Good extends ActiveRecord
     }
 
     /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'timestamp' => TimestampBehavior::className(),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['shop_id', 'item_id', 'stuck'], 'required'],
+            [['shop_id', 'item_id', 'price_sell', 'price_buy', 'stuck'], 'integer'],
+            ['price_sell', 'required', 'when' => function ($model) {
+                return $model->price_buy == null;
+            }, 'whenClient' => "function (attribute, value) {
+                return $('#good-price_buy').val() == '';
+            }"],
+            ['price_buy', 'required', 'when' => function ($model) {
+                return $model->price_sell == null;
+            }, 'whenClient' => "function (attribute, value) {
+                return $('#good-price_sell').val() == '';
+            }"],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'shop_id' => 'Магазин',
+            'item_id' => 'Предмет',
+            'price_buy' => 'Цена покупки',
+            'price_sell' => 'Цена продажи',
+            'stuck' => 'Кол-во за операцию',
+            'created_at' => 'Создано',
+            'updated_at' => 'Последнее обновление',
+        ];
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getItem()
@@ -53,52 +102,26 @@ class Good extends ActiveRecord
     public function beforeSave($insert)
     {
         if(parent::beforeSave($insert)) {
+            if ($this->price_sell == 0) {
+                $this->price_sell = null;
+            }
+
+            if ($this->price_buy == 0) {
+                $this->price_buy = null;
+            }
+
+            if(!$this->price_buy && !$this->price_sell) return false;
+
             $shop = Shop::findOne($this->shop_id);
             if($shop->user_id === \Yii::$app->user->id)
             {
                 $shop->scenario = 'update_date';
-                if ($shop->save()) {
-                    return $shop;
-                } else {
-                    return null;
+                if (!$shop->save()) {
+                    return false;
                 }
             }
             return true;
         }
         return false;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function addPrice($item_id, $shop_id, $price_sell, $price_buy, $stuck)
-    {
-        $price_sell = (is_numeric($price_sell))?$price_sell:null;
-        $price_buy = (is_numeric($price_buy))?$price_buy:null;
-
-        $price = self::find()->where(['item_id' => $item_id, 'shop_id' => $shop_id])->one();
-        if(!$price)
-        {
-            $price = new self();
-            $price->shop_id = $shop_id;
-            $price->item_id = $item_id;
-            $price->price_sell = $price_sell;
-            $price->price_buy = $price_buy;
-            $price->stuck = $stuck;
-            if($price->save())
-                return '<span class="glyphicon glyphicon-plus twosize green"></span>';
-            else
-                return '<span class="glyphicon glyphicon-remove twosize red"></span>';
-        } else {
-            if($price->price_sell == $price_sell && $price->price_buy == $price_buy && $price->stuck == $stuck) return '';
-
-            $price->price_sell = $price_sell;
-            $price->price_buy = $price_buy;
-            $price->stuck = $stuck;
-            if($price->save())
-                return '<span class="glyphicon glyphicon-refresh twosize blue"></span>';
-            else
-                return '<span class="glyphicon glyphicon-remove twosize red"></span>';
-        }
     }
 }

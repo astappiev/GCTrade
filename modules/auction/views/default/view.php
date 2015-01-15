@@ -58,16 +58,16 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-md-4">
             <ul class="list-group">
-                <?php if(!$model->bid && $model->updated_at + 14*24*60*60 < time()): ?>
+                <?php if(!$model->bid && $model->time_elapsed < time()): ?>
                     <li class="list-group-item list-group-item-danger">
                         Аукцион закрыт
                     </li>
-                <?php elseif($model->bid && $model->bid->updated_at + 24*60*60 < time() || $model->bid->cost >= $model->price_blitz): ?>
+                <?php elseif($model->time_elapsed < time() || $model->bid->cost >= $model->price_blitz): ?>
                     <li class="list-group-item list-group-item-success">
                         Лол выигран <?= ($model->bid->cost >= $model->price_blitz) ? '(достигнута блиц)' : null ?>
                     </li>
                     <li class="list-group-item">
-                        Стоимость лота <span class="badge"><?= $model->bid->cost ?> зелени</span>
+                        Стоимость лота <span class="badge"><?= \Yii::$app->formatter->asInteger($model->bid->cost) ?> зелени</span>
                     </li>
                     <li class="list-group-item">
                         Победитель <span class="badge"><?= $model->bid->user->username ?></span>
@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </li>
                 <?php else: ?>
                     <li class="list-group-item list-group-item-warning">
-                        До закрытия аукциона <span class="badge countdown" data-time="<?= $model->bid? ($model->bid->updated_at + 24*60*60) : ($model->updated_at + 14*24*60*60) ?>">00:00:00</span>
+                        До закрытия аукциона <span class="badge countdown" data-time="<?= $model->time_elapsed ?>">00:00:00</span>
                     </li>
                     <?php if(!$model->bids): ?>
                         <li class="list-group-item list-group-item-info">
@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </li>
                     <?php else: ?>
                         <?php $last_bid = $model->bid; ?>
-                        <li class="list-group-item list-group-item-info">Текущая ставка <span class="badge"><?= $last_bid->cost.' зелени ('.$last_bid->user->username.')' ?></span></li>
+                        <li class="list-group-item list-group-item-info">Текущая ставка <span class="badge"><?= \Yii::$app->formatter->asInteger($last_bid->cost).' зелени ('.$last_bid->user->username.')' ?></span></li>
                         <?php foreach($model->getBids()->where('NOT id = :last_id', [':last_id' => $last_bid->id])->each(5) as $bid) {
                             echo '<li class="list-two-group">'.Yii::$app->formatter->asInteger($bid->cost).' зелени ('.$bid->user->username.')</li>';
                         } ?>

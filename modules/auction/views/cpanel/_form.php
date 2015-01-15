@@ -12,6 +12,7 @@ use vova07\fileapi\Widget as FileAPI;
  * @var app\modules\auction\models\Lot $model
  * @var yii\widgets\ActiveForm $form
  */
+//$this->registerJsFile('@web/js/auction.form.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
 <div class="lot-form">
@@ -19,6 +20,8 @@ use vova07\fileapi\Widget as FileAPI;
     <?php $form = ActiveForm::begin([
         'id' => 'lot-form',
         'options' => ['class' => 'form-horizontal'],
+        //'enableAjaxValidation' => true,
+        //'enableClientValidation' => false,
         'fieldConfig' => [
             'template' => "{label}\n<div class=\"col-md-10\">{input}</div>\n<div class=\"col-md-offset-2 col-md-10\">{error}</div>",
             'labelOptions' => ['class' => 'control-label col-md-2'],
@@ -29,7 +32,9 @@ use vova07\fileapi\Widget as FileAPI;
 
     <?= $form->field($model, 'type_id')->dropDownList($typeArray) ?>
 
-    <?= $form->field($model, 'metadata')->textarea() ?>
+    <?= $form->field($model, 'region_name')->textInput(['placeholder' => 'Например: Sherwood или astappev_h_3']) ?>
+
+    <?= $form->field($model, 'metadata')->textarea(['readonly' => true, 'rows' => 4]) ?>
 
     <?= $form->field($model, 'description')->widget(Imperavi::className(), [
         'settings' => [

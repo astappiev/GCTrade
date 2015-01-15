@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use app\modules\shop\models\Shop;
 
 /**
  * @var $this yii\web\View
@@ -21,49 +22,28 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <img src="<?= $model->getLogo() ?>" alt="<?= $model->name ?>" class="img-rounded" />
+            <img src="<?= $model->getLogo() ?>" alt="<?= Html::encode($model->name) ?>" class="img-rounded" />
             <div class="info">
                 <p><?= Html::encode($model->about) ?></p>
-                <?php
-                if(isset($model->subway))
+                <?php if(isset($model->subway)):
                     echo '<p>'.Yii::t('app/shop', 'Subway station:').' /go '.Html::encode($model->subway).'</p>';
-
-                if(isset($model->x_cord) && isset($model->z_cord))
+                endif; ?>
+                <?php if(isset($model->x_cord) && isset($model->z_cord)):
                     echo '<p id="cord" data-x="'.Html::encode($model->x_cord).'" data-z="'.Html::encode($model->x_cord).'">'.Yii::t('app/shop', 'Coordinates:').' X: '.$model->x_cord.', Z: '.$model->z_cord.'</p>';
-                ?>
+                endif; ?>
                 <?= '<p>'.Yii::t('app/shop', 'Last update:').' <span class="label label-info">'.Yii::t('app/shop', '{0, date, medium}', $model->updated_at).'</span></p>' ?>
-                <?php if($model->source) echo '<p><a href="http://'.$model->source.'" target="_blank">'.Yii::t('app/shop', 'Source:').'</a></p>' ?>
+                <?php if($model->source):
+                    echo '<p><a href="http://'.$model->source.'" target="_blank">'.Yii::t('app/shop', 'Source:').'</a></p>';
+                endif; ?>
             </div>
         </div>
-        <?php if(isset($model->description)) echo'<div class="panel-body">'.$model->description.'</div>' ?>
-        <table class="table table-hover item-list sort">
-            <thead>
-                <tr>
-                    <th width="5%"></th>
-                    <th width="5%"><?= Yii::t('app/shop', 'ID') ?></th>
-                    <th class="name"><?= Yii::t('app/shop', 'Name') ?></th>
-                    <th width="15%"><?= Yii::t('app/shop', 'Selling price') ?></th>
-                    <th width="15%"><?= Yii::t('app/shop', 'Purchase price') ?></th>
-                    <th width="15%"><?= Yii::t('app/shop', 'Number of') ?></th>
-                </tr>
-            </thead>
-            <tbody>
+        <?php if(isset($model->description)):
+            echo'<div class="panel-body">'.$model->description.'</div>';
+        endif; ?>
 
-                <?php foreach($model->products as $price): ?>
-
-                    <tr>
-                        <td><img src="/images/items/<?= $price->item->getAlias() ?>.png" alt="<?= $price->item->name; ?>" class="small-icon"></td>
-                        <td><?= $price->item->getAlias() ?></td>
-                        <td class="name"><a href="<?= Yii::$app->urlManager->createUrl(['shop/item/view', 'alias' => $price->item->getAlias()]) ?>"><?= $price->item->name; ?></a></td>
-                        <td><?= $price->price_sell ? $price->price_sell : '—' ?></td>
-                        <td><?= $price->price_buy ? $price->price_buy : '—' ?></td>
-                        <td><?= $price->stuck; ?></td>
-                    </tr>
-
-                <?php endforeach; ?>
-
-            </tbody>
-        </table>
+        <?= $this->render(($model->type == Shop::TYPE_GOODS) ? 'good/view-table' : 'book/view-table', [
+            'model' => $model,
+        ]) ?>
     </div>
 
 </div>

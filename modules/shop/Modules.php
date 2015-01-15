@@ -30,6 +30,7 @@ class Modules extends \yii\base\Module implements \yii\base\BootstrapInterface
             $this->shopUrl . 's/<_action:\w+>' => $this->id . '/default/<_action>',
 
             'cpanel/' . $this->shopUrl . '' => $this->id . '/cpanel/index',
+            'cpanel/' . $this->shopUrl . '/<_controller:(book|good)>/<_action:\w+>' => $this->id . '/<_controller>/<_action>',
             'cpanel/' . $this->shopUrl . '/<_action:\w+>/<alias:\w+>' => $this->id . '/cpanel/<_action>',
             'cpanel/' . $this->shopUrl . '/<_action:\w+>' => $this->id . '/cpanel/<_action>',
 

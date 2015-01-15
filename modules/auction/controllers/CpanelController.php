@@ -2,13 +2,14 @@
 
 namespace app\modules\auction\controllers;
 
-use Yii;
 use app\modules\auction\models\Lot;
+use yii\web\Response;
 use yii\data\ActiveDataProvider;
 use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 use vova07\fileapi\actions\UploadAction as FileAPIUpload;
 use vova07\imperavi\actions\UploadAction as ImperaviUpload;
+use yii\widgets\ActiveForm;
 
 /**
  * CpanelController includes manage your Shop actions
@@ -82,16 +83,21 @@ class CpanelController extends DefaultController
      */
     public function actionCreate()
     {
-        $model = new Lot;
-        $model->scenario = 'create';
+        $model = new Lot();
+        //$model->scenario = 'create';
         $typeArray = Lot::getTypeArray();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if (\Yii::$app->request->isAjax && $model->load(\Yii::$app->request->post())) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
             if ($model->save()) {
-                Yii::$app->session->setFlash('success', 'Лот '.$model->name.', успешно создан.');
+                \Yii::$app->session->setFlash('success', 'Лот '.$model->name.', успешно создан.');
                 return $this->redirect(['default/view', 'id' => $model->id]);
             } else {
-                Yii::$app->session->setFlash('error', 'Возникла ошибка при сохранении.');
+                \Yii::$app->session->setFlash('error', 'Возникла ошибка при сохранении.');
                 return false;
             }
         } else {
@@ -115,11 +121,11 @@ class CpanelController extends DefaultController
         $model->scenario = 'update';
         $typeArray = Lot::getTypeArray();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
             if ($model->save()) {
-                Yii::$app->session->setFlash('success', 'Лот '.$model->name.', успешно обновлен.');
+                \Yii::$app->session->setFlash('success', 'Лот '.$model->name.', успешно обновлен.');
             } else {
-                Yii::$app->session->setFlash('error', 'Возникла ошибка при сохранении.');
+                \Yii::$app->session->setFlash('error', 'Возникла ошибка при сохранении.');
             }
             return $this->refresh();
         } else {
@@ -142,7 +148,7 @@ class CpanelController extends DefaultController
         $model = $this->findModel($id, true);
         $model->delete();
 
-        Yii::$app->session->setFlash('success', 'Лот '.$model->name.', успешно удален.');
+        \Yii::$app->session->setFlash('success', 'Лот '.$model->name.', успешно удален.');
         return $this->redirect(['cpanel/index']);
     }
 

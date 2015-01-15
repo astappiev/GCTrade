@@ -20,7 +20,7 @@ body > .container {
 }
 
 .navbar-inverse {
-    z-index: 90;
+    z-index: 9999;
 }
 
 .body-content {
@@ -43,6 +43,9 @@ body > .container {
     display: block;
     height: 0;
     clear: both;
+}
+.modal {
+    z-index: 9999;
 }
 
 
@@ -345,20 +348,12 @@ th.flag {
 }
 
 /* Модальные окна */
-#AddModal .form-group input#InputID {
-    width: 130px;
-}
-
-#AddModal .form-group input#InputBuy {
+.item-modal #add-item-form input {
     width: 120px;
 }
 
-#AddModal .form-group input#InputSell {
-    width: 120px;
-}
-
-#AddModal .form-group input#InputStuck {
-    width: 80px;
+.item-modal #add-item-form input#stuck {
+    width: 75px;
 }
 
 .nav.edit-shop > li > a,
@@ -391,23 +386,6 @@ th.flag {
     text-decoration: none;
     color: #fff;
     background-color: transparent;
-}
-
-/* Calc Regions */
-.body-content.calc #error, .body-content.calc #not-found {
-    line-height: 28px;
-    display: none;
-    position: absolute;
-}
-
-.body-content.calc .form-inline .form-group {
-    padding-left: 0;
-    margin-bottom: 5px;
-}
-.body-content.calc .form-inline label {
-    font-weight: normal;
-    line-height: 30px;
-    margin: 0 20px 0 5px;
 }
 
 

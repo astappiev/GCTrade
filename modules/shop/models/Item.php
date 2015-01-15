@@ -12,7 +12,11 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $id_primary
  * @property integer $id_meta
+ * @property string $alias
  * @property string $name
+ *
+ * @property \app\modules\shop\models\Good $products
+ * @property string $image
  */
 class Item extends ActiveRecord
 {

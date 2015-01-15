@@ -22,6 +22,8 @@ use yii\db\ActiveRecord;
  * @property integer $price_min
  * @property integer $price_step
  * @property integer $price_blitz
+ * @property integer $time_bid
+ * @property integer $time_elapsed
  * @property integer $created_at
  * @property integer $updated_at
  *
@@ -31,6 +33,8 @@ use yii\db\ActiveRecord;
  */
 class Lot extends ActiveRecord
 {
+    public $region_name;
+
     const TYPE_ITEM = 1;
     const TYPE_LAND = 2;
     const TYPE_PROJECT = 3;
@@ -69,10 +73,10 @@ class Lot extends ActiveRecord
      */
     public function scenarios()
     {
-        return [
-            'create' => ['user_id', 'type_id', 'name', 'metadata', 'description', 'picture_url', 'price_min', 'price_step', 'price_blitz', 'created_at', 'updated_at'],
-            'update' => ['name', 'metadata', 'description', 'picture_url', 'price_min', 'price_step', 'price_blitz', 'updated_at'],
-        ];
+        $scenarios = parent::scenarios();
+        $scenarios['create'] = ['user_id', 'type_id', 'name', 'metadata', 'description', 'picture_url', 'price_min', 'price_step', 'price_blitz', 'created_at', 'updated_at'];
+        $scenarios['update'] = ['name', 'metadata', 'description', 'picture_url', 'price_min', 'price_step', 'price_blitz', 'updated_at'];
+        return $scenarios;
     }
 
     /**
@@ -83,15 +87,34 @@ class Lot extends ActiveRecord
         return [
             [['name', 'price_min', 'metadata'], 'required'],
 
-            ['user_id', 'default', 'value' => \Yii::$app->user->id],
+            [['name', 'metadata', 'description', 'region_name'], 'string'],
+            [['time_bid', 'time_elapsed'], 'integer'],
+            [['time_bid', 'created_at', 'updated_at'], 'safe'],
 
-            [['name', 'metadata', 'description'], 'string'],
-            [['created_at', 'updated_at'], 'safe'],
             [['name', 'picture_url'], 'string', 'max' => 255],
-
             [['price_min', 'price_step', 'price_blitz'], 'integer', 'max' => 100000000000],
+            ['type_id', 'in', 'range' => array_keys(self::getTypeArray())],
 
-            ['type_id', 'in', 'range' => array_keys(self::getTypeArray())]
+            ['user_id', 'default', 'value' => \Yii::$app->user->id],
+            ['time_elapsed', 'default', 'value' => time() + 1209600], // 2 weeks
+            ['time_bid', 'default', 'value' => 172800], // 2 days
+
+            ['region_name', 'app\modules\auction\models\validators\LandValidator'],
+            ['region_name', 'required', 'when' => function ($model) {
+                return $model->type_id == self::TYPE_LAND;
+            }, 'whenClient' => "function (attribute, value) {
+                return ;
+            }"],
+
+            /*['region_name', 'required', 'when' => function($model) {
+				return $model->type_id == self::TYPE_LAND;
+			}],
+
+            ['region_name', function ($attribute, $params) {
+                if (!ctype_alnum($this->$attribute)) {
+                    $this->addError($attribute, 'The token must contain letters or digits.');
+                }
+            }],*/
         ];
     }
 
@@ -113,6 +136,8 @@ class Lot extends ActiveRecord
             'price_blitz' => 'Блиц цена',
             'created_at' => 'Создан',
             'updated_at' => 'Последнее обновление',
+
+            'region_name' => 'Название региона',
         ];
     }
 
@@ -122,10 +147,10 @@ class Lot extends ActiveRecord
     public static function getTypeArray()
     {
         return [
-            self::TYPE_ITEM => 'Предмет',
             self::TYPE_LAND => 'Территория',
-            //self::TYPE_PROJECT => 'Проект',
-            //self::TYPE_OTHER => 'Прочее',
+            self::TYPE_ITEM => 'Предмет',
+            self::TYPE_PROJECT => 'Проект',
+            self::TYPE_OTHER => 'Прочее',
         ];
     }
 

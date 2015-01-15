@@ -2,6 +2,7 @@
 namespace app\modules\shop\models;
 
 use app\modules\users\models\User;
+use karpoff\icrop\CropImageUploadBehavior;
 use yii;
 use yii\db\ActiveRecord;
 use vova07\fileapi\behaviors\UploadBehavior;
@@ -42,6 +43,8 @@ class Shop extends ActiveRecord
     const TYPE_BOOKS = 1;
 
     protected $_logo;
+    public $photo_crop;
+    public $photo_cropped;
 
     /**
      * @inheritdoc
@@ -109,6 +112,8 @@ class Shop extends ActiveRecord
     {
         if($this->type === self::TYPE_GOODS) {
             return $this->hasMany(Good::className(), ['shop_id' => 'id'])->orderBy('item_id');
+        } else if($this->type === self::TYPE_BOOKS) {
+            return $this->hasMany(Book::className(), ['shop_id' => 'id']);
         }
         return null;
     }

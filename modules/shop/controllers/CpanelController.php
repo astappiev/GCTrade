@@ -2,6 +2,7 @@
 
 namespace app\modules\shop\controllers;
 
+use app\modules\shop\models\Book;
 use Yii;
 use app\modules\shop\models\Shop;
 use app\modules\shop\models\Good;
@@ -155,52 +156,6 @@ class CpanelController extends DefaultController
         ]);
     }
 
-    public function actionItemEdit($shop_id, $item_id, $price_sell, $price_buy, $stuck)
-    {
-        if($price_sell < 0 || $price_buy < 0 || $stuck < 1)
-            return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'ERROR_TRANSMITTED_DATA')]);
-
-        if(($shop = Shop::findOne($shop_id)) === null)
-            return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'SHOP_NOT_FOUND')]);
-
-        if($shop->user_id !== Yii::$app->user->id)
-            throw new ForbiddenHttpException(Yii::t('app/shop', 'SHOP_NO_PERMISSION'));
-
-        if(($item = Item::findByAlias($item_id)) === null)
-            return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'ITEM_NOT_FOUND')]);
-
-        if(($price = Good::find()->where(['shop_id' => $shop_id, 'item_id' => $item->id])->one()) !== null)
-        {
-            $price->price_sell = ($price_sell == 0) ? null : $price_sell;
-            $price->price_buy = ($price_buy == 0) ? null : $price_buy;
-            $price->stuck = $stuck;
-            if($price->save()) return Json::encode(['status' => 1, 'message' => Yii::t('app/shop', 'ITEM_UPDATED')]);
-        } else {
-            $price = new Good();
-            $price->item_id = $item->id;
-            $price->shop_id = $shop_id;
-            $price->price_sell = ($price_sell == 0) ? null : $price_sell;
-            $price->price_buy = ($price_buy == 0) ? null : $price_buy;
-            $price->stuck = $stuck;
-            if($price->save()) return Json::encode(['status' => 2, 'message' => Yii::t('app/shop', 'ITEM_CREATED')]);
-        }
-        return false;
-    }
-
-    public function actionItemRemove($shop_id, $item_id)
-    {
-        if(($item = Item::findByAlias($item_id)) !== null && ($shop = Shop::findOne($shop_id)) !== null)
-        {
-            if($shop->user_id != Yii::$app->user->id)
-                throw new ForbiddenHttpException(Yii::t('app/shop', 'SHOP_NO_PERMISSION'));
-
-            if(($price = Good::find()->where(['item_id' => $item->id, 'shop_id' => $shop_id])->one()) !== null && $price->delete())
-                return Json::encode(['status' => 1, 'message' => Yii::t('app/shop', 'ITEM_REMOVED')]);
-        }
-
-        return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'ERROR_TRANSMITTED_DATA')]);
-    }
-
     public function actionItemClear($shop_id)
     {
         if(($shop = Shop::findOne($shop_id)) === null)
@@ -209,7 +164,10 @@ class CpanelController extends DefaultController
         if($shop->user_id !== Yii::$app->user->id)
             throw new ForbiddenHttpException(Yii::t('app/shop', 'SHOP_NO_PERMISSION'));
 
-        Good::deleteAll(['shop_id' => $shop_id]);
+        if($shop->type == Shop::TYPE_GOODS)
+            Good::deleteAll(['shop_id' => $shop_id]);
+        else
+            Book::deleteAll(['shop_id' => $shop_id]);
         return $this->redirect(['cpanel/edit', 'alias' => $shop->alias]);
     }
 
@@ -220,11 +178,17 @@ class CpanelController extends DefaultController
         header('Content-Disposition: attachment; filename="'.$model->alias.'_'.date('Ymd').'.csv"');
 
         $content = '';
-        foreach($model->prices as $price)
+        foreach($model->products as $price)
         {
-            $price_sell = ($price->price_sell) ? $price->price_sell : 'null';
-            $price_buy = ($price->price_buy) ? $price->price_buy : 'null';
-            $content .= $price->item->alias . '; ' . $price_sell . '; ' . $price_buy . '; ' . $price->stuck . PHP_EOL;
+            if($model->type == Shop::TYPE_GOODS) {
+                $price_sell = ($price->price_sell) ? $price->price_sell : 'null';
+                $price_buy = ($price->price_buy) ? $price->price_buy : 'null';
+                $content .= $price->item->alias . '; ' . $price_sell . '; ' . $price_buy . '; ' . $price->stuck . PHP_EOL;
+            } else if($model->type == Shop::TYPE_BOOKS) {
+                $description = ($price->description) ? $price->description : 'null';
+                $price_sell = ($price->price_sell) ? $price->price_sell : 'null';
+                $content .= $price->item->id_primary . '; ' . $price->name . '; ' . $price->author . '; ' . $description . '; ' . $price_sell . ';' . PHP_EOL;
+            }
         }
         return $content;
     }

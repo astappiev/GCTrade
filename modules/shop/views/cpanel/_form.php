@@ -16,7 +16,7 @@ use vova07\fileapi\Widget as FileAPI;
 
     <?php $form = ActiveForm::begin([
         'id' => 'shop-form',
-        'options' => ['class' => 'form-horizontal', 'type' => 'multipart/form-data'],
+        'options' => ['class' => 'form-horizontal', 'type' => 'multipart/form-data', 'enctype' => 'multipart/form-data'],
         'fieldConfig' => [
             'template' => "{label}\n<div class=\"col-md-10\">{input}</div>\n<div class=\"col-md-offset-2 col-md-10\">{error}</div>",
             'labelOptions' => ['class' => 'control-label col-md-2'],
@@ -59,7 +59,7 @@ use vova07\fileapi\Widget as FileAPI;
         ])->textInput(['placeholder' => 'Координата по Z', 'maxlength' => 6]) ?>
     </div>
 
-    <?= $form->field($model, 'logo_url')->widget(FileAPI::className(), [
+    <?php echo $form->field($model, 'logo_url')->widget(FileAPI::className(), [
         'settings' => [
             'url' => Url::to(['/shop/cpanel/logo-upload']),
         ],
