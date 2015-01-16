@@ -1,6 +1,5 @@
 <?php
-$this->registerCssFile('@web/css/lib/introjs.min.css');
-$this->registerJsFile('@web/js/lib/introjs.min.js');
+\app\assets\IntroAsset::register($this);
 
 $this->title = 'Приветствуем!';
 ?>

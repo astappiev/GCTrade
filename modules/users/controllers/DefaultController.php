@@ -1,5 +1,4 @@
 <?php
-
 namespace app\modules\users\controllers;
 
 use Yii;
@@ -35,7 +34,7 @@ class DefaultController extends Controller
                         'roles' => ['@'],
                     ],
                 ],
-                'denyCallback' => function ($rule, $action) {
+                'denyCallback' => function () {
                     throw new HttpException(403, 'У вас нет доступа к данной странице.');
                 }
             ],
@@ -78,8 +77,8 @@ class DefaultController extends Controller
                 }
             }
 
-            //$user->access_token = $client->accessToken->getToken()["token"];
-            //$user->save();
+            $user->access_token = $client->accessToken->getToken()["token"];
+            $user->save();
 
             $user_login = new LoginForm();
             $user_login->username = $user->username;

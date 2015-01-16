@@ -1,10 +1,9 @@
 <?php
 use yii\helpers\Html;
 
-$this->registerCssFile('@web/css/lib/leaflet.min.css');
-$this->registerJsFile('@web/js/lib/leaflet.min.js');
+\app\assets\MapAsset::register($this);
 $this->registerJsFile('@web/js/jquery/jquery.autosize.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('@web/js/maps.gctrade.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/maps.gctrade.js', ['depends' => [\yii\web\JqueryAsset::className(), \app\assets\MapAsset::className()]]);
 
 $this->title = 'Карта регионов пользователя';
 ?>

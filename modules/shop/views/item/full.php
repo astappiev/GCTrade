@@ -3,11 +3,11 @@
 use yii\helpers\Html;
 use app\modules\shop\models\Item;
 
-$this->registerJsFile('@web/js/jquery/jquery.filtertable.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-
 /**
  * @var $this yii\web\View
  */
+
+$this->registerJsFile('@web/js/jquery/jquery.filtertable.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->title = 'Каталог товаров';
 $this->params['breadcrumbs'][] = $this->title;
@@ -34,8 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php foreach(Item::find()->orderBy(['id_primary' => SORT_ASC, 'id_meta' => SORT_ASC])->all() as $item): ?>
                 <tr>
                     <td><img src="/images/items/<?= $item->getAlias(); ?>.png" alt="<?= $item->name; ?>" align="left" class="small-icon" /></td>
-                    <td><?= $item->getAlias(); ?></td>
-                    <td class="name"><a href="<?= Yii::$app->urlManager->createUrl(['shop/item/view', 'alias' => $item->alias]) ?>"><?= $item->name; ?></a></td>
+                    <td class="td-filter"><?= $item->getAlias(); ?></td>
+                    <td class="td-filter name"><a href="<?= Yii::$app->urlManager->createUrl(['shop/item/view', 'alias' => $item->alias]) ?>"><?= $item->name; ?></a></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

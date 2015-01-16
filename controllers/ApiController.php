@@ -29,8 +29,19 @@ class ApiController extends Controller
             return self::renderJSON($rows);
         }
 
+        header("Status: 404 Not Found");
+        header('HTTP/1.0 404 Not Found');
         return self::renderJSON(['message' => 'Results not found']);
 	}
+
+    public function actionSkin($login)
+    {
+        // TODO: Реализовать кэширование
+        $src = 'http://greenusercontent.net/mc/skins/'.$login.'.png';
+        Header('Access-Control-Allow-Origin: *');
+        Header("Content-type: image/png");
+        echo file_get_contents($src);
+    }
 
     public function actionHead($login)
     {
@@ -107,6 +118,8 @@ class ApiController extends Controller
             return imagedestroy($img);
         }
 
+        header("Status: 404 Not Found");
+        header('HTTP/1.0 404 Not Found');
         return self::renderJSON(['message' => 'User not found or user hasn\'t badges']);
     }
 
@@ -159,6 +172,8 @@ class ApiController extends Controller
             return self::renderJSON($players);
         }
 
+        header("Status: 404 Not Found");
+        header('HTTP/1.0 404 Not Found');
         return self::renderJSON(['message' => 'Impossible to get the array']);
     }
 
@@ -178,7 +193,7 @@ class ApiController extends Controller
             $lenght = count($items);
             for($i = 0; $i < $lenght; ++$i)
             {
-                $price = (new Query())->select('count(*) as count, min(price_sell/stuck) as min, avg(price_sell/stuck) as avg, max(price_sell/stuck) as max')->from('tg_price')->where('id_item=:id', [':id' => $items[$i]["id"]])->one();
+                $price = (new Query())->select('count(*) as count, min(price_sell/stuck) as min, avg(price_sell/stuck) as avg, max(price_sell/stuck) as max')->from('tg_shop_good')->where('item_id=:id', [':id' => $items[$i]["id"]])->one();
 
                 $items[$i] = [
                     'id' => ($items[$i]["id_meta"]) ? $items[$i]["id_primary"].'.'.$items[$i]["id_meta"] : $items[$i]["id_primary"],
@@ -191,6 +206,8 @@ class ApiController extends Controller
             return self::renderJSON($items);
         }
 
+        header("Status: 404 Not Found");
+        header('HTTP/1.0 404 Not Found');
         return self::renderJSON(['message' => 'Nothing found']);
     }
 
@@ -210,15 +227,17 @@ class ApiController extends Controller
             $lenght = count($items);
             for($i = 0; $i < $lenght; ++$i)
             {
-                $prices = (new Query())->select('id_shop, price_sell, price_buy, stuck')->from('tg_price')->where('id_item=:id', [':id' => $items[$i]["id"]])->orderBy('IFNULL(`price_sell`, \'1\') / `stuck` ASC')->createCommand()->queryAll();
+                $prices = (new Query())->select('shop_id, price_sell, price_buy, stuck')->from('tg_shop_good')->where('item_id=:id', [':id' => $items[$i]["id"]])->orderBy('IFNULL(`price_sell`, \'1\') / `stuck` ASC')->createCommand()->queryAll();
 
                 if(!empty($prices)) {
                     $lenght_p = count($prices);
                     for ($i_p = 0; $i_p < $lenght_p; ++$i_p) {
 
-                        $shop = (new Query())->select('name, logo_url')->from('tg_shop')->where('id=:id', [':id' => $prices[$i_p]["id_shop"]])->one();
+                        $shop = (new Query())->select('alias, name, logo_url')->from('tg_shop')->where('id=:id', [':id' => $prices[$i_p]["shop_id"]])->one();
 
                         $shop["logo_url"] = ($shop["logo_url"] == null) ? null : 'http://gctrade.ru/images/shop/'.$shop["logo_url"];
+                        $shop["shop_url"] = 'http://gctrade.ru/shop/'.$shop["alias"];
+                        unset($shop["alias"]);
 
                         $prices[$i_p] = [
                             'price_sell' => $prices[$i_p]["price_sell"],
@@ -229,10 +248,12 @@ class ApiController extends Controller
                     }
                 }
 
+                $id = ($items[$i]["id_meta"]) ? $items[$i]["id_primary"].'.'.$items[$i]["id_meta"] : $items[$i]["id_primary"];
                 $items[$i] = [
-                    'id' => ($items[$i]["id_meta"]) ? $items[$i]["id_primary"].'.'.$items[$i]["id_meta"] : $items[$i]["id_primary"],
+                    'id' => $id,
                     'name' => $items[$i]["name"],
                     'description' => null,
+                    'image_url' => 'http://gctrade.ru/images/items/'.$id.'.png',
                     'in_shop' => $prices
                 ];
             }
@@ -240,8 +261,9 @@ class ApiController extends Controller
             return self::renderJSON(($lenght == 1) ? $items[0] : $items);
         }
 
+        header("Status: 404 Not Found");
+        header('HTTP/1.0 404 Not Found');
         return self::renderJSON(['message' => 'Nothing found']);
-
     }
 
     protected function renderJSON($object)

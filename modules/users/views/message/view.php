@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\users\models\Message */
@@ -29,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $model->text ?>
         </div>
         <div class="panel-footer">
-            <span class="label label-default"><?= Yii::t('app/users', '{0}', ($model->id_sender) ? $model->sender->username : 'GCTrade') ?></span>
+            <span class="label label-default"><?= Yii::t('app/users', '{0}', ($model->user_sender) ? $model->sender->username : 'GCTrade') ?></span>
             <span class="label label-info"><?= Yii::t('app/users', '{0, date, HH:mm dd.mm.yyyy}', $model->created_at) ?></span>
         </div>
     </div>

@@ -12,7 +12,11 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $id_primary
  * @property integer $id_meta
+ * @property string $alias
  * @property string $name
+ *
+ * @property \app\modules\shop\models\Good $products
+ * @property string $image
  */
 class Item extends ActiveRecord
 {
@@ -24,16 +28,16 @@ class Item extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'tg_item';
+        return '{{%item}}';
     }
 
     /**
      * Get Price model corresponding to the current model.
-     * @return Price model
+     * @return Good model
      */
-    public function getPrices()
+    public function getProducts()
     {
-        return $this->hasMany(Price::className(), ['id_item' => 'id']);
+        return $this->hasMany(Good::className(), ['item_id' => 'id']);
     }
 
     /**
@@ -80,7 +84,7 @@ class Item extends ActiveRecord
     {
         $item = static::findOne(['name' => $name]);
         if(!$item)
-            return ItemUsernames::findByName($name)->getItem();
+            return ItemAlias::findByName($name)->getItem();
 
         return $item;
     }

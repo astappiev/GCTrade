@@ -2,10 +2,12 @@
 
 use yii\helpers\Html;
 
-$this->registerJsFile('@web/js/jquery/jquery.tablesorter.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+/**
+ * @var $this yii\web\View
+ * @var $model app\modules\shop\models\Item
+ */
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\shop\models\Item */
+$this->registerJsFile('@web/js/jquery/jquery.tablesorter.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app/shop', 'ITEM'), 'url' => ['/shop/item/index']];
@@ -39,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </thead>
             <tbody>
 
-                <?php foreach($model->prices as $price): ?>
+                <?php foreach($model->products as $price): ?>
 
                     <tr>
                         <td><img src="<?= $price->shop->getLogo() ?>" alt="<?= $price->shop->name; ?>" align="left" class="small-icon img-rounded" /></td>

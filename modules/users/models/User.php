@@ -8,6 +8,8 @@ use yii\web\IdentityInterface;
 use yii\behaviors\TimestampBehavior;
 
 /**
+ * Class User
+ * @package app\modules\users\models
  * User model
  *
  * @property integer $id
@@ -22,7 +24,6 @@ use yii\behaviors\TimestampBehavior;
  * @property string $auth_key
  * @property integer $created_at
  * @property integer $updated_at
- * @property integer $delivery
  * @property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -73,7 +74,6 @@ class User extends ActiveRecord implements IdentityInterface
             ['username', 'unique'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
-            ['delivery', 'boolean'],
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
@@ -143,7 +143,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'delivery' => 'Получать уведомления от сайта',
             'email' => 'Email',
         ];
     }
@@ -249,7 +248,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         if (parent::beforeSave($insert)) {
             if (!$this->auth_key) {
-                $this->auth_key = self::generateAuthKey();
+                $this->auth_key = Yii::$app->security->generateRandomString();
             }
 
             if (!$this->created_at || $this->created_at == 0) {

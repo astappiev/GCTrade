@@ -20,7 +20,7 @@ use app\assets\AppAsset;
 <link type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu&amp;subset=latin,cyrillic" rel="stylesheet">
 
 <?php
-if(!\Yii::$app->user->isGuest) $this->registerJS("var userLogin = '".Yii::$app->user->identity->username."';", $this::POS_END);
+if(!\Yii::$app->user->isGuest) $this->registerJS("var username = '".Yii::$app->user->identity->username."';", $this::POS_END);
 
 echo Html::csrfMetaTags();
 $this->registerLinkTag(['rel' => 'canonical', 'href' => Url::canonical()]);

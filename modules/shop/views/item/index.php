@@ -2,12 +2,12 @@
 
 use yii\helpers\Html;
 
-$this->registerJsFile('@web/js/jquery/jquery.tablesorter.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('@web/js/jquery/jquery.filtertable.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-
 /**
  * @var $this yii\web\View
  */
+
+$this->registerJsFile('@web/js/jquery/jquery.tablesorter.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/jquery/jquery.filtertable.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->title = Yii::t('app/shop', 'CATALOG_ITEM');
 $this->params['breadcrumbs'][] = $this->title;
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $query = (new \yii\db\Query())
                 ->select('tg_item.id_primary, tg_item.id_meta, tg_item.name, avg(price_sell/stuck) as sell, avg(price_buy/stuck) as buy')
                 ->from('tg_item')
-                ->leftJoin('tg_price', 'tg_item.id = tg_price.id_item')
+                ->leftJoin('tg_shop_good', 'tg_item.id = tg_shop_good.item_id')
                 ->groupBy('tg_item.id_primary, tg_item.id_meta, tg_item.name')
                 ->where('not price_sell is null')
                 ->orderBy('tg_item.id_primary ASC, tg_item.id_meta ASC');
@@ -46,8 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <tr>
                     <td><img src="/images/items/<?= ($item["id_meta"] != 0) ? ($item["id_primary"].'.'.$item["id_meta"]) : $item["id_primary"]; ?>.png" alt="<?= $item["name"]; ?>" align="left" class="small-icon" /></td>
-                    <td><?= $item["id_primary"].'.'.$item["id_meta"]; ?></td>
-                    <td class="name"><a href="<?= Yii::$app->urlManager->createUrl(['/shop/item/view', 'alias' => ($item["id_meta"] != 0) ? ($item["id_primary"].'.'.$item["id_meta"]) : $item["id_primary"]]) ?>"><?= $item["name"]; ?></a></td>
+                    <td class="td-filter"><?= $item["id_primary"].'.'.$item["id_meta"]; ?></td>
+                    <td class="td-filter name"><a href="<?= Yii::$app->urlManager->createUrl(['/shop/item/view', 'alias' => ($item["id_meta"] != 0) ? ($item["id_primary"].'.'.$item["id_meta"]) : $item["id_primary"]]) ?>"><?= $item["name"]; ?></a></td>
                     <td><?= ($item["sell"])?round($item["sell"], 2):'—' ?></td>
                     <td><?= ($item["buy"])?round($item["buy"], 2):'—' ?></td>
                 </tr>

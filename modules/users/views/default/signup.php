@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use yii\authclient\widgets\AuthChoice;
 
 $this->registerCssFile('@web/css/font-awesome.css', ['yii\bootstrap\BootstrapAsset']);

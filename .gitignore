@@ -36,7 +36,6 @@ phpunit.phar
 config/console-server.php
 config/web-server.php
 config/web-local.php
-web/**/*.min.*
 
 # Assets
 web/assets/*

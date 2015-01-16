@@ -1,7 +1,7 @@
 <?php
 namespace app\commands;
+
 use yii\console\Controller;
-use yii\db\Query;
 
 class StatsController extends Controller
 {
@@ -30,11 +30,9 @@ class StatsController extends Controller
     {
         date_default_timezone_set('UTC');
 
-        $file = file_get_contents("https://api.greencubes.org/main/economy");
-        $data = json_decode($file, true);
-
-        if($data["status"] == 0)
-        {
+        if($file = file_get_contents("https://api.greencubes.org/main/economy")) 
+        { 
+            $data = json_decode($file, true);
             $time = $data["time"];
             $value = $data["economy"]["dailymoney"];
 
@@ -49,35 +47,37 @@ class StatsController extends Controller
                     'value' => $value,
                 ])->execute();
             }
-            return true;
-        }
-        return false;
+        } 
+        
+        return true;
     }
 
     public function actionOnline()
     {
         date_default_timezone_set('UTC');
 
-        $file = file_get_contents("https://api.greencubes.org/main/status");
-        $data = json_decode($file, true);
-
-        if($data["status"])
+        if($file = file_get_contents("https://api.greencubes.org/main/status"))
         {
-            $time = time();
-            $value = $data["online"];
+            $data = json_decode($file, true);
 
-            $connection = \Yii::$app->db_analytics;
-            $command = $connection->createCommand('SELECT * FROM tg_online ORDER BY time DESC LIMIT 1');
-            $online = $command->queryOne();
-
-            if($time - $online["time"] > 3600)
+            if($data["status"])
             {
-                $connection->createCommand()->insert('tg_online', [
-                    'time' => $time,
-                    'value' => $value,
-                ])->execute();
+                $time = time();
+                $value = $data["online"];
+
+                $connection = \Yii::$app->db_analytics;
+                $command = $connection->createCommand('SELECT * FROM tg_online ORDER BY time DESC LIMIT 1');
+                $online = $command->queryOne();
+
+                if($time - $online["time"] > 600)
+                {
+                    $connection->createCommand()->insert('tg_online', [
+                        'time' => $time,
+                        'value' => $value,
+                    ])->execute();
+                }
+                return true;
             }
-            return true;
         }
         return false;
     }

@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use vova07\imperavi\Widget as Imperavi;
 use vova07\fileapi\Widget as FileAPI;
 
@@ -16,7 +16,7 @@ use vova07\fileapi\Widget as FileAPI;
 
     <?php $form = ActiveForm::begin([
         'id' => 'shop-form',
-        'options' => ['class' => 'form-horizontal', 'type' => 'multipart/form-data'],
+        'options' => ['class' => 'form-horizontal', 'type' => 'multipart/form-data', 'enctype' => 'multipart/form-data'],
         'fieldConfig' => [
             'template' => "{label}\n<div class=\"col-md-10\">{input}</div>\n<div class=\"col-md-offset-2 col-md-10\">{error}</div>",
             'labelOptions' => ['class' => 'control-label col-md-2'],
@@ -24,6 +24,8 @@ use vova07\fileapi\Widget as FileAPI;
     ]); ?>
 
     <?= $form->field($model, 'name')->textInput(['placeholder' => 'Название магазина', 'minlength' => 3,'maxlength' => 90]) ?>
+
+    <?= $form->field($model, 'type')->dropDownList($model->getTypeArray(), (!$model->isNewRecord) ? ['readonly' => true] : []) ?>
 
     <?= $form->field($model, 'alias')->textInput(['placeholder' => 'Краткое название на латинице', 'minlength' => 3,'maxlength' => 30]) ?>
 
@@ -57,7 +59,7 @@ use vova07\fileapi\Widget as FileAPI;
         ])->textInput(['placeholder' => 'Координата по Z', 'maxlength' => 6]) ?>
     </div>
 
-    <?= $form->field($model, 'logo_url')->widget(FileAPI::className(), [
+    <?php echo $form->field($model, 'logo_url')->widget(FileAPI::className(), [
         'settings' => [
             'url' => Url::to(['/shop/cpanel/logo-upload']),
         ],

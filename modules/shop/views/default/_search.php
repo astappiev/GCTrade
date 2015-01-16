@@ -1,12 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-use app\modules\shop\Modules as Module;
+use yii\bootstrap\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\shop\models\search\Shop */
-/* @var $form yii\widgets\ActiveForm */
+/**
+ * @var $this yii\web\View
+ * @var $model app\modules\shop\models\search\Shop
+ * @var $form yii\widgets\ActiveForm
+ */
 ?>
 
 <div class="test-search">

@@ -1,7 +1,6 @@
 <?php
-$this->registerCssFile('@web/css/lib/leaflet.min.css');
-$this->registerJsFile('@web/js/lib/leaflet.min.js');
-$this->registerJsFile('@web/js/maps.gctrade.js');
+\app\assets\MapAsset::register($this);
+$this->registerJsFile('@web/js/maps.gctrade.js', ['depends' => [\yii\web\JqueryAsset::className(), \app\assets\MapAsset::className()]]);
 
 $this->title = 'Карта магазинов';
 $this->params['breadcrumbs'][] = $this->title;

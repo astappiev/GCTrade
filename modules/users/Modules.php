@@ -13,6 +13,7 @@ class Modules extends \yii\base\Module implements \yii\base\BootstrapInterface
     public function bootstrap($app)
     {
         $app->getUrlManager()->addRules([
+            $this->usersUrl => $this->id . '/default/index',
             $this->usersUrl . '/msg' => $this->id . '/message/index',
             $this->usersUrl . '/msg/<id:\d+>' => $this->id . '/message/view',
             $this->usersUrl . '/msg/<_action:\w+>' => $this->id . '/message/<_action>',

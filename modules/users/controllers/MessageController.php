@@ -35,7 +35,7 @@ class MessageController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Message::find()->where(['id_recipient' => Yii::$app->user->id]),
+            'query' => Message::find()->where(['user_recipient' => Yii::$app->user->id]),
             'sort'=> ['defaultOrder' => ['created_at' => SORT_DESC]],
             'pagination' => [
                 'pageSize' => 20,
@@ -86,6 +86,7 @@ class MessageController extends Controller
                 'model' => $model,
             ]);
         }*/
+        return false;
     }
 
     /**
@@ -133,7 +134,7 @@ class MessageController extends Controller
     {
         if (($model = Message::findOne($id)) !== null) {
 
-            if($access === true && $model->id_recipient != \Yii::$app->user->id)
+            if($access === true && $model->user_recipient != \Yii::$app->user->id)
                 throw new ForbiddenHttpException(Yii::t('app/users', 'MESSAGE_NO_PERMISSION'));
 
             return $model;

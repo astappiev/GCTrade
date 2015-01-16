@@ -52,7 +52,7 @@ $config = [
     'params' => $params,
 ];
 
-if(!WEB_LOCAL){
+if(!YII_ENV_PROD){
     $config = yii\helpers\ArrayHelper::merge($config, $server);
 }
 

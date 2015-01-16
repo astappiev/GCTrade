@@ -2,21 +2,26 @@
 
 namespace app\modules\users\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "tg_message".
+ * Class Message
+ * @package app\modules\users\models
+ * Model Message.
  *
  * @property integer $id
  * @property integer $status
- * @property integer $id_sender
- * @property integer $id_recipient
+ * @property integer $user_sender
+ * @property integer $user_recipient
  * @property string $title
  * @property string $text
  * @property integer $created_at
  * @property integer $updated_at
+ *
+ * @property integer $count
+ * @property \app\modules\users\models\User $sender
+ * @property \app\modules\users\models\User $recipient
  */
 class Message extends ActiveRecord
 {
@@ -25,6 +30,17 @@ class Message extends ActiveRecord
     const STATUS_READS = 3;
     const STATUS_REMOVED = 4;
 
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%user_message}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -32,10 +48,13 @@ class Message extends ActiveRecord
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
-            ['id_sender', 'default', 'value' => Yii::$app->user->id],
+            ['user_sender', 'default', 'value' => \Yii::$app->user->id],
             ['status', 'default', 'value' => self::STATUS_OBTAINED],
 
             [['title', 'text'], 'string'],
@@ -43,28 +62,29 @@ class Message extends ActiveRecord
 
             ['status', 'in', 'range' => array_keys(self::getStatusArray())],
 
-            [['id_recipient', 'title', 'text'], 'required'],
+            [['user_recipient', 'title', 'text'], 'required'],
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function attributeLabels()
     {
         return [
             'id' => 'ID',
             'status' => 'Статус',
             'sender' => 'Отправитель',
-            'id_sender' => 'Отправитель',
             'recipient' => 'Получатель',
-            'id_recipient' => 'Получатель',
             'title' => 'Тема',
             'text' => 'Текст сообщения',
             'created_at' => 'Создано',
-            'updated_at' => 'Обновлено',
+            'updated_at' => 'Последнее обновление',
         ];
     }
 
     /**
-     * @return array Массив статусов
+     * @return array
      */
     public static function getStatusArray()
     {
@@ -77,7 +97,7 @@ class Message extends ActiveRecord
     }
 
     /**
-     * @return string Статус сообщения
+     * @return string
      */
     public function getStatus()
     {
@@ -85,18 +105,27 @@ class Message extends ActiveRecord
         return $type[$this->status];
     }
 
+    /**
+     * @return integer
+     */
     public static function getCount()
     {
-        return self::find()->where(['id_recipient' => Yii::$app->user->id, 'status' => [self::STATUS_OBTAINED_NOTIFIED, self::STATUS_OBTAINED]])->count();
+        return self::find()->where(['user_recipient' => \Yii::$app->user->id, 'status' => [self::STATUS_OBTAINED_NOTIFIED, self::STATUS_OBTAINED]])->count();
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getSender()
     {
-        return $this->hasOne(User::className(), ['id' => 'id_sender']);
+        return $this->hasOne(User::className(), ['id' => 'user_sender']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getRecipient()
     {
-        return $this->hasOne(User::className(), ['id' => 'id_recipient']);
+        return $this->hasOne(User::className(), ['id' => 'user_recipient']);
     }
 }
