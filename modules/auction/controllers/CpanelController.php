@@ -42,7 +42,7 @@ class CpanelController extends DefaultController
             ],
             'image-upload' => [
                 'class' => ImperaviUpload::className(),
-                'url' => 'http://gctrade.ru/images/auction/description/',
+                'url' => '/images/auction/description/',
                 'path' => 'images/auction/description/',
                 'validatorOptions' => [
                     'maxWidth' => 1600,

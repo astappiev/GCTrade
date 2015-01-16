@@ -484,6 +484,10 @@ th.flag {
     margin: 0 0 8px;
 }
 
+.auction .posts > div {
+    min-height: 420px;
+}
+
 .auction .posts > div:nth-child(odd) {
     padding-left: 0;
 }

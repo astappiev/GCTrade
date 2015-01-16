@@ -70,7 +70,7 @@ use app\modules\auction\models\Lot;
             'plugins' => [
                 'fullscreen'
             ],
-            'imageUpload' => Url::to(['/auction/image-upload'])
+            'imageUpload' => Url::to(['/auction/cpanel/image-upload'])
         ]
     ]); ?>
 
