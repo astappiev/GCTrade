@@ -2,7 +2,6 @@
 html {
     position: relative;
     min-height: 100%;
-    box-shadow: inset 0 0 100px rgba(0,0,0,.5);
 }
 
 body {
@@ -20,7 +19,7 @@ body > .container {
 }
 
 .navbar-inverse {
-    z-index: 9999;
+    z-index: 2000;
 }
 
 .body-content {
@@ -45,7 +44,10 @@ body > .container {
     clear: both;
 }
 .modal {
-    z-index: 9999;
+    z-index: 4000;
+}
+.redactor-box-fullscreen {
+    z-index: 3000 !important;
 }
 
 
@@ -450,14 +452,6 @@ th.flag {
 
 .usermap .panel-heading .text-danger {
     padding-left: 220px;
-}
-
-img.leaflet-tile.leaflet-tile-loaded {
-    filter: brightness(90%);
-    -webkit-filter: brightness(90%);
-    -moz-filter: brightness(90%);
-    -ms-filter: brightness(90%);
-    -o-filter: brightness(90%);
 }
 
 .usermap .leaflet-popup-content {

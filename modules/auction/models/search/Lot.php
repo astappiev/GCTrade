@@ -32,6 +32,9 @@ class Lot extends LotModel
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => [
+                'time_elapsed' => SORT_DESC,
+            ]]
         ]);
 
         if (!($this->load($params) && $this->validate())) {

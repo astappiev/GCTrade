@@ -14,7 +14,9 @@ NavBar::begin([
 
 $mainMenu = [
     ['label' => 'Магазины', 'linkOptions' => ['class' => 'intro-shop'], 'items' => [
-        ['label' =>  'Все магазины', 'url' => ['/shop/default/index']],
+        ['label' => 'Все магазины', 'url' => ['/shop/default/index']],
+        ['label' => 'Книжные магазины', 'url' => ['/shop/default/books']],
+        ['label' => 'Обычные магазины', 'url' => ['/shop/default/goods']],
         ['label' => 'Магазины на карте', 'url' => ['/shop/default/map']],
         '<li class="divider"></li>',
         ['label' => 'Все товары', 'url' => ['/shop/item/full']],

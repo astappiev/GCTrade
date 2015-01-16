@@ -10,7 +10,7 @@ use app\modules\shop\models\Shop;
  */
 
 $this->registerJsFile(YII_ENV_PROD ? '@web/js/jquery/jquery.spin.min.js' : '@web/js/jquery/jquery.spin.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile(YII_ENV_PROD ? '@web/js/item.gctrade.min.js' : '@web/js/shop.gctrade.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile(YII_ENV_PROD ? '@web/js/shop.gctrade.min.js' : '@web/js/shop.gctrade.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->title = 'Редактор ассортимента (' . $model->getType() . ')';
 $this->params['breadcrumbs'][] = ['label' => 'Панель управления', 'url' => ['index']];

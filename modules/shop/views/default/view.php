@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'action' => ['/users/message/create'],
     ]); ?>
 
-    <?= Html::activeHiddenInput($message, 'id_recipient', ['value' => $model->user_id]) ?>
+    <?= Html::activeHiddenInput($message, 'user_recipient', ['value' => $model->user_id]) ?>
 
     <?= $form->field($message, 'title')->textInput(['readonly' => true, 'value' => 'Отзыв о магазине «'.$model->name.'»']) ?>
 

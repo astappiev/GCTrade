@@ -21,6 +21,12 @@ $item = Json::decode($model->metadata, FALSE);
                 'model' => $model,
             ]) ?>
 
+        <?php elseif($model->type_id === Lot::TYPE_ITEM_IMAGE): ?>
+
+            <?= $this->render('type/item-image', [
+                'model' => $model,
+            ]) ?>
+
         <?php elseif($model->type_id === Lot::TYPE_LAND): ?>
 
             <?= $this->render('type/region-short', [

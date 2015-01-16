@@ -156,7 +156,7 @@ class Shop extends ActiveRecord
     public static function getTypeArray()
     {
         return [
-            self::TYPE_GOODS => 'Товарный',
+            self::TYPE_GOODS => 'Обычный',
             self::TYPE_BOOKS => 'Книжный',
         ];
     }

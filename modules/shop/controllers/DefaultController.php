@@ -5,6 +5,7 @@ namespace app\modules\shop\controllers;
 use Yii;
 use app\modules\shop\models\Shop;
 use app\modules\shop\models\search\Shop as ShopSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
@@ -25,6 +26,30 @@ class DefaultController extends Controller
 
         return $this->render('index', [
             'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionBooks()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Shop::find()->where(['type' => Shop::TYPE_BOOKS]),
+            'sort'=> ['defaultOrder' => ['updated_at' => SORT_DESC]]
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionGoods()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Shop::find()->where(['type' => Shop::TYPE_GOODS]),
+            'sort'=> ['defaultOrder' => ['updated_at' => SORT_DESC]]
+        ]);
+
+        return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
     }

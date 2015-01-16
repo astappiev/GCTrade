@@ -29,7 +29,8 @@
         "vova07/yii2-fileapi-widget": "*",
 	  	"bower-asset/flot": "*",
 	  	"bower-asset/leaflet-dist": "*",
-	  	"bower-asset/intro.js": "*"
+	  	"bower-asset/intro.js": "*",
+		"linslin/yii2-curl": "*"
 	},
 	"require-dev": {
 		"yiisoft/yii2-debug": "@stable",

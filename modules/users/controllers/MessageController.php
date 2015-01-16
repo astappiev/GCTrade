@@ -35,7 +35,7 @@ class MessageController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Message::find()->where(['id_recipient' => Yii::$app->user->id]),
+            'query' => Message::find()->where(['user_recipient' => Yii::$app->user->id]),
             'sort'=> ['defaultOrder' => ['created_at' => SORT_DESC]],
             'pagination' => [
                 'pageSize' => 20,

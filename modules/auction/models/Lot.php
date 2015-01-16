@@ -18,7 +18,6 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property string $metadata
  * @property string $description
- * @property string $picture_url
  * @property integer $price_min
  * @property integer $price_step
  * @property integer $price_blitz
@@ -34,7 +33,10 @@ use yii\db\ActiveRecord;
 class Lot extends ActiveRecord
 {
     public $region_name;
+    public $picture_url;
+    public $item_id;
 
+    const TYPE_ITEM_IMAGE = 8;
     const TYPE_ITEM = 1;
     const TYPE_LAND = 2;
     const TYPE_PROJECT = 3;
@@ -74,8 +76,8 @@ class Lot extends ActiveRecord
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios['create'] = ['user_id', 'type_id', 'name', 'metadata', 'description', 'picture_url', 'price_min', 'price_step', 'price_blitz', 'created_at', 'updated_at'];
-        $scenarios['update'] = ['name', 'metadata', 'description', 'picture_url', 'price_min', 'price_step', 'price_blitz', 'updated_at'];
+        $scenarios['create'] = ['user_id', 'type_id', 'name', 'metadata', 'description', 'price_min', 'price_step', 'price_blitz', 'created_at', 'updated_at'];
+        $scenarios['update'] = ['name', 'metadata', 'description', 'price_min', 'price_step', 'price_blitz', 'updated_at'];
         return $scenarios;
     }
 
@@ -91,7 +93,7 @@ class Lot extends ActiveRecord
             [['time_bid', 'time_elapsed'], 'integer'],
             [['time_bid', 'created_at', 'updated_at'], 'safe'],
 
-            [['name', 'picture_url'], 'string', 'max' => 255],
+            [['name'], 'string', 'max' => 255],
             [['price_min', 'price_step', 'price_blitz'], 'integer', 'max' => 100000000000],
             ['type_id', 'in', 'range' => array_keys(self::getTypeArray())],
 
@@ -103,18 +105,23 @@ class Lot extends ActiveRecord
             ['region_name', 'required', 'when' => function ($model) {
                 return $model->type_id == self::TYPE_LAND;
             }, 'whenClient' => "function (attribute, value) {
-                return ;
+                return $('#lot-type_id').val() == " . self::TYPE_LAND . ";
             }"],
 
-            /*['region_name', 'required', 'when' => function($model) {
-				return $model->type_id == self::TYPE_LAND;
-			}],
+            ['picture_url', 'app\modules\auction\models\validators\PictureValidator'],
+            ['picture_url', 'required', 'when' => function ($model) {
+                return ($model->type_id == self::TYPE_ITEM_IMAGE || $model->type_id == self::TYPE_PROJECT || $model->type_id == self::TYPE_OTHER);
+            }, 'whenClient' => "function (attribute, value) {
+                var type = $('#lot-type_id').val();
+                return (type == " . self::TYPE_ITEM_IMAGE . " || type == " . self::TYPE_PROJECT . " || type == " . self::TYPE_OTHER . ");
+            }"],
 
-            ['region_name', function ($attribute, $params) {
-                if (!ctype_alnum($this->$attribute)) {
-                    $this->addError($attribute, 'The token must contain letters or digits.');
-                }
-            }],*/
+            ['item_id', 'app\modules\auction\models\validators\ItemValidator'],
+            ['item_id', 'required', 'when' => function ($model) {
+                return $model->type_id == self::TYPE_ITEM_IMAGE;
+            }, 'whenClient' => "function (attribute, value) {
+                return $('#lot-type_id').val() == " . self::TYPE_ITEM_IMAGE . ";
+            }"],
         ];
     }
 
@@ -130,13 +137,14 @@ class Lot extends ActiveRecord
             'metadata' => 'Данные о лоте',
             'type_id' => 'Тип лота',
             'description' => 'Описание',
-            'picture_url' => 'Изображение',
             'price_min' => 'Начальная цена',
             'price_step' => 'Шаг аукциона',
             'price_blitz' => 'Блиц цена',
             'created_at' => 'Создан',
             'updated_at' => 'Последнее обновление',
 
+            'picture_url' => 'Изображение',
+            'item_id' => 'id предмета',
             'region_name' => 'Название региона',
         ];
     }
@@ -149,6 +157,7 @@ class Lot extends ActiveRecord
         return [
             self::TYPE_LAND => 'Территория',
             self::TYPE_ITEM => 'Предмет',
+            self::TYPE_ITEM_IMAGE => 'Предмет (Изображение)',
             self::TYPE_PROJECT => 'Проект',
             self::TYPE_OTHER => 'Прочее',
         ];
