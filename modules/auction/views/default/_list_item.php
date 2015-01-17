@@ -35,8 +35,9 @@ $item = Json::decode($model->metadata, FALSE);
 
         <?php else: ?>
 
-            <?= '<p>Создан: <span class="label label-info">'.$model->updated_at.'</span></p>' ?>
-            <?= '<p>Последняя ставка: <span class="label label-success">'.$model->updated_at.'</span></p>' ?>
+            <?= $this->render('type/other', [
+                'model' => $model,
+            ]) ?>
 
         <?php endif; ?>
 

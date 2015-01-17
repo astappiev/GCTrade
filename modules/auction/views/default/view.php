@@ -56,7 +56,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?php else: ?>
 
-                        <p>Тест</p>
+                        <?= $this->render('type/other', [
+                            'model' => $model,
+                        ]) ?>
 
                     <?php endif; ?>
                 </div>
@@ -106,6 +108,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php if(\Yii::$app->user->id == $model->user_id): ?>
                             Нельзя делать ставки на свой аукцион
                         <?php elseif(!\Yii::$app->user->isGuest): ?>
+
                             <form method="post" id="add-bid" action="<?= Yii::$app->urlManager->createUrl(['auction/bid/create']) ?>">
                                 <input type="hidden" name="_csrf" value="<?= Yii::$app->request->getCsrfToken() ?>">
                                 <input type="hidden" name="lot_id" value="<?= $model->id ?>">
@@ -118,7 +121,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <input type="submit" class="btn btn-danger" value="Сделать ставку">
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-xs-12 error-msg-bid"></div>
+                                </div>
                             </form>
+
                         <?php else: ?>
                             Вы должны быть авторизованы
                         <?php endif; ?>

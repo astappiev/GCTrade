@@ -39,8 +39,11 @@ $(document).ready(function() {
             'success': function(data) {
                 console.log(data);
                 if (typeof data !== 'undefined' && data.status !== 0) {
-                    alert(data.message);
+                    $('.error-msg-bid').text(data.message).parents(".list-group-item-danger").removeClass("list-group-item-danger").addClass("list-group-item-success");
+                    location.reload();
                     form.trigger( 'reset' );
+                } else if(data.status == 0) {
+                    $('.error-msg-bid').text(data.message);
                 } else {
                     console.log(data);
                 }

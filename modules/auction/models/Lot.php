@@ -94,7 +94,11 @@ class Lot extends ActiveRecord
             [['time_bid', 'created_at', 'updated_at'], 'safe'],
 
             [['name'], 'string', 'max' => 255],
-            [['price_min', 'price_step', 'price_blitz'], 'integer', 'max' => 100000000000],
+            ['price_blitz', 'integer', 'max' => 1000000000],
+            ['price_min', 'integer', 'max' => 10000000],
+            ['price_step', 'integer', 'max' => 500000],
+            ['price_min', 'default', 'value' => 1],
+
             ['type_id', 'in', 'range' => array_keys(self::getTypeArray())],
 
             ['user_id', 'default', 'value' => \Yii::$app->user->id],

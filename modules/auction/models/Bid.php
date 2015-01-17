@@ -50,7 +50,9 @@ class Bid extends ActiveRecord
             ['user_id', 'default', 'value' => \Yii::$app->user->id],
 
             [['lot_id', 'user_id', 'cost'], 'required'],
-            [['lot_id', 'user_id', 'cost'], 'integer']
+            [['lot_id', 'user_id', 'cost'], 'integer'],
+            ['cost', 'integer', 'min' => 1],
+            ['cost', 'integer', 'max' => 1000000000]
         ];
     }
 

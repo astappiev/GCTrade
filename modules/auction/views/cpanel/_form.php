@@ -52,7 +52,7 @@ use app\modules\auction\models\Lot;
             //'selection' => '100%',
             //'setSelect' => [0, 0, 200, 100]
         ],
-        'cropResizeMaxWidth' => 400,
+        'cropResizeMaxWidth' => 1140,
         'settings' => [
             'url' => Url::to(['/auction/cpanel/picture-upload']),
         ],
@@ -76,15 +76,15 @@ use app\modules\auction\models\Lot;
 
     <?= $form->field($model, 'price_min', [
         'template' => "{label}\n<div class=\"col-md-10\"><div class=\"input-group\">{input}<span class=\"input-group-addon\">зелени</span></div></div>\n<div class=\"col-md-offset-2 col-md-10\">{error}</div>",
-    ])->textInput(['placeholder' => 'Минимальная цена продажи', 'maxlength' => 11, 'minlength' => 1]) ?>
+    ])->textInput(['placeholder' => 'Минимальная цена продажи', 'maxlength' => 8, 'minlength' => 1]) ?>
 
     <?= $form->field($model, 'price_step', [
         'template' => "{label}\n<div class=\"col-md-10\"><div class=\"input-group\">{input}<span class=\"input-group-addon\">зелени</span></div></div>\n<div class=\"col-md-offset-2 col-md-10\">{error}</div>",
-    ])->textInput(['placeholder' => 'Минимальное различение между ставками', 'maxlength' => 11, 'minlength' => 1]) ?>
+    ])->textInput(['placeholder' => 'Минимальное различение между ставками', 'maxlength' => 6, 'minlength' => 1]) ?>
 
     <?= $form->field($model, 'price_blitz', [
         'template' => "{label}\n<div class=\"col-md-10\"><div class=\"input-group\">{input}<span class=\"input-group-addon\">зелени</span></div></div>\n<div class=\"col-md-offset-2 col-md-10\">{error}</div>",
-    ])->textInput(['placeholder' => 'Цена за которую вы готовы моментально продать лот', 'maxlength' => 11, 'minlength' => 1]) ?>
+    ])->textInput(['placeholder' => 'Цена за которую вы готовы моментально продать лот', 'maxlength' => 10, 'minlength' => 1]) ?>
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">

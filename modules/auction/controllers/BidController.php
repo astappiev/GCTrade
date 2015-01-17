@@ -17,8 +17,14 @@ class BidController extends \yii\web\Controller
             return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'Лот не существует'.$model->lot_id)]);
         } elseif(!is_numeric($model->cost)) {
             return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'Сумма указана не верно')]);
-        } elseif(!$model->user_id) {
+        } elseif(!$model->user_id || $model->lot->user_id == Yii::$app->user->id) {
             return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'Не авторизованы или у вас нет прав')]);
+        } elseif($model->cost < $model->lot->bid->cost) {
+            return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'Вы не можете сделать ставку ниже уже существующей')]);
+        } elseif($model->cost < ($model->lot->bid->cost + $model->lot->price_step)) {
+            return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'Ваша ставка меньше шага аукциона')]);
+        } elseif($model->cost < $model->lot->price_min) {
+            return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'Ваша ставка должна быть больше начальной стоимости')]);
         }
 
         if ($model->validate()) {
