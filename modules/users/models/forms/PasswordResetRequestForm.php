@@ -3,6 +3,7 @@ namespace app\modules\users\models\forms;
 
 use app\modules\users\models\User;
 use yii\base\Model;
+use Yii;
 
 class PasswordResetRequestForm extends Model
 {
@@ -11,7 +12,7 @@ class PasswordResetRequestForm extends Model
     public function attributeLabels()
     {
         return [
-            'email' => 'Email',
+            'email' => Yii::t('users', 'PASSWORD_RESET_REQUEST_FORM_EMAIL'),
         ];
     }
 
@@ -24,7 +25,7 @@ class PasswordResetRequestForm extends Model
 			['email', 'exist',
 				'targetClass' => '\app\models\User',
 				'filter' => ['status' => User::STATUS_ACTIVE],
-				'message' => 'Пользователя с таким email не существует.'
+				'message' => Yii::t('users', 'PASSWORD_RESET_REQUEST_FORM_RULES_EMAIL_EXIST_MESSAGE')
 			],
 		];
 	}

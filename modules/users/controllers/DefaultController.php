@@ -1,4 +1,5 @@
 <?php
+
 namespace app\modules\users\controllers;
 
 use Yii;
@@ -21,21 +22,24 @@ class DefaultController extends Controller
         return [
             'access' => [
                 'class' => \yii\filters\AccessControl::className(),
-                'only' => ['logout', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['signup', 'auth', 'login'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['signup', 'auth', 'login'],
+                        'allow' => false,
+                        'roles' => ['@'],
+                    ],
+                    [
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                 ],
                 'denyCallback' => function () {
-                    throw new HttpException(403, 'У вас нет доступа к данной странице.');
+                    throw new HttpException(403, Yii::t('users', 'DEFAULT_CONTROLLER_RULES_NOT_PERMISSIONS'));
                 }
             ],
         ];
@@ -130,7 +134,10 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = User::findOne(\Yii::$app->user->id);
+        return $this->render('index', [
+            'model' => $model,
+        ]);
     }
 
     public function actionMessages()
@@ -146,15 +153,12 @@ class DefaultController extends Controller
 
     public function actionEdit()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-        $model = User::findIdentity(\Yii::$app->user->id);
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->save()) {
-                Yii::$app->session->setFlash('success', 'Пользователь изменен.');
+        $model = User::findOne(Yii::$app->user->id);
+        if ($model->load(Yii::$app->request->post()) && $model->setting->load(Yii::$app->request->post()) && $model->validate() && $model->setting->validate()) {
+            if ($model->save() && $model->setting->save()) {
+                Yii::$app->session->setFlash('success', Yii::t('users', 'DEFAULT_CONTROLLER_USER_UPDATED'));
             } else {
-                Yii::$app->session->setFlash('error', 'Возникла ошибка при изменении пользователя.');
+                Yii::$app->session->setFlash('error', Yii::t('users', 'DEFAULT_CONTROLLER_USER_NOT_UPDATE'));
             }
             return $this->refresh();
         } else {
@@ -166,9 +170,6 @@ class DefaultController extends Controller
 
 	public function actionPassword()
 	{
-        if (Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
         $model = new PasswordUserForm();
         $user = User::findIdentity(\Yii::$app->user->id);
 
@@ -177,9 +178,9 @@ class DefaultController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->editPassword()) {
-                Yii::$app->session->setFlash('success', 'Пароль изменен.');
+                Yii::$app->session->setFlash('success', Yii::t('users', 'DEFAULT_CONTROLLER_SET_PASSWORD_SUCCESS'));
             } else {
-                Yii::$app->session->setFlash('error', 'Возникла ошибка при изменении пароля.');
+                Yii::$app->session->setFlash('error', Yii::t('users', 'DEFAULT_CONTROLLER_SET_PASSWORD_ERROR'));
             }
             return $this->refresh();
         } else {
@@ -191,10 +192,6 @@ class DefaultController extends Controller
 
 	public function actionLogin()
 	{
-		if (!\Yii::$app->user->isGuest) {
-			return $this->goHome();
-		}
-
 		$model = new LoginForm();
 		if ($model->load(Yii::$app->request->post()) && $model->login()) {
 			return $this->goBack();
@@ -233,10 +230,10 @@ class DefaultController extends Controller
 		$model = new PasswordResetRequestForm();
 		if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 			if ($model->sendEmail()) {
-				Yii::$app->getSession()->setFlash('success', 'Проверьте свою электронную почту для получения дальнейших инструкций по восстановлению пароля.');
+				Yii::$app->getSession()->setFlash('success', Yii::t('users', 'DEFAULT_CONTROLLER_REQUEST_PASSWORD_SUCCESS'));
 				return $this->goHome();
 			} else {
-				Yii::$app->getSession()->setFlash('error', 'Прошу прощение, но я не могу сбросить пароль для этого email.');
+				Yii::$app->getSession()->setFlash('error', Yii::t('users', 'DEFAULT_CONTROLLER_REQUEST_PASSWORD_ERROR'));
 			}
 		}
 
@@ -254,7 +251,7 @@ class DefaultController extends Controller
 		}
 
 		if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-			Yii::$app->getSession()->setFlash('success', 'Благодарю, новый пароль сохранен.');
+			Yii::$app->getSession()->setFlash('success', Yii::t('users', 'DEFAULT_CONTROLLER_RESET_PASSWORD_SUCCESS'));
 			return $this->goHome();
 		}
 

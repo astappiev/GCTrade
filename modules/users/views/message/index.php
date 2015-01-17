@@ -10,7 +10,7 @@ use app\modules\users\models\Message;
  * @var $dataProvider yii\data\ActiveDataProvider
  */
 
-$this->title = Yii::t('app/users', 'MESSAGES');
+$this->title = Yii::t('users', 'MESSAGES');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="body-content">

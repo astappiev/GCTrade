@@ -14,9 +14,9 @@ class PasswordUserForm extends Model
     public function attributeLabels()
     {
         return [
-            'password' => 'Пароль',
-            'protect_password' => 'Повтор пароля',
-            'old_password' => 'Старый пароль',
+            'password' => Yii::t('users', 'PASSWORD_USER_FORM_PASSWORD'),
+            'protect_password' => Yii::t('users', 'PASSWORD_USER_FORM_PROTECT_PASSWORD'),
+            'old_password' => Yii::t('users', 'PASSWORD_USER_FORM_OLD_PASSWORD'),
         ];
     }
 
@@ -45,7 +45,7 @@ class PasswordUserForm extends Model
         $user = User::findIdentity(Yii::$app->user->id);
 
         if (!$user->validatePassword($this->old_password)) {
-            $this->addError('old_password', 'Неверен старый пароль пользователя.');
+            $this->addError('old_password', Yii::t('users', 'PASSWORD_USER_FORM_INVALID_OLD_PASSWORD'));
         }
     }
 

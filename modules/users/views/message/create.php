@@ -2,12 +2,13 @@
 
 use yii\helpers\Html;
 
+/**
+ * @var $this yii\web\View
+ * @var $model app\modules\users\models\Message
+ */
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\users\models\Message */
-
-$this->title = 'Create Message';
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app/users', 'MESSAGES'), 'url' => ['index']];
+$this->title = Yii::t('users', 'CREATE_MESSAGES');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('users', 'MESSAGES'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="message-create">

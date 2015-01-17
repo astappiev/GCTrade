@@ -21,9 +21,9 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => 'Имя пользователя',
-            'password' => 'Пароль',
-            'rememberMe' => 'Запомнить меня (Ваш компьютер)',
+            'username' => Yii::t('users', 'LOGIN_FORM_USERNAME'),
+            'password' => Yii::t('users', 'LOGIN_FORM_PASSWORD'),
+            'rememberMe' => Yii::t('users', 'LOGIN_FORM_REMEMBER_ME'),
         ];
     }
 
@@ -48,7 +48,7 @@ class LoginForm extends Model
 		if (!$this->hasErrors()) {
 			$user = $this->getUser();
 			if (!$user || !$user->validatePassword($this->password)) {
-				$this->addError($attribute, 'Неверное имя пользователя или пароль.');
+				$this->addError($attribute, Yii::t('users', 'LOGIN_FORM_VALIDATE_USER_OR_PASSWORD_ERROR'));
 			}
 		}
 	}

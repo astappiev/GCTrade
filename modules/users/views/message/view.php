@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\modules\users\models\Message */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app/users', 'MESSAGES'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('users', 'MESSAGES'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="body-content">
@@ -28,8 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $model->text ?>
         </div>
         <div class="panel-footer">
-            <span class="label label-default"><?= Yii::t('app/users', '{0}', ($model->user_sender) ? $model->sender->username : 'GCTrade') ?></span>
-            <span class="label label-info"><?= Yii::t('app/users', '{0, date, HH:mm dd.mm.yyyy}', $model->created_at) ?></span>
+            <span class="label label-default"><?= Yii::t('users', '{0}', ($model->user_sender) ? $model->sender->username : 'GCTrade') ?></span>
+            <span class="label label-info"><?= Yii::t('users', '{0, date, HH:mm dd.mm.yyyy}', $model->created_at) ?></span>
         </div>
     </div>
 

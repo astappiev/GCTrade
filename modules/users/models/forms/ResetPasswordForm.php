@@ -1,4 +1,5 @@
 <?php
+
 namespace app\modules\users\models\forms;
 
 use app\modules\users\models\User;
@@ -17,7 +18,7 @@ class ResetPasswordForm extends Model
     public function attributeLabels()
     {
         return [
-            'password' => 'Пароль',
+            'password' => Yii::t('users', 'RESET_PASSWORD_FORM_PASSWORD'),
         ];
     }
 
@@ -31,11 +32,11 @@ class ResetPasswordForm extends Model
 	public function __construct($token, $config = [])
 	{
 		if (empty($token) || !is_string($token)) {
-			throw new InvalidParamException('Ключ восстановления пароля, не существует.');
+			throw new InvalidParamException(Yii::t('users', 'RESET_PASSWORD_FORM_EMPTY_TOKEN'));
 		}
 		$this->_user = User::findByPasswordResetToken($token);
 		if (!$this->_user) {
-			throw new InvalidParamException('Неверный ключ восстановления.');
+			throw new InvalidParamException(Yii::t('users', 'RESET_PASSWORD_FORM_INVALID_TOKEN'));
 		}
 		parent::__construct($config);
 	}

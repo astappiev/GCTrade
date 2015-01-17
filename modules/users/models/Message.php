@@ -4,6 +4,7 @@ namespace app\modules\users\models;
 
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
+use Yii;
 
 /**
  * Class Message
@@ -72,14 +73,14 @@ class Message extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'status' => 'Статус',
-            'sender' => 'Отправитель',
-            'recipient' => 'Получатель',
-            'title' => 'Тема',
-            'text' => 'Текст сообщения',
-            'created_at' => 'Создано',
-            'updated_at' => 'Последнее обновление',
+            'id' => Yii::t('users', 'MESSAGE_ID'),
+            'status' => Yii::t('users', 'MESSAGE_STATUS'),
+            'sender' => Yii::t('users', 'MESSAGE_SENDER'),
+            'recipient' => Yii::t('users', 'MESSAGE_RECIPIENT'),
+            'title' => Yii::t('users', 'MESSAGE_TITLE'),
+            'text' => Yii::t('users', 'MESSAGE_TEXT'),
+            'created_at' => Yii::t('users', 'MESSAGE_CREATED_AT'),
+            'updated_at' => Yii::t('users', 'MESSAGE_UPDATED_AT'),
         ];
     }
 
@@ -89,10 +90,10 @@ class Message extends ActiveRecord
     public static function getStatusArray()
     {
         return [
-            self::STATUS_OBTAINED => 'Получено',
-            self::STATUS_OBTAINED_NOTIFIED => 'Получено и уведомлено',
-            self::STATUS_READS => 'Прочитано',
-            self::STATUS_REMOVED => 'Удалено',
+            self::STATUS_OBTAINED => Yii::t('users', 'MESSAGE_STATUS_OBTAINED'),
+            self::STATUS_OBTAINED_NOTIFIED => Yii::t('users', 'MESSAGE_STATUS_OBTAINED_NOTIFIED'),
+            self::STATUS_READS => Yii::t('users', 'MESSAGE_STATUS_READS'),
+            self::STATUS_REMOVED => Yii::t('users', 'MESSAGE_STATUS_REMOVED'),
         ];
     }
 

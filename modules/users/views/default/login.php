@@ -3,6 +3,11 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\authclient\widgets\AuthChoice;
 
+/**
+ * @var yii\web\View $this
+ * @var app\modules\users\models\User $model
+ */
+
 $this->title = 'Авторизация';
 $this->params['breadcrumbs'][] = $this->title;
 ?>

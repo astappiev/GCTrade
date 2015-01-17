@@ -105,7 +105,6 @@ $config = [
                     'fileMap' => [
                         'app' => 'app.php',
                         'app/shop' => 'shop.php',
-                        'app/users' => 'users.php',
                         'app/error' => 'error.php',
                     ],
                 ],

@@ -25,6 +25,8 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ *
+ * @property \app\modules\users\models\Setting $setting
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -50,10 +52,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function behaviors() {
         return [
-            'timestamp' => [
-                'class' => TimestampBehavior::className(),
-                'value' => function() { return date("Y-m-d H:i:s"); },
-            ],
+            'timestamp' => TimestampBehavior::className(),
         ];
     }
 
@@ -78,6 +77,27 @@ class User extends ActiveRecord implements IdentityInterface
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'unique'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('users', 'USER_ID'),
+            'role' => Yii::t('users', 'USER_ROLE'),
+            'status' => Yii::t('users', 'USER_STATUS'),
+            'email' => Yii::t('users', 'USER_EMAIL'),
+            'new_email' => Yii::t('users', 'USER_NEW_EMAIL'),
+            'username' => Yii::t('users', 'USER_USERNAME'),
+            'password_hash' => Yii::t('users', 'USER_PASSWORD_HASH'),
+            'password_reset_token' => Yii::t('users', 'USER_PASSWORD_RESET_TOKEN'),
+            'access_token' => Yii::t('users', 'USER_ACCESS_TOKEN'),
+            'auth_key' => Yii::t('users', 'USER_AUTH_KEY'),
+            'created_at' => Yii::t('users', 'USER_CREATED_AT'),
+            'updated_at' => Yii::t('users', 'USER_UPDATED_AT'),
         ];
     }
 
@@ -138,13 +158,6 @@ class User extends ActiveRecord implements IdentityInterface
             'password_reset_token' => $token,
             'status' => [self::STATUS_ACTIVE, self::STATUS_LOCAL],
         ]);
-    }
-
-    public function attributeLabels()
-    {
-        return [
-            'email' => 'Email',
-        ];
     }
 
 	/**
@@ -248,14 +261,18 @@ class User extends ActiveRecord implements IdentityInterface
     {
         if (parent::beforeSave($insert)) {
             if (!$this->auth_key) {
-                $this->auth_key = Yii::$app->security->generateRandomString();
-            }
-
-            if (!$this->created_at || $this->created_at == 0) {
-                $this->created_at = date("Y-m-d H:i:s");
+                $this->auth_key = $this->generateAuthKey();
             }
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSetting()
+    {
+        return $this->hasOne(Setting::className(), ['user_id' => 'id']);
     }
 }

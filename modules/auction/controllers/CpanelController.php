@@ -59,7 +59,7 @@ class CpanelController extends DefaultController
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Lot::find(),
+            'query' => Lot::find()->where(['user_id' => \Yii::$app->user->id]),
             'sort' => [
                 'defaultOrder' => [
                     'name' => SORT_ASC,

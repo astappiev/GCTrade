@@ -3,8 +3,10 @@
 namespace app\modules\users;
 
 use Yii;
+use yii\base\Module;
+use yii\base\BootstrapInterface;
 
-class Modules extends \yii\base\Module implements \yii\base\BootstrapInterface
+class Modules extends Module implements BootstrapInterface
 {
     public $controllerNamespace = 'app\modules\users\controllers';
 
@@ -22,11 +24,14 @@ class Modules extends \yii\base\Module implements \yii\base\BootstrapInterface
 
             $this->usersUrl . '/<_controller:\w+>/<_action:\w+>' => $this->id . '/<_controller>/<_action>',
         ], false);
-    }
 
-    public function init()
-    {
-        parent::init();
-
+        if (!isset($app->i18n->translations['users']) && !isset($app->i18n->translations['users*'])) {
+            $app->i18n->translations['users'] = [
+                'class' => 'yii\i18n\PhpMessageSource',
+                'sourceLanguage' => 'system',
+                'basePath' => '@app/modules/users/messages',
+                'forceTranslation' => true
+            ];
+        }
     }
 }

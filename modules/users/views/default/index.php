@@ -1,19 +1,21 @@
 <?php
 use yii\helpers\Html;
 use app\modules\shop\models\Shop;
-use app\modules\users\models\User;
 
-$this->title = 'Твой профиль';
+/**
+ * @var yii\web\View $this
+ * @var app\modules\users\models\User $model
+ */
+
+$this->title = Yii::t('users', 'MESSAGE_VIEWS_INDEX_TITLE');
 $this->params['breadcrumbs'][] = $this->title;
-
-$user = User::findOne(\Yii::$app->user->id);
 ?>
 <div class="body-content">
-	<h1><?= Html::encode($this->title) ?></h1>
+	<h1><?= $this->title ?></h1>
     <dl class="dl-horizontal">
-        <dt>Ваш логин:</dt><dd><?= Html::encode($user->username) ?></dd>
-        <dt>Ваш email:</dt><dd><?= Html::encode($user->email) ?></dd>
-        <dt>Дата регистрации:</dt><dd><?= Html::encode($user->created_at) ?></dd>
-        <dt>Магазинов создано:</dt><dd><?= Shop::find()->where('user_id=:id', [':id' => Yii::$app->user->id])->count() ?></dd>
+        <dt><?= Yii::t('users', 'MESSAGE_VIEWS_INDEX_USERNAME') ?></dt><dd><?= Html::encode($model->username) ?></dd>
+        <dt><?= Yii::t('users', 'MESSAGE_VIEWS_INDEX_EMAIL') ?></dt><dd><?= Html::encode($model->email) ?></dd>
+        <dt><?= Yii::t('users', 'MESSAGE_VIEWS_INDEX_CREATED') ?></dt><dd><?= Yii::$app->formatter->asDatetime($model->created_at) ?></dd>
+        <dt><?= Yii::t('users', 'MESSAGE_VIEWS_INDEX_SHOP_COUNT') ?></dt><dd><?= Shop::find()->where('user_id=:id', [':id' => Yii::$app->user->id])->count() ?></dd>
     </dl>
 </div>

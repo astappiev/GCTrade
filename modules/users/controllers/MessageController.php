@@ -135,11 +135,11 @@ class MessageController extends Controller
         if (($model = Message::findOne($id)) !== null) {
 
             if($access === true && $model->user_recipient != \Yii::$app->user->id)
-                throw new ForbiddenHttpException(Yii::t('app/users', 'MESSAGE_NO_PERMISSION'));
+                throw new ForbiddenHttpException(Yii::t('users', 'MESSAGE_CONTROLLER_NO_PERMISSION'));
 
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('users', 'MESSAGE_CONTROLLER_NOT_FOUND'));
         }
     }
 }
