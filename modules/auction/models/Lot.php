@@ -114,6 +114,8 @@ class Lot extends ActiveRecord
             ['time_elapsed', 'default', 'value' => time() + 1209600], // 2 weeks
             ['time_bid', 'default', 'value' => 172800], // 2 days
 
+            ['metadata', 'app\modules\auction\models\validators\MetadataValidator'],
+
             ['region_name', 'app\modules\auction\models\validators\LandValidator'],
             ['region_name', 'required', 'when' => function ($model) {
                 return $model->type_id == self::TYPE_LAND;
