@@ -11,6 +11,8 @@ use app\modules\auction\models\Lot;
  * @var yii\web\View $this
  * @var app\modules\auction\models\Lot $model
  * @var yii\widgets\ActiveForm $form
+ * @var array $statusArray
+ * @var array $typeArray
  */
 ?>
 
@@ -30,6 +32,8 @@ use app\modules\auction\models\Lot;
     <?= $form->field($model, 'name')->textInput(['placeholder' => 'Название лота', 'maxlength' => 255]) ?>
 
     <?= $form->field($model, 'type_id')->dropDownList($typeArray) ?>
+
+    <?= $form->field($model, 'status')->dropDownList($statusArray) ?>
 
     <?= $form->field($model, 'region_name', [
         'options' => ($model->isNewRecord || $model->type_id == Lot::TYPE_LAND) ? ['class' => 'form-group'] : ['class' => 'form-group', 'style' => 'display: none;'],

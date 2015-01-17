@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="body-content auction lot-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) . ($model->status == Lot::STATUS_DRAFT ? ' (Черновик)' : '') ?></h1>
 
     <?php if(\Yii::$app->user->id == $model->user_id): ?>
     <p>
@@ -101,9 +101,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     <li class="list-group-item">
                         Начальная цена <span class="badge"><?= \Yii::$app->formatter->asInteger($model->price_min) ?> зелени</span>
                     </li>
+                    <?php if($model->price_step) : ?>
+                    <li class="list-group-item">
+                        Шаг <span class="badge"><?= \Yii::$app->formatter->asInteger($model->price_step) ?> зелени</span>
+                    </li>
+                    <?php endif; ?>
+                    <?php if($model->price_blitz) : ?>
                     <li class="list-group-item <?= !$model->bid ? 'hidden' : null ?>">
                         Блиц цена <span class="badge"><?= \Yii::$app->formatter->asInteger($model->price_blitz) ?> зелени</span>
                     </li>
+                    <?php endif; ?>
                     <li class="list-group-item list-group-item-danger clearfix">
                         <?php if(\Yii::$app->user->id == $model->user_id): ?>
                             Нельзя делать ставки на свой аукцион

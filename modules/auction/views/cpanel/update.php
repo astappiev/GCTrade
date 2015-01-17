@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = 'Обновление';
     <?= $this->render('_form', [
         'model' => $model,
         'typeArray' => $typeArray,
+        'statusArray' => $statusArray,
     ]) ?>
 
 </div>

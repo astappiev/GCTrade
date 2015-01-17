@@ -86,6 +86,7 @@ class CpanelController extends DefaultController
         $model = new Lot();
         //$model->scenario = 'create';
         $typeArray = Lot::getTypeArray();
+        $statusArray = Lot::getStatusArray();
 
         if (\Yii::$app->request->isAjax && $model->load(\Yii::$app->request->post())) {
             \Yii::$app->response->format = Response::FORMAT_JSON;
@@ -104,6 +105,7 @@ class CpanelController extends DefaultController
             return $this->render('create', [
                 'model' => $model,
                 'typeArray' => $typeArray,
+                'statusArray' => $statusArray,
             ]);
         }
     }
@@ -120,6 +122,7 @@ class CpanelController extends DefaultController
         $model = $this->findModel($id, true);
         $model->scenario = 'update';
         $typeArray = Lot::getTypeArray();
+        $statusArray = Lot::getStatusArray();
 
         if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
             if ($model->save()) {
@@ -132,6 +135,7 @@ class CpanelController extends DefaultController
             return $this->render('update', [
                 'model' => $model,
                 'typeArray' => $typeArray,
+                'statusArray' => $statusArray,
             ]);
         }
     }

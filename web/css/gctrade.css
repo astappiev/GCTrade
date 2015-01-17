@@ -488,6 +488,10 @@ th.flag {
     min-height: 420px;
 }
 
+.lot-cpanel .auction .posts > div {
+    min-height: inherit;
+}
+
 .auction .posts > div:nth-child(odd) {
     padding-left: 0;
 }
@@ -530,6 +534,12 @@ th.flag {
 }
 
 /* Аукционы -> Предмет */
+.auction.lot-view .preview.item .item-desc-block img {
+    max-width: 605px;
+}
+.auction .posts .item-desc-block img {
+    max-width: 420px;
+}
 .grid-table {
     text-align: center;
     border: 1px solid #0A180E;

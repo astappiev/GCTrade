@@ -15,6 +15,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $user_id
  * @property integer $type_id
+ * @property integer $status
  * @property string $name
  * @property string $metadata
  * @property string $description
@@ -41,6 +42,13 @@ class Lot extends ActiveRecord
     const TYPE_LAND = 2;
     const TYPE_PROJECT = 3;
     const TYPE_OTHER = 9;
+
+    const STATUS_DRAFT = 2;
+    const STATUS_PUBLISHED = 5;
+    const STATUS_STARTED = 6;
+    const STATUS_FINISHED = 7;
+    const STATUS_CLOSED = 9;
+    const STATUS_BANNED = 10;
 
     /**
      * @inheritdoc
@@ -76,8 +84,8 @@ class Lot extends ActiveRecord
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios['create'] = ['user_id', 'type_id', 'name', 'metadata', 'description', 'price_min', 'price_step', 'price_blitz', 'created_at', 'updated_at'];
-        $scenarios['update'] = ['name', 'metadata', 'description', 'price_min', 'price_step', 'price_blitz', 'updated_at'];
+        $scenarios['create'] = ['user_id', 'type_id', 'status', 'name', 'metadata', 'description', 'price_min', 'price_step', 'price_blitz', 'created_at', 'updated_at'];
+        $scenarios['update'] = ['status', 'name', 'metadata', 'description', 'price_min', 'price_step', 'price_blitz', 'updated_at'];
         return $scenarios;
     }
 
@@ -98,6 +106,7 @@ class Lot extends ActiveRecord
             ['price_min', 'integer', 'max' => 10000000],
             ['price_step', 'integer', 'max' => 500000],
             ['price_min', 'default', 'value' => 1],
+            ['status', 'default', 'value' => 2],
 
             ['type_id', 'in', 'range' => array_keys(self::getTypeArray())],
 
@@ -140,6 +149,7 @@ class Lot extends ActiveRecord
             'name' => 'Название лота',
             'metadata' => 'Данные о лоте',
             'type_id' => 'Тип лота',
+            'status' => 'Состояние',
             'description' => 'Описание',
             'price_min' => 'Начальная цена',
             'price_step' => 'Шаг аукциона',
@@ -168,9 +178,29 @@ class Lot extends ActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public static function getStatusArray()
+    {
+        return [
+            self::STATUS_PUBLISHED => 'Опубликовано',
+            self::STATUS_DRAFT => 'Черновик',
+        ];
+    }
+
+    /**
      * @return string
      */
     public function getType()
+    {
+        $type = self::getTypeArray();
+        return $type[$this->type_id];
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
     {
         $type = self::getTypeArray();
         return $type[$this->type_id];
@@ -198,5 +228,20 @@ class Lot extends ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function afterFind()
+    {
+        if($this->type_id == self::TYPE_ITEM_IMAGE) {
+            $data = json_decode($this->metadata);
+            $this->item_id = $data->item_id;
+            $this->picture_url = $data->picture_url;
+        } else if ($this->type_id == self::TYPE_LAND) {
+            $data = json_decode($this->metadata);
+            $this->region_name = $data->name;
+        } else if ($this->type_id == self::TYPE_PROJECT || $this->type_id == self::TYPE_OTHER) {
+            $data = json_decode($this->metadata);
+            $this->picture_url = $data->picture_url;
+        }
     }
 }
