@@ -40,7 +40,7 @@ class Shop extends ShopModel
      */
     public function search($params)
     {
-        $query = ShopModel::find()->where(['status' => ShopModel::STATUS_ACTIVE])->orWhere(['status' => ShopModel::STATUS_DEPENDS]);
+        $query = ShopModel::find()->where(['status' => ShopModel::STATUS_PUBLISHED]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

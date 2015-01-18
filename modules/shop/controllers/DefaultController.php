@@ -33,7 +33,7 @@ class DefaultController extends Controller
     public function actionBooks()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Shop::find()->where(['type' => Shop::TYPE_BOOKS]),
+            'query' => Shop::find()->where(['type' => Shop::TYPE_BOOKS, 'status' => Shop::STATUS_PUBLISHED]),
             'sort'=> ['defaultOrder' => ['updated_at' => SORT_DESC]]
         ]);
 
@@ -45,7 +45,7 @@ class DefaultController extends Controller
     public function actionGoods()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Shop::find()->where(['type' => Shop::TYPE_GOODS]),
+            'query' => Shop::find()->where(['type' => Shop::TYPE_GOODS, 'status' => Shop::STATUS_PUBLISHED]),
             'sort'=> ['defaultOrder' => ['updated_at' => SORT_DESC]]
         ]);
 
@@ -92,7 +92,7 @@ class DefaultController extends Controller
     {
         if (($model = Shop::find()->where(['alias' => $alias])->one()) !== null) {
 
-            if($access === true && $model->user_id != \Yii::$app->user->id)
+            if(($access === true || in_array($model->status, [Shop::STATUS_DRAFT, Shop::STATUS_BLOCKED])) && $model->user_id != \Yii::$app->user->id)
                 throw new ForbiddenHttpException(Yii::t('app/shop', 'SHOP_NO_PERMISSION'));
 
             return $model;

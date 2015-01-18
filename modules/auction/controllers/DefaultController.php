@@ -54,7 +54,7 @@ class DefaultController extends Controller
     {
         if (($model = Lot::findOne($id)) !== null) {
 
-            if(($access === true || in_array($model->status, [Lot::STATUS_DRAFT, Lot::STATUS_BANNED])) && $model->user_id != \Yii::$app->user->id)
+            if(($access === true || in_array($model->status, [Lot::STATUS_DRAFT, Lot::STATUS_BLOCKED])) && $model->user_id != \Yii::$app->user->id)
                 throw new ForbiddenHttpException(Yii::t('app/shop', 'SHOP_NO_PERMISSION'));
 
             return $model;

@@ -48,7 +48,7 @@ class Lot extends ActiveRecord
     const STATUS_STARTED = 6;
     const STATUS_FINISHED = 7;
     const STATUS_CLOSED = 9;
-    const STATUS_BANNED = 10;
+    const STATUS_BLOCKED = 10;
 
     /**
      * @inheritdoc
@@ -98,7 +98,7 @@ class Lot extends ActiveRecord
             [['name', 'price_min', 'metadata'], 'required'],
 
             [['name', 'metadata', 'description', 'region_name'], 'string'],
-            [['time_bid', 'time_elapsed'], 'integer'],
+            [['time_bid', 'time_elapsed', 'status'], 'integer'],
             [['time_bid', 'created_at', 'updated_at'], 'safe'],
 
             [['name'], 'string', 'max' => 255],
@@ -106,7 +106,9 @@ class Lot extends ActiveRecord
             ['price_min', 'integer', 'max' => 10000000],
             ['price_step', 'integer', 'max' => 500000],
             ['price_min', 'default', 'value' => 1],
-            ['status', 'default', 'value' => 2],
+
+            ['status', 'default', 'value' => self::STATUS_PUBLISHED],
+            ['status', 'in', 'range' => array_keys(self::getStatusArray())],
 
             ['type_id', 'in', 'range' => array_keys(self::getTypeArray())],
 

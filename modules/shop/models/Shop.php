@@ -34,10 +34,9 @@ use yii\behaviors\TimestampBehavior;
  */
 class Shop extends ActiveRecord
 {
-    const STATUS_DELETED = 0;
-    const STATUS_VERIFIED = 6;
-    const STATUS_DEPENDS = 8;
-    const STATUS_ACTIVE = 10;
+    const STATUS_DRAFT = 2;
+    const STATUS_PUBLISHED = 5;
+    const STATUS_BLOCKED = 10;
 
     const TYPE_GOODS = 0;
     const TYPE_BOOKS = 1;
@@ -80,8 +79,8 @@ class Shop extends ActiveRecord
     public function scenarios()
     {
         return [
-            'create' => ['name', 'type', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'logo_url', 'source'],
-            'update' => ['name', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'logo_url', 'source'],
+            'create' => ['name', 'user_id', 'status', 'type', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'logo_url', 'source'],
+            'update' => ['name', 'status', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'logo_url', 'source'],
             'update_date' => ['updated_at'],
             'delete-logo' => [],
         ];
@@ -143,10 +142,8 @@ class Shop extends ActiveRecord
     public static function getStatusArray()
     {
         return [
-            self::STATUS_DELETED => 'Не опубликован',
-            self::STATUS_VERIFIED => 'На модерации',
-            self::STATUS_DEPENDS => 'Зависем (Опубликован)',
-            self::STATUS_ACTIVE => 'Опубликован',
+            self::STATUS_PUBLISHED => 'Опубликован',
+            self::STATUS_DRAFT => 'Черновик',
         ];
     }
 
@@ -214,34 +211,11 @@ class Shop extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function beforeSave($insert)
-    {
-        if(parent::beforeSave($insert)) {
-            // Проверяем если это новая запись.
-            if ($this->isNewRecord) {
-                // Определяем автора в случае его отсутсвия.
-                if (!$this->user_id) {
-                    $this->user_id = \Yii::$app->user->id;
-                }
-                // Определяем статус.
-                if (!$this->status) {
-                    $this->status = self::STATUS_ACTIVE;
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
             ['user_id', 'default', 'value' => Yii::$app->user->id],
-
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'default', 'value' => self::STATUS_PUBLISHED],
             ['status', 'in', 'range' => array_keys(self::getStatusArray())],
 
             ['type', 'default', 'value' => self::TYPE_GOODS],
