@@ -25,34 +25,34 @@ class MetadataValidator extends Validator
             $data = json_decode($model->$attribute);
             if($data === null) {
                 $model->addError($attribute, $this->message["not_valid"]);
-            } else if ($data->item_id) {
+            } else if (!$data->item_id) {
                 $model->addError($attribute, $this->message["not_have_item_id"]);
-            } else if ($data->picture_url) {
+            } else if (!$data->picture_url) {
                 $model->addError($attribute, $this->message["not_have_picture_url"]);
             }
         } else if($model->type_id == Lot::TYPE_PROJECT || $model->type_id == Lot::TYPE_OTHER) {
             $data = json_decode($model->$attribute);
             if($data === null) {
                 $model->addError($attribute, $this->message["not_valid"]);
-            } else if ($data->picture_url) {
+            } else if (!$data->picture_url) {
                 $model->addError($attribute, $this->message["not_have_picture_url"]);
             }
         } else if($model->type_id == Lot::TYPE_LAND) {
             $data = json_decode($model->$attribute);
             if($data === null) {
                 $model->addError($attribute, $this->message["not_valid"]);
-            } else if ($data->name) {
+            } else if (!$data->name) {
                 $model->addError($attribute, $this->message["not_have_name"]);
-            } else if ($data->coordinates) {
+            } else if (!$data->coordinates) {
                 $model->addError($attribute, $this->message["not_have_coordinates"]);
             }
         } else if($model->type_id == Lot::TYPE_ITEM) {
             $data = json_decode($model->$attribute);
             if($data === null) {
                 $model->addError($attribute, $this->message["not_valid"]);
-            } else if ($data->name) {
+            } else if (!$data->name) {
                 $model->addError($attribute, $this->message["not_have_name"]);
-            } else if ($data->id) {
+            } else if (!$data->item_id) {
                 $model->addError($attribute, $this->message["not_have_id"]);
             }
         }

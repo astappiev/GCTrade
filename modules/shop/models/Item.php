@@ -83,9 +83,7 @@ class Item extends ActiveRecord
     public static function findByName($name)
     {
         $item = static::findOne(['name' => $name]);
-        if(!$item)
-            return ItemAlias::findByName($name)->getItem();
-
+        if(!$item) return ItemAlias::findByName($name)->item;
         return $item;
     }
 }

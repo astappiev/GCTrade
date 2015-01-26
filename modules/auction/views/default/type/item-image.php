@@ -8,26 +8,13 @@
 use yii\helpers\Html;
 use yii\helpers\Json;
 
-$data = Json::decode($model->metadata, FALSE);
+$data = json_decode($model->metadata, false);
+$data->name = $model->name;
 ?>
 <div class="preview item clearfix">
-    <div class="grid-table">
-        <div class="grid-table-border clearfix">
-            <div class="grid-table-item">
-                <div class="grid-table-item-border">
-                    <a class="tip">
-                        <img title="<?= Html::encode($model->name) ?>" src="/images/items/<?= $data->item_id ?>.png">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="item-desc">
-        <div class="arrow"></div>
-        <div class="item-desc-border">
-            <div class="item-desc-block">
-                <img src="/images/auction/<?= $data->picture_url ?>">
-            </div>
-        </div>
-    </div>
+    <?php if(json_last_error() === JSON_ERROR_NONE): ?>
+        <?= \app\modules\auction\widgets\ViewItem::widget(['metadata' => $data]) ?>
+    <?php else: ?>
+        <p>Ошибка валидации Json</p>
+    <?php endif; ?>
 </div>

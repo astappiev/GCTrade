@@ -8,10 +8,10 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/gctrade.css',
+        'css/gctrade.min.css',
     ];
     public $js = [
-        'js/gctrade.js',
+        'js/gctrade.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

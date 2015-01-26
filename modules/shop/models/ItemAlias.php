@@ -39,6 +39,6 @@ class ItemAlias extends ActiveRecord
      */
     public static function findByName($name)
     {
-        return static::findOne(['name' => $name]);
+        return static::findOne(['subname' => $name]);
     }
 }

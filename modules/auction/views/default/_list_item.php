@@ -9,7 +9,6 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use app\modules\auction\models\Lot;
 
-$item = Json::decode($model->metadata, FALSE);
 ?>
 <div class="well clearfix">
     <div class="info pull-left">

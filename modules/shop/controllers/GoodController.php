@@ -4,6 +4,7 @@ namespace app\modules\shop\controllers;
 
 use app\modules\shop\models\Good;
 use app\modules\shop\models\Item;
+use app\modules\shop\models\Shop;
 use Yii;
 use yii\helpers\Json;
 use yii\web\ForbiddenHttpException;
@@ -79,7 +80,7 @@ class GoodController extends \yii\web\Controller
 
     public function actionAvg()
     {
-        $command = \Yii::$app->db->createCommand("SELECT tg_item.alias AS id, avg(price_sell/stuck) AS price_sell, avg(price_buy/stuck) as price_buy FROM tg_shop_good LEFT JOIN tg_item ON tg_shop_good.item_id = tg_item.id WHERE shop_id IN(SELECT id FROM tg_shop WHERE tg_shop.status IN(8,10)) GROUP BY item_id");
+        $command = \Yii::$app->db->createCommand("SELECT tg_item.alias AS id, avg(price_sell/stuck) AS price_sell, avg(price_buy/stuck) as price_buy FROM tg_shop_good LEFT JOIN tg_item ON tg_shop_good.item_id = tg_item.id WHERE shop_id IN(SELECT id FROM tg_shop WHERE tg_shop.status IN(" . Shop::STATUS_PUBLISHED . ")) GROUP BY item_id");
         $table = $command->queryAll();
         $row = [];
         foreach($table as $line) {

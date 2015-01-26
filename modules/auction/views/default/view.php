@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="body-content auction lot-view">
 
-    <h1><?= Html::encode($this->title) . ($model->status == Lot::STATUS_DRAFT ? ' (Черновик)' : '') ?></h1>
+    <h1><?= Html::encode($this->title) . ($model->status == Lot::STATUS_DRAFT ? ' (Черновик)' : null) ?></h1>
 
     <?php if(\Yii::$app->user->id == $model->user_id): ?>
     <p>

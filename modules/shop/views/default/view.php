@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="btn-group pull-right" style="margin-top: 25px;">
         <?= Html::button('<span class="glyphicon glyphicon-envelope"></span> Написать владельцу', ['class' => 'btn btn-warning', 'data-toggle' => 'modal', 'data-target' => '#reviewToOwner']) ?>
     </div>
-	<h1><?= Html::encode($this->title) ?></h1>
+	<h1><?= Html::encode($this->title) . ($model->status == Shop::STATUS_DRAFT ? ' (Черновик)' : null) ?></h1>
 
     <div class="panel panel-default">
         <div class="panel-heading">

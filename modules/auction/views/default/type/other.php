@@ -8,8 +8,12 @@
 use yii\helpers\Html;
 use yii\helpers\Json;
 
-$data = Json::decode($model->metadata, FALSE);
+$data = json_decode($model->metadata, false);
 ?>
 <div class="preview item clearfix">
-    <img src="/images/auction/<?= $data->picture_url ?>">
+    <?php if(json_last_error() === JSON_ERROR_NONE): ?>
+        <img src="/images/auction/<?= $data->picture_url ?>">
+    <?php else: ?>
+        <p>Ошибка валидации Json</p>
+    <?php endif; ?>
 </div>

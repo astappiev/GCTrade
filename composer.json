@@ -30,6 +30,7 @@
 	  	"bower-asset/flot": "*",
 	  	"bower-asset/leaflet-dist": "*",
 	  	"bower-asset/intro.js": "*",
+	  	"bower-asset/salvattore": "*",
 		"linslin/yii2-curl": "*"
 	},
 	"require-dev": {

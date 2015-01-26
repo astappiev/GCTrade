@@ -22,7 +22,7 @@ var avg_price = {
                 var price_sell = (avg_price.price[item_id].price_sell * stack).toFixed(2);
                 var price_buy = (avg_price.price[item_id].price_buy * stack).toFixed(2);
 
-                $('td', this).eq(4).addClass($('td', this).eq(3).text() >= +price_sell ? 'bg-success' : 'bg-danger').text(price_sell);
+                $('td', this).eq(4).addClass($('td', this).eq(3).text() <= +price_sell ? 'bg-success' : 'bg-danger').text(price_sell);
                 $('td', this).eq(6).addClass($('td', this).eq(5).text() >= +price_buy ? 'bg-success' : 'bg-danger').text(price_buy);
             });
         }

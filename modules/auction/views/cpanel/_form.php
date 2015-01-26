@@ -36,7 +36,7 @@ use app\modules\auction\models\Lot;
     <?= $form->field($model, 'status')->dropDownList($statusArray) ?>
 
     <?= $form->field($model, 'region_name', [
-        'options' => ($model->isNewRecord || $model->type_id == Lot::TYPE_LAND) ? ['class' => 'form-group'] : ['class' => 'form-group', 'style' => 'display: none;'],
+        'options' => ($model->type_id == null || $model->type_id == Lot::TYPE_LAND) ? ['class' => 'form-group'] : ['class' => 'form-group', 'style' => 'display: none;'],
     ])->textInput(['placeholder' => 'Например: Sherwood или astappev_h_3']) ?>
 
     <?= $form->field($model, 'item_id', [
@@ -44,7 +44,7 @@ use app\modules\auction\models\Lot;
     ])->textInput(['placeholder' => 'Например: 278 для алмазной кирки']) ?>
 
     <?= $form->field($model, 'picture_url', [
-        'options' => (!$model->isNewRecord && ($model->type_id != Lot::TYPE_LAND && $model->type_id != Lot::TYPE_ITEM)) ? ['class' => 'form-group'] : ['class' => 'form-group', 'style' => 'display: none;'],
+        'options' => ($model->type_id !== null && ($model->type_id != Lot::TYPE_LAND && $model->type_id != Lot::TYPE_ITEM)) ? ['class' => 'form-group'] : ['class' => 'form-group', 'style' => 'display: none;'],
     ])->widget(FileAPI::className(), [
         'crop' => true,
         'jcropSettings' => [
@@ -63,7 +63,7 @@ use app\modules\auction\models\Lot;
     ]) ?>
 
     <?= $form->field($model, 'metadata', [
-        'options' => (!$model->isNewRecord && $model->type_id == Lot::TYPE_ITEM) ? ['class' => 'form-group'] : ['class' => 'form-group', 'style' => 'display: none;'],
+        'options' => ($model->type_id == Lot::TYPE_ITEM) ? ['class' => 'form-group'] : ['class' => 'form-group', 'style' => 'display: none;'],
     ])->textarea(['rows' => 4]) ?>
 
     <?= $form->field($model, 'description')->widget(Imperavi::className(), [

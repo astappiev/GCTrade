@@ -27,6 +27,7 @@ class ManageController extends Controller
                 $item = new Item();
                 $item->id_primary = $line->id;
                 $item->id_meta = $line->data;
+                $item->alias = $line->id . ($line->data !== 0 ? ('.'.$line->data) : null);
                 $item->name = $line->name;
                 if($item->save())
                     $status = '<span class="glyphicon glyphicon-plus twosize green"></span>';
