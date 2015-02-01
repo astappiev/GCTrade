@@ -10,7 +10,7 @@ $this->title = 'Создание лота';
 $this->params['breadcrumbs'][] = ['label' => 'Аукцион', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="body-content lot-create">
+<div class="body-content auction cpanel lot-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

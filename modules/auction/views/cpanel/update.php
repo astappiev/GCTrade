@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Аукцион', 'url' => ['defaul
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['default/view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Обновление';
 ?>
-<div class="body-content lot-update">
+<div class="body-content auction cpanel lot-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

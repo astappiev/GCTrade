@@ -82,7 +82,7 @@ class Shop extends ActiveRecord
             'create' => ['name', 'user_id', 'status', 'type', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'logo_url', 'source'],
             'update' => ['name', 'status', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'logo_url', 'source'],
             'update_date' => ['updated_at'],
-            'delete-logo' => [],
+            'delete-logo' => ['logo_url'],
         ];
     }
 
@@ -111,7 +111,7 @@ class Shop extends ActiveRecord
     {
         if($this->type === self::TYPE_GOODS) {
             return $this->hasMany(Good::className(), ['shop_id' => 'id'])->orderBy('item_id');
-        } else if($this->type === self::TYPE_BOOKS) {
+        } elseif ($this->type === self::TYPE_BOOKS) {
             return $this->hasMany(Book::className(), ['shop_id' => 'id']);
         }
         return null;
@@ -131,7 +131,7 @@ class Shop extends ActiveRecord
     public function getLogo()
     {
         if ($this->_logo === null) {
-            $this->_logo = $this->logo_url ? ('/images/shop/'.$this->logo_url) : '/images/shop/nologo.png';
+            $this->_logo = $this->logo_url ? ('/images/shop/'.$this->logo_url) : '/images/nologo.png';
         }
         return $this->_logo;
     }
@@ -202,7 +202,7 @@ class Shop extends ActiveRecord
             'x_cord' => 'Координата X',
             'z_cord' => 'Координата Z',
             'logo_url' => 'Логотип магазина',
-            'source' => 'Источник',
+            'source' => 'Ссылка на форум или сайт',
             'created_at' => 'Создано',
             'updated_at' => 'Последнее обновление',
         ];

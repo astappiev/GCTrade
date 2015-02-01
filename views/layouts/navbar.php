@@ -38,16 +38,16 @@ $mainMenu = [
 if (!Yii::$app->user->isGuest) {
 
     $userMenu = [
-        ['label' => ' ', 'icon' => 'plus', 'items' => [
+        ['label' => 'Добавить', 'icon' => 'plus', 'linkOptions' => ['class' => 'hide-label'], 'items' => [
             ['label' => 'Добавить магазин', 'url' => ['/shop/cpanel/create']],
             ['label' => 'Добавить лот', 'url' => ['/auction/cpanel/create']],
         ]],
-        ['label' => ' ', 'icon' => 'cog', 'items' => [
+        ['label' => 'Редактировать', 'icon' => 'cog', 'linkOptions' => ['class' => 'hide-label'], 'items' => [
             ['label' => 'Редактировать магазины', 'url' => ['/shop/cpanel/index']],
             ['label' => 'Редактировать лоты', 'url' => ['/auction/cpanel/index']],
         ]],
-        ['label' => ' ', 'icon' => 'comment', 'url' => ['/users/message/index'], 'badge' => Message::getCount()],
-        ['label' => ' '.Yii::$app->user->identity->username, 'icon' => 'user', 'linkOptions' => ['class' => 'intro-user'], 'items' => [
+        ['label' => 'Сообщения', 'icon' => 'comment', 'url' => ['/users/message/index'], 'badge' => Message::getCount(), 'linkOptions' => ['class' => 'hide-label']],
+        ['label' => Yii::$app->user->identity->username, 'icon' => 'user', 'linkOptions' => ['class' => 'intro-user hide-label'], 'items' => [
             ['label' => 'Твой профиль', 'url' => ['/users/default/index']],
             ['label' => 'Настройки профиля', 'url' => ['/users/default/edit']],
             ['label' => 'Выйти', 'url' => ['/users/default/logout']],

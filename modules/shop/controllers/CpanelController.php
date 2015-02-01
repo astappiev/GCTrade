@@ -184,7 +184,7 @@ class CpanelController extends DefaultController
                 $price_sell = ($price->price_sell) ? $price->price_sell : 'null';
                 $price_buy = ($price->price_buy) ? $price->price_buy : 'null';
                 $content .= $price->item->alias . '; ' . $price_sell . '; ' . $price_buy . '; ' . $price->stuck . PHP_EOL;
-            } else if($model->type == Shop::TYPE_BOOKS) {
+            } elseif ($model->type == Shop::TYPE_BOOKS) {
                 $description = ($price->description) ? $price->description : 'null';
                 $price_sell = ($price->price_sell) ? $price->price_sell : 'null';
                 $content .= $price->item->id_primary . '; ' . $price->name . '; ' . $price->author . '; ' . $description . '; ' . $price_sell . ';' . PHP_EOL;

@@ -70,7 +70,7 @@ $("button#delete").click(function(){
 });
 
 $("#permission").click(function(){
-    $(".alert").removeClass('visible').addClass('hidden');
+    $(".alert").hide();
     if (Notification.permission === 'default') {
         Notification.requestPermission(function (permission) {
 
@@ -95,7 +95,7 @@ $(document).ready(function() {
     } else if (Notification.permission === "granted") {
         console.log('С уведомлениями все впорядке.');
     } else {
-        $(".alert").removeClass('hidden').addClass('visible');
+        $(".alert").show();
     }
 
     user.update();

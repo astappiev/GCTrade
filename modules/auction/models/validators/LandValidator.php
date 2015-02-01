@@ -27,9 +27,9 @@ class LandValidator extends Validator
             if($data) {
                 if($data->parent) {
                     $model->addError($attribute, $this->message["parent"]);
-                } else if(!in_array(\Yii::$app->user->identity->username, $data->full_access)) {
+                } elseif (!in_array(\Yii::$app->user->identity->username, $data->full_access)) {
                     $model->addError($attribute, $this->message["owner"]);
-                } else if($data->name) {
+                } elseif ($data->name) {
                     $model->metadata = json_encode(["name" => $data->name,  "coordinates" => $data->coordinates]);
                 }
             } else {

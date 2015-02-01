@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\base\Exception;
 use yii\web\Controller;
 use yii\db\Query;
 
@@ -29,10 +30,23 @@ class ApiController extends Controller
             return self::renderJSON($rows);
         }
 
-        header("Status: 404 Not Found");
-        header('HTTP/1.0 404 Not Found');
+        Yii::$app->response->statusCode = 404;
         return self::renderJSON(['message' => 'Results not found']);
 	}
+
+    public function actionNomenclature()
+    {
+        $query = (new Query)->select('alias as id, name')->from('tg_item');
+        $rows = $query->createCommand()->queryAll();
+
+        if(!empty($rows))
+        {
+            return self::renderJSON($rows);
+        }
+
+        Yii::$app->response->statusCode = 404;
+        return self::renderJSON(['message' => 'Results not found']);
+    }
 
     public function actionSkin($login)
     {
@@ -52,7 +66,7 @@ class ApiController extends Controller
         if(strpos($headers[0], '200')) {
             $size = getimagesize($src);
             if($size[0] == "256") $src_size = 32;
-            else if($size[0] == "128") $src_size = 16;
+            elseif($size[0] == "128") $src_size = 16;
             else $src_size = 8;
 
             $dst_size = 32;
@@ -118,8 +132,7 @@ class ApiController extends Controller
             return imagedestroy($img);
         }
 
-        header("Status: 404 Not Found");
-        header('HTTP/1.0 404 Not Found');
+        Yii::$app->response->statusCode = 404;
         return self::renderJSON(['message' => 'User not found or user hasn\'t badges']);
     }
 
@@ -172,8 +185,7 @@ class ApiController extends Controller
             return self::renderJSON($players);
         }
 
-        header("Status: 404 Not Found");
-        header('HTTP/1.0 404 Not Found');
+        Yii::$app->response->statusCode = 404;
         return self::renderJSON(['message' => 'Impossible to get the array']);
     }
 
@@ -206,8 +218,7 @@ class ApiController extends Controller
             return self::renderJSON($items);
         }
 
-        header("Status: 404 Not Found");
-        header('HTTP/1.0 404 Not Found');
+        Yii::$app->response->statusCode = 404;
         return self::renderJSON(['message' => 'Nothing found']);
     }
 
@@ -261,8 +272,7 @@ class ApiController extends Controller
             return self::renderJSON(($lenght == 1) ? $items[0] : $items);
         }
 
-        header("Status: 404 Not Found");
-        header('HTTP/1.0 404 Not Found');
+        Yii::$app->response->statusCode = 404;
         return self::renderJSON(['message' => 'Nothing found']);
     }
 

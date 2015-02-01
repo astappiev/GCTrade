@@ -6,10 +6,9 @@ use app\helpers\Nav;
 
 <footer class="footer text-muted">
     <div class="container">
-        <p class="pull-left">&copy; Oleg Astappev, <?= date('Y') ?></p>
-        <p class="pull-right">
+        <div class="pull-right">
             <?php echo Nav::widget([
-                'options' => ['class' => 'footer-nav text-muted'],
+                'options' => ['class' => 'nav nav-pills footer-nav'],
                 'items' => [
                     ['label' => 'Политика', 'url' => ['/site/privacy']],
                     ['label' => 'API', 'url' => ['/api/index']],
@@ -17,6 +16,9 @@ use app\helpers\Nav;
                     ['label' => 'Форум поддержки', 'linkOptions' => ['target' => '_blank', 'rel' => 'external'], 'url' => 'https://forum.greencubes.org/viewtopic.php?f=267&t=24524'],
                 ],
             ]); ?>
-        </p>
+        </div>
+        <div class="pull-left">
+            <p>&copy; Oleg Astappev, <?= date('Y') ?></p>
+        </div>
     </div>
 </footer>

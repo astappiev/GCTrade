@@ -2,6 +2,7 @@
 html {
     position: relative;
     min-height: 100%;
+    min-width: 320px;
 }
 
 body {
@@ -13,17 +14,12 @@ body > .container {
     padding: 90px 15px 0;
 }
 
-.navbar-nav .badge{
+.navbar-nav .badge {
     border-radius: 4px;
     background: #080808;
 }
 
-.navbar-inverse {
-    z-index: 2000;
-}
-
 .body-content {
-    margin-bottom: 30px;
     padding: 30px;
     color: inherit;
     border-radius: 6px;
@@ -35,19 +31,81 @@ body > .container {
     bottom: 0;
     width: 100%;
     height: 60px;
-    padding: 20px 20px 0 !important;
+    padding: 20px 20px 0
 }
+
 .clearfix:after {
     content: " ";
     display: block;
     height: 0;
     clear: both;
 }
+
+.dropdown-menu {
+    z-index: 1100;
+}
+
+.navbar-inverse {
+    z-index: 2000;
+}
+
+.redactor-box-fullscreen {
+    z-index: 3000 !important;
+}
+
 .modal {
     z-index: 4000;
 }
-.redactor-box-fullscreen {
-    z-index: 3000 !important;
+
+@media screen and (max-width: 670px) {
+    body > nav {
+        min-width: 320px;
+    }
+
+    body > .footer {
+        min-width: 320px;
+        padding: 10px 0;
+    }
+
+    h1, .h2 {
+        font-size: 28px;
+    }
+
+    h2, .h2 {
+        font-size: 24px;
+    }
+
+    h3, .h3 {
+        font-size: 22px;
+    }
+
+    .body-content {
+        padding: 10px;
+    }
+
+    .col-sm-12 {
+        padding: 0;
+    }
+
+    h1, .h1, h2, .h2, h3, .h3 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .well {
+        min-height: 15px;
+        padding: 10px;
+    }
+
+    .nav > li > a {
+        padding: 10px 8px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .navbar-right .hide-label .nav-text {
+        display: none;
+    }
 }
 
 
@@ -61,38 +119,28 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 /* Footer Nav */
-.footer-nav {
-    float: right;
-}
 .footer-nav li {
-    float: left;
-    display: block;
     border-right: 1px solid #777;
     line-height: 0;
 }
+
 .footer-nav li:last-child {
     border-right: 0;
 }
+
 .footer-nav li a {
     color: #777;
     text-transform: uppercase;
     font-size: 11px;
 }
+
 .footer-nav li:last-child a {
     padding-right: 0;
 }
+
 .footer-nav li a:hover {
     color: #FFF;
     background: transparent;
-}
-
-
-.hidden {
-    display: none !important;
-}
-
-.visible {
-    display: block !important;
 }
 
 span.twosize {
@@ -139,11 +187,11 @@ a.asc:after, a.desc:after {
 }
 
 a.asc:after {
-    content: /*"\e113"*/'\e151';
+    content: '\e151';
 }
 
 a.desc:after {
-    content: /*"\e114"*/'\e152';
+    content: '\e152';
 }
 
 .sort-numerical a.asc:after {
@@ -188,6 +236,9 @@ a.desc:after {
     width: 400px;
 }
 
+
+
+/* Shop module */
 .shop-list img {
     width: 150px;
     height: auto;
@@ -242,6 +293,7 @@ a.desc:after {
 #editButtons, #removeButtons {
     z-index: 3;
 }
+
 
 
 /* Таблицы */
@@ -327,20 +379,7 @@ a.desc:after {
     text-align: right;
 }
 
-.table .complaint {
-    z-index: 3;
-    top: -2px;
-    padding-left: 2px;
-    color: #d6d6d6;
-}
-
-.table .complaint.bad {
-    color: orange;
-;
-}
-
-.table td.flag,
-th.flag {
+.table td.flag, th.flag {
     padding: 0 !important;
     text-align: left;
 }
@@ -348,6 +387,8 @@ th.flag {
 .table.table-striped th {
     width: 25%;
 }
+
+
 
 /* Модальные окна */
 .item-modal #add-item-form input {
@@ -369,6 +410,8 @@ th.flag {
     text-decoration: none;
     background-color: #ddd;
 }
+
+
 
 /* Авторизация GC */
 .auth-clients {
@@ -402,6 +445,8 @@ th.flag {
 #msg-table td:nth-child(4), #msg-table th:nth-child(4) {
     width: 20% !important;
 }
+
+
 
 /* Maps */
 .frame-full {
@@ -466,61 +511,64 @@ th.flag {
 
 
 /* Аукционы */
-.auction .well > a {
+.auction.cpanel .input-group-addon.item-th {
+    padding: 3px 6px;
+}
+.auction.cpanel img.item-th {
+    width: 26px;
+    height: 26px;
+}
+.auction-grid .well > a {
     display: block;
     float: left;
 }
 
-.auction .pull-right img {
+.auction-grid .pull-right img {
     width: 150px;
     height: auto;
 }
 
-.auction > h3 {
+.auction-grid > h3 {
     margin: 2px 0 10px;
 }
 
-.auction > p {
+.auction-grid > p {
     margin: 0 0 8px;
 }
-.auction .preview > div {
+.auction-grid .lot-preview > div {
     float: left;
 }
 
-.auction .preview {
+.auction-grid .lot-preview {
     margin: 10px 0;
 }
 
-.auction .preview .panel-heading {
+.auction .lot-preview .panel-heading {
     padding: 0;
 }
 
-.auction .posts .panel {
+.auction-grid .posts .panel {
     margin-bottom: 0;
 }
 
-.auction .posts .panel-body p:last-of-type {
-    margin: 0;
-}
-
 /* Аукционы -> Регион */
-.auction .preview.land .map {
+.auction .lot-preview .map {
     width: 100%;
     height: 150px;
 }
-.auction .info, .auction .panel {
+.auction .info, .grid-wrapper .panel {
     width: 100%;
 }
-.auction.lot-view .preview.land .map {
+.auction.lot-view .lot-preview .map {
     height: 300px;
 }
 
 /* Аукционы -> Предмет */
-.auction.lot-view .preview.item .item-desc-block img {
+.auction.lot-view .lot-preview .item-desc-block img {
     max-width: 605px;
 }
-.auction .posts .item-desc-block img {
-    max-width: 420px;
+.auction .auction-grid .item-desc-block img {
+    max-width: 100%;
 }
 
 /* Dynamic-grid salvattore */
@@ -642,7 +690,17 @@ th.flag {
 .item-preview .item-desc .item-desc-block .tag span:last-child::after {
     content: "";
 }
-
+@media screen and (max-width: 460px){
+    .item-preview .grid-table {
+        display: none;
+    }
+    .item-preview .item-desc .arrow {
+        display: none;
+    }
+    .item-preview .item-desc {
+        margin-left: 0;
+    }
+}
 
 
 /* Spin */
@@ -865,4 +923,35 @@ th.flag {
     padding: 3px 20px;
     font-size: 12px;
     line-height: 1.42857143;
+}
+
+
+/* Panel box */
+.panel-box {
+    position: relative;
+    padding: 45px 15px 15px;
+    margin: 0 -15px 15px;
+    margin-right: 0;
+    margin-left: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.panel-box:after {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #959595;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    content: "Example";
+}
+
+.panel-box.lot-details:after {
+    content: "Details";
 }

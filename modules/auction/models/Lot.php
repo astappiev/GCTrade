@@ -29,6 +29,8 @@ use yii\db\ActiveRecord;
  *
  * @property Bid $bids
  * @property Bid $bid
+ * @property string $picture
+ * @property integer $currentStatus
  * @property \app\modules\users\models\User $user
  */
 class Lot extends ActiveRecord
@@ -37,7 +39,10 @@ class Lot extends ActiveRecord
     public $picture_url;
     public $item_id;
 
-    const TYPE_ITEM_IMAGE = 8;
+    private $_status;
+    private $_last_bid;
+    private $_picture;
+
     const TYPE_ITEM = 1;
     const TYPE_LAND = 2;
     const TYPE_PROJECT = 3;
@@ -83,10 +88,13 @@ class Lot extends ActiveRecord
      */
     public function scenarios()
     {
-        $scenarios = parent::scenarios();
-        $scenarios['create'] = ['user_id', 'type_id', 'status', 'name', 'metadata', 'description', 'price_min', 'price_step', 'price_blitz', 'created_at', 'updated_at'];
-        $scenarios['update'] = ['status', 'name', 'metadata', 'description', 'price_min', 'price_step', 'price_blitz', 'updated_at'];
-        return $scenarios;
+        return [
+            'create' => ['user_id', 'type_id', 'status', 'name', 'item_id', 'region_name', 'picture_url', 'metadata', 'description', 'price_min', 'price_step', 'price_blitz', 'time_bid', 'time_elapsed', 'created_at', 'updated_at'],
+            'update' => ['status', 'name', 'item_id', 'region_name', 'picture_url', 'metadata', 'description', 'price_min', 'price_step', 'price_blitz', 'updated_at'],
+            'updateActive' => ['description', 'updated_at'],
+            'status' => ['status'],
+            'delete-picture' => ['picture_url'],
+        ];
     }
 
     /**
@@ -127,17 +135,17 @@ class Lot extends ActiveRecord
 
             ['picture_url', 'app\modules\auction\models\validators\PictureValidator'],
             ['picture_url', 'required', 'when' => function ($model) {
-                return ($model->type_id == self::TYPE_ITEM_IMAGE || $model->type_id == self::TYPE_PROJECT || $model->type_id == self::TYPE_OTHER);
+                return ($model->type_id == self::TYPE_PROJECT || $model->type_id == self::TYPE_OTHER);
             }, 'whenClient' => "function (attribute, value) {
                 var type = $('#lot-type_id').val();
-                return (type == " . self::TYPE_ITEM_IMAGE . " || type == " . self::TYPE_PROJECT . " || type == " . self::TYPE_OTHER . ");
+                return (type == " . self::TYPE_PROJECT . " || type == " . self::TYPE_OTHER . ");
             }"],
 
             ['item_id', 'app\modules\auction\models\validators\ItemValidator'],
             ['item_id', 'required', 'when' => function ($model) {
-                return $model->type_id == self::TYPE_ITEM_IMAGE;
+                return $model->type_id == self::TYPE_ITEM;
             }, 'whenClient' => "function (attribute, value) {
-                return $('#lot-type_id').val() == " . self::TYPE_ITEM_IMAGE . ";
+                return $('#lot-type_id').val() == " . self::TYPE_ITEM . ";
             }"],
         ];
     }
@@ -158,12 +166,14 @@ class Lot extends ActiveRecord
             'price_min' => 'Начальная цена',
             'price_step' => 'Шаг аукциона',
             'price_blitz' => 'Блиц цена',
+            'time_bid' => 'Время ставки',
+            'time_elapsed' => 'Время аукциона',
             'created_at' => 'Создан',
             'updated_at' => 'Последнее обновление',
 
             'picture_url' => 'Изображение',
-            'item_id' => 'id предмета',
-            'region_name' => 'Название региона',
+            'item_id' => 'Предмет',
+            'region_name' => 'Регион',
         ];
     }
 
@@ -173,9 +183,8 @@ class Lot extends ActiveRecord
     public static function getTypeArray()
     {
         return [
-            self::TYPE_LAND => 'Территория',
             self::TYPE_ITEM => 'Предмет',
-            self::TYPE_ITEM_IMAGE => 'Предмет (Изображение)',
+            self::TYPE_LAND => 'Территория',
             self::TYPE_PROJECT => 'Проект',
             self::TYPE_OTHER => 'Прочее',
         ];
@@ -215,7 +224,10 @@ class Lot extends ActiveRecord
      */
     public function getBid()
     {
-        return $this->hasOne(Bid::className(), ['lot_id' => 'id'])->orderBy(['cost' => SORT_DESC])->one();
+        if(empty( $this->_last_bid )) {
+            $this->_last_bid = $this->hasOne(Bid::className(), ['lot_id' => 'id'])->orderBy(['cost' => SORT_DESC])->one();
+        }
+        return $this->_last_bid;
     }
 
     /**
@@ -234,18 +246,74 @@ class Lot extends ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
+    /**
+     * @return boolean
+     */
+    public function getIsEditable()
+    {
+        if ($this->isNewRecord || self::getCurrentStatus() === self::STATUS_DRAFT || self::getCurrentStatus() === self::STATUS_PUBLISHED || self::getCurrentStatus() === self::STATUS_CLOSED) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getCurrentStatus()
+    {
+        if (!empty($this->_status)) {
+            return $this->_status;
+        } elseif ($this->status === self::STATUS_BLOCKED || $this->status === self::STATUS_DRAFT || $this->status === self::STATUS_CLOSED || $this->status === self::STATUS_FINISHED) {
+            return $this->status;
+        } elseif ($this->status === self::STATUS_PUBLISHED || $this->status === self::STATUS_STARTED) {
+            if ($this->time_elapsed < time()) {
+                $this->_status = ($this->status === self::STATUS_STARTED || $this->bid) ? self::STATUS_FINISHED : self::STATUS_CLOSED;
+            } elseif ($this->status === self::STATUS_STARTED || $this->bid) {
+                if ($this->bid->cost >= $this->price_blitz) {
+                    $this->_status = self::STATUS_FINISHED;
+                }
+            } else {
+                return $this->status;
+            }
+        }
+
+        $this->scenario = "status";
+        $this->status = $this->_status;
+        $this->save();
+
+        return $this->_status;
+    }
+
     public function afterFind()
     {
-        if($this->type_id == self::TYPE_ITEM_IMAGE) {
-            $data = json_decode($this->metadata);
-            $this->item_id = $data->item_id;
-            $this->picture_url = $data->picture_url;
-        } else if ($this->type_id == self::TYPE_LAND) {
-            $data = json_decode($this->metadata);
+        $data = json_decode($this->metadata);
+
+        if ($this->type_id == self::TYPE_LAND) {
             $this->region_name = $data->name;
-        } else if ($this->type_id == self::TYPE_PROJECT || $this->type_id == self::TYPE_OTHER) {
-            $data = json_decode($this->metadata);
+        } if ($this->type_id == self::TYPE_ITEM) {
+            $this->item_id = $data->item_id;
+        }
+
+        if(isset($data->picture_url)) {
             $this->picture_url = $data->picture_url;
         }
+    }
+
+    public function beforeSave($insert)
+    {
+        if(parent::beforeSave($insert)) {
+            if ($this->isNewRecord && $this->time_elapsed < time()) $this->time_elapsed += time();
+            return true;
+        }
+        return false;
+    }
+
+    public function getPicture()
+    {
+        if ($this->_picture === null) {
+            $this->_picture = $this->picture_url ? ('/images/auction/'.$this->picture_url) : '/images/nologo.png';
+        }
+        return $this->_picture;
     }
 }

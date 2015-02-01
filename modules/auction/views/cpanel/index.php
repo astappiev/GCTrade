@@ -14,7 +14,7 @@ $this->title = 'Ваши Аукционы';
 $this->params['breadcrumbs'][] = ['label' => 'Панель управления', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="body-content lot-cpanel">
+<div class="body-content auction cpanel lot-mylist">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -79,7 +79,7 @@ class MessageController extends Controller
 
         if ($model->load(Yii::$app->request->get()) && $model->save()) {
             return Json::encode(['status' => 1]);
-        } else if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        } elseif ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }/* else {
             return $this->render('create', [

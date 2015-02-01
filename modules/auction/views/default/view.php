@@ -36,41 +36,27 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md-8">
             <div class="well clearfix">
                 <div class="info pull-left">
-                    <?php if($model->type_id === Lot::TYPE_ITEM): ?>
-
-                        <?= $this->render('type/item', [
-                            'model' => $model,
-                        ]) ?>
-
-                    <?php elseif($model->type_id === Lot::TYPE_ITEM_IMAGE): ?>
-
-                        <?= $this->render('type/item-image', [
-                            'model' => $model,
-                        ]) ?>
-
-                    <?php elseif($model->type_id === Lot::TYPE_LAND): ?>
-
-                        <?= $this->render('type/region', [
-                            'model' => $model,
-                        ]) ?>
-
-                    <?php else: ?>
-
-                        <?= $this->render('type/other', [
-                            'model' => $model,
-                        ]) ?>
-
-                    <?php endif; ?>
+                    <div class="lot-preview clearfix">
+                        <?php if ($model->type_id === Lot::TYPE_ITEM) {
+                            echo \app\modules\auction\widgets\ViewItem::widget(['metadata' => $model->metadata]);
+                        } elseif ($model->type_id === Lot::TYPE_LAND) {
+                            echo \app\modules\auction\widgets\ViewRegion::widget(['metadata' => $model->metadata]);
+                        } else {
+                            echo $this->render('type/other', [
+                                'model' => $model,
+                            ]);
+                        } ?>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <ul class="list-group">
-                <?php if(!$model->bid && $model->time_elapsed < time()): ?>
+                <?php if($model->currentStatus === Lot::STATUS_CLOSED): ?>
                     <li class="list-group-item list-group-item-danger">
                         Аукцион закрыт
                     </li>
-                <?php elseif($model->time_elapsed < time() || $model->bid->cost >= $model->price_blitz): ?>
+                <?php elseif($model->currentStatus === Lot::STATUS_FINISHED): ?>
                     <li class="list-group-item list-group-item-success">
                         Лол выигран <?= ($model->bid->cost >= $model->price_blitz) ? '(достигнута блиц)' : null ?>
                     </li>
@@ -87,31 +73,36 @@ $this->params['breadcrumbs'][] = $this->title;
                     <li class="list-group-item list-group-item-warning">
                         До закрытия аукциона <span class="badge countdown" data-time="<?= $model->time_elapsed ?>">00:00:00</span>
                     </li>
+
                     <?php if(!$model->bids): ?>
                         <li class="list-group-item list-group-item-info">
                             Текущая ставка <span class="badge">нет ставок</span>
                         </li>
                     <?php else: ?>
-                        <?php $last_bid = $model->bid; ?>
-                        <li class="list-group-item list-group-item-info">Текущая ставка <span class="badge"><?= \Yii::$app->formatter->asInteger($last_bid->cost).' зелени ('.$last_bid->user->username.')' ?></span></li>
-                        <?php foreach($model->getBids()->where('NOT id = :last_id', [':last_id' => $last_bid->id])->each(5) as $bid) {
+                        <li class="list-group-item list-group-item-info">Текущая ставка <span class="badge"><?= \Yii::$app->formatter->asInteger($model->bid->cost).' зелени ('.$model->bid->user->username.')' ?></span></li>
+                        <?php foreach($model->getBids()->where('NOT id = :last_id', [':last_id' => $model->bid->id])->each(5) as $bid) {
                             echo '<li class="list-two-group">'.Yii::$app->formatter->asInteger($bid->cost).' зелени ('.$bid->user->username.')</li>';
                         } ?>
                     <?php endif; ?>
+
                     <li class="list-group-item">
                         Начальная цена <span class="badge"><?= \Yii::$app->formatter->asInteger($model->price_min) ?> зелени</span>
                     </li>
+
                     <?php if($model->price_step) : ?>
                     <li class="list-group-item">
                         Шаг <span class="badge"><?= \Yii::$app->formatter->asInteger($model->price_step) ?> зелени</span>
                     </li>
                     <?php endif; ?>
+
                     <?php if($model->price_blitz) : ?>
                     <li class="list-group-item <?= !$model->bid ? 'hidden' : null ?>">
                         Блиц цена <span class="badge"><?= \Yii::$app->formatter->asInteger($model->price_blitz) ?> зелени</span>
                     </li>
                     <?php endif; ?>
+
                     <li class="list-group-item list-group-item-danger clearfix">
+
                         <?php if(\Yii::$app->user->id == $model->user_id): ?>
                             Нельзя делать ставки на свой аукцион
                         <?php elseif(!\Yii::$app->user->isGuest): ?>
@@ -136,6 +127,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php else: ?>
                             Вы должны быть авторизованы
                         <?php endif; ?>
+
                     </li>
                 <?php endif; ?>
             </ul>

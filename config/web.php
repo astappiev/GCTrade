@@ -47,6 +47,10 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+            'defaultRoles' => ['admin', 'author'],
+        ],
         'user' => [
             'identityClass' => 'app\modules\users\models\User',
             'enableAutoLogin' => true,

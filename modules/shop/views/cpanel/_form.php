@@ -70,7 +70,7 @@ use vova07\fileapi\Widget as FileAPI;
         'cropResizeHeight' => 150,
     ]) ?>
 
-    <?//= $form->field($model, 'source')->textInput(['placeholder' => 'В том случае есть существует независимый прайс, укажите его адрес', 'maxlength' => 90]) ?>
+    <?= $form->field($model, 'source')->textInput(['placeholder' => 'https://forum.greencubes.org/viewtopic.php?f=297&t=24524', 'maxlength' => 90]) ?>
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">

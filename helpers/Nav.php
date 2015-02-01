@@ -20,11 +20,11 @@ class Nav extends NavOriginal
 
         $label = '';
         if (isset($item['icon'])) {
-            $label .= ' ' . Html::tag('span', '', ['class' => 'glyphicon glyphicon-' . Html::encode($item['icon'])]);
+            $label .= Html::tag('span', '', ['class' => 'glyphicon glyphicon-' . Html::encode($item['icon'])]) . ' ';
         }
 
         $encodeLabel = isset($item['encode']) ? $item['encode'] : $this->encodeLabels;
-        $label .= $encodeLabel ? Html::encode($item['label']) : $item['label'];
+        $label .= $encodeLabel ? '<span class="nav-text">' . Html::encode($item['label']) . '</span>' : $item['label'];
         $options = ArrayHelper::getValue($item, 'options', []);
         $items = ArrayHelper::getValue($item, 'items');
         $url = ArrayHelper::getValue($item, 'url', '#');

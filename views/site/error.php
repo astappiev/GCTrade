@@ -4,8 +4,7 @@ use yii\helpers\Html;
 
 if($exception->statusCode === 403) {
     $name = \Yii::t('app/error', 'Forbidden');
-}
-else if($exception->statusCode === 404) {
+} elseif ($exception->statusCode === 404) {
     $name = \Yii::t('app/error', '404 Error');
 }
 

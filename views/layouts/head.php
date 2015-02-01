@@ -12,7 +12,7 @@ use app\assets\AppAsset;
 ?>
 <meta charset="<?= Yii::$app->charset ?>"/>
 <title><?= Html::encode($this->title).' — '.Yii::$app->params["siteName"] ?></title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=0.9">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link type="image/png" href="/favicon.png" rel="icon" sizes="48x48">
 <link type="image/png" href="/favicon.png" rel="shortcut icon" sizes="48x48">

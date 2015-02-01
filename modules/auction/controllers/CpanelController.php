@@ -84,7 +84,7 @@ class CpanelController extends DefaultController
     public function actionCreate()
     {
         $model = new Lot();
-        //$model->scenario = 'create';
+        $model->scenario = 'create';
         $typeArray = Lot::getTypeArray();
         $statusArray = Lot::getStatusArray();
 

@@ -8,26 +8,23 @@ class PictureValidator extends Validator
 {
     public function validateAttribute($model, $attribute)
     {
-        if($model->type_id == Lot::TYPE_ITEM_IMAGE) {
-            $model->metadata = json_encode(["item_id" => str_replace(",", ".", $model->item_id), "picture_url" => $model->$attribute]);
-        } else if($model->type_id == Lot::TYPE_PROJECT || $model->type_id == Lot::TYPE_OTHER) {
-            $model->metadata = json_encode(["picture_url" => $model->$attribute]);
+        if($model->type_id !== Lot::TYPE_LAND) {
+            $data = json_decode($model->metadata);
+            if(!empty($model->picture_url)) $data->picture_url = $model->picture_url;
+            $model->metadata = json_encode($data);
         }
     }
 
     public function clientValidateAttribute($model, $attribute, $view)
     {
-        $type_prject = Lot::TYPE_PROJECT;
-        $type_item_image = Lot::TYPE_ITEM_IMAGE;
-        $type_other = Lot::TYPE_OTHER;
+        $type_land = Lot::TYPE_LAND;
         return <<<JS
-            var type = $('#lot-type_id').val();
-            console.log(type, value);
-            if(type == $type_item_image ) {
-                $('#lot-metadata').val(JSON.stringify({ item_id: $('#lot-item_id').val().replace(/,/g,"."), picture_url: $('#lot-picture_url').val() }));
-            } else if (type == $type_prject || type == $type_other) {
-                console.log('2');
-                $('#lot-metadata').val(JSON.stringify({ picture_url: $('#lot-picture_url').val() }));
+            if($('#lot-type_id').val() !== $type_land) {
+                var metadata = $('#lot-metadata');
+                var picture_url = $('#lot-picture_url').val();
+                var data = metadata.val() ? JSON.parse(metadata.val()) : {};
+                if(picture_url) data.picture_url = picture_url;
+                metadata.val(JSON.stringify(data));
             }
 JS;
     }

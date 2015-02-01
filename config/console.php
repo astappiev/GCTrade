@@ -48,6 +48,9 @@ $config = [
             'charset' => 'utf8',
             'tablePrefix' => 'tg_',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+        ],
     ],
     'params' => $params,
 ];
