@@ -38,12 +38,12 @@ class CpanelController extends DefaultController
         return [
             'picture-upload' => [
                 'class' => FileAPIUpload::className(),
-                'path' => 'images/auction/tmp/'
+                'path' => '@webroot/images/auction/tmp/'
             ],
             'image-upload' => [
                 'class' => ImperaviUpload::className(),
                 'url' => '/images/auction/description/',
-                'path' => 'images/auction/description/',
+                'path' => '@webroot/images/auction/description/',
                 'validatorOptions' => [
                     'maxWidth' => 1600,
                     'maxHeight' => 2000

@@ -34,7 +34,7 @@ use app\modules\auction\models\Lot;
                         <a href="#" class="btn btn-primary disabled" role="button"><?= ($model->bid) ? \Yii::$app->formatter->asInteger($model->bid->cost).' зелени' : 'нет ставок' ?></a>
                     <?php elseif($model->getCurrentStatus() === Lot::STATUS_STARTED): ?>
                         <a href="#" class="btn btn-success disabled countdown" role="button" data-time="<?= $model->time_elapsed ?>">00:00:00</a>
-                        <a href="#" class="btn btn-primary disabled" role="button"><?= \Yii::$app->formatter->asInteger($bid->cost) ?> зелени</a>
+                        <a href="#" class="btn btn-primary disabled" role="button"><?= \Yii::$app->formatter->asInteger($model->bid->cost) ?> зелени</a>
                     <?php else: ?>
                         <a href="#" class="btn btn-success disabled countdown" role="button" data-time="<?= $model->time_elapsed ?>">00:00:00</a>
                         <a href="#" class="btn btn-primary disabled" role="button">нет ставок</a>

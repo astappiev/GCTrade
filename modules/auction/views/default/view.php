@@ -96,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php endif; ?>
 
                     <?php if($model->price_blitz) : ?>
-                    <li class="list-group-item <?= !$model->bid ? 'hidden' : null ?>">
+                    <li class="list-group-item">
                         Блиц цена <span class="badge"><?= \Yii::$app->formatter->asInteger($model->price_blitz) ?> зелени</span>
                     </li>
                     <?php endif; ?>

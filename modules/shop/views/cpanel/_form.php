@@ -27,7 +27,7 @@ use vova07\fileapi\Widget as FileAPI;
 
     <?= $form->field($model, 'status')->dropDownList($model->getStatusArray()) ?>
 
-    <?= $form->field($model, 'type')->dropDownList($model->getTypeArray(), (!$model->isNewRecord) ? ['readonly' => true] : []) ?>
+    <?= $form->field($model, 'type')->dropDownList($model->getTypeArray(), (!$model->isNewRecord) ? ['disabled' => true] : []) ?>
 
     <?= $form->field($model, 'alias')->textInput(['placeholder' => 'Краткое название на латинице', 'minlength' => 3,'maxlength' => 30]) ?>
 

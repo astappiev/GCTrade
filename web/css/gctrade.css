@@ -550,25 +550,17 @@ a.desc:after {
 .auction-grid .posts .panel {
     margin-bottom: 0;
 }
+.auction .info, .auction .lot-preview img {
+    max-width: 100%;
+}
 
 /* Аукционы -> Регион */
 .auction .lot-preview .map {
     width: 100%;
     height: 150px;
 }
-.auction .info, .grid-wrapper .panel {
-    width: 100%;
-}
 .auction.lot-view .lot-preview .map {
     height: 300px;
-}
-
-/* Аукционы -> Предмет */
-.auction.lot-view .lot-preview .item-desc-block img {
-    max-width: 605px;
-}
-.auction .auction-grid .item-desc-block img {
-    max-width: 100%;
 }
 
 /* Dynamic-grid salvattore */

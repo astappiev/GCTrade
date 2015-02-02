@@ -74,8 +74,8 @@ class Lot extends ActiveRecord
                 'class' => UploadBehavior::className(),
                 'attributes' => [
                     'picture_url' => [
-                        'path' => 'images/auction/',
-                        'tempPath' => 'images/auction/tmp/',
+                        'path' => '@webroot/images/auction/',
+                        'tempPath' => '@webroot/images/auction/tmp/',
                         'url' => '/images/auction'
                     ],
                 ],
@@ -272,6 +272,8 @@ class Lot extends ActiveRecord
             } elseif ($this->status === self::STATUS_STARTED || $this->bid) {
                 if ($this->bid->cost >= $this->price_blitz) {
                     $this->_status = self::STATUS_FINISHED;
+                } else {
+                    $this->_status = self::STATUS_STARTED;
                 }
             } else {
                 return $this->status;

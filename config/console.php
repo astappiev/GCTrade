@@ -2,7 +2,6 @@
 Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
 
 $params = require(__DIR__ . '/params.php');
-$server = require(__DIR__ . '/console-server.php');
 
 $config = [
     'id' => 'gctrade-console',
@@ -55,7 +54,8 @@ $config = [
     'params' => $params,
 ];
 
-if(!YII_ENV_PROD){
+if(YII_ENV_PROD){
+    $server = require(__DIR__ . '/console-server.php');
     $config = yii\helpers\ArrayHelper::merge($config, $server);
 }
 
