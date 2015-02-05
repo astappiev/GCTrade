@@ -14,7 +14,6 @@ use yii\behaviors\TimestampBehavior;
  *
  * @property integer $id
  * @property integer $role
- * @property integer $status
  * @property string $email
  * @property string $new_email
  * @property string $username
@@ -30,14 +29,10 @@ use yii\behaviors\TimestampBehavior;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DEFAULT = 8;
-	const STATUS_DELETED = 0;
-	const STATUS_LOCAL = 2;
-	const STATUS_ACTIVE = 10;
-
-	const ROLE_USER = 10;
-	const ROLE_ADMIN = 4;
-	const ROLE_GUEST = 0;
+    const ROLE_USER = 3;
+	const ROLE_AUTHOR = 5;
+	const ROLE_MODER = 8;
+	const ROLE_ADMIN = 10;
 
     /**
      * @inheritdoc
@@ -57,16 +52,26 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * @return array
+     */
+    public static function getRoleArray()
+    {
+        return [
+            self::ROLE_USER => Yii::t('users', 'USER_ROLE_USER'),
+            self::ROLE_AUTHOR => Yii::t('users', 'USER_ROLE_AUTHOR'),
+            self::ROLE_MODER => Yii::t('users', 'USER_ROLE_MODER'),
+            self::ROLE_ADMIN => Yii::t('users', 'USER_ROLE_ADMIN'),
+        ];
+    }
+
+    /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_LOCAL],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_DEFAULT, self::STATUS_LOCAL]],
-
             ['role', 'default', 'value' => self::ROLE_USER],
-            ['role', 'in', 'range' => [self::ROLE_USER]],
+            ['role', 'in', 'range' => array_keys(self::getRoleArray())],
 
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
@@ -88,7 +93,6 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'id' => Yii::t('users', 'USER_ID'),
             'role' => Yii::t('users', 'USER_ROLE'),
-            'status' => Yii::t('users', 'USER_STATUS'),
             'email' => Yii::t('users', 'USER_EMAIL'),
             'new_email' => Yii::t('users', 'USER_NEW_EMAIL'),
             'username' => Yii::t('users', 'USER_USERNAME'),
@@ -110,10 +114,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne([
-            'id' => $id,
-            'status' => [self::STATUS_ACTIVE, self::STATUS_LOCAL]
-        ]);
+        return static::findOne($id);
     }
 
     /**
@@ -128,13 +129,12 @@ class User extends ActiveRecord implements IdentityInterface
      * Finds user by username
      *
      * @param  string      $username
-     * @return static|null
+     * @return User|null
      */
     public static function findByUsername($username)
     {
         return static::findOne([
             'username' => $username,
-            'status' => [self::STATUS_ACTIVE, self::STATUS_LOCAL]
         ]);
     }
 
@@ -156,7 +156,6 @@ class User extends ActiveRecord implements IdentityInterface
 
         return static::findOne([
             'password_reset_token' => $token,
-            'status' => [self::STATUS_ACTIVE, self::STATUS_LOCAL],
         ]);
     }
 
@@ -261,7 +260,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         if (parent::beforeSave($insert)) {
             if (!$this->auth_key) {
-                $this->auth_key = $this->generateAuthKey();
+                $this->generateAuthKey();
             }
             return true;
         }

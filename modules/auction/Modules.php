@@ -29,10 +29,14 @@ class Modules extends \yii\base\Module implements \yii\base\BootstrapInterface
 
             $this->auctionUrl . '/<_controller:\w+>/<_action:\w+>' => $this->id . '/<_controller>/<_action>',
         ], false);
-    }
 
-    public function init()
-    {
-        parent::init();
+        if (!isset($app->i18n->translations['auction']) && !isset($app->i18n->translations['auction*'])) {
+            $app->i18n->translations['auction'] = [
+                'class' => 'yii\i18n\PhpMessageSource',
+                'sourceLanguage' => 'system',
+                'basePath' => '@app/modules/auction/messages',
+                'forceTranslation' => true
+            ];
+        }
     }
 }

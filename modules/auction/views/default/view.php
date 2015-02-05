@@ -19,23 +19,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) . ($model->status == Lot::STATUS_DRAFT ? ' (Черновик)' : null) ?></h1>
 
-    <?php if(\Yii::$app->user->id == $model->user_id): ?>
-    <p>
-        <?= Html::a('Изменить', ['cpanel/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['cpanel/delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Вы действительно хотите удалить этот лот?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <?php if (Yii::$app->user->can('updateAuction', ['model' => $model])): ?>
+        <p>
+            <?= Html::a('Изменить', ['cpanel/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Удалить', ['cpanel/delete', 'id' => $model->id], [
+                'class' => $model->bid ? 'btn btn-danger disabled' : 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Вы действительно хотите удалить этот лот?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+        </p>
     <?php endif; ?>
 
     <div class="row">
         <div class="col-md-8">
             <div class="well clearfix">
-                <div class="info pull-left">
+                <div class="lot-info pull-left">
                     <div class="lot-preview clearfix">
                         <?php if ($model->type_id === Lot::TYPE_ITEM) {
                             echo \app\modules\auction\widgets\ViewItem::widget(['metadata' => $model->metadata]);
@@ -103,7 +103,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <li class="list-group-item list-group-item-danger clearfix">
 
-                        <?php if(\Yii::$app->user->id == $model->user_id): ?>
+                        <?php if(\Yii::$app->user->id === $model->user_id): ?>
                             Нельзя делать ставки на свой аукцион
                         <?php elseif(!\Yii::$app->user->isGuest): ?>
 

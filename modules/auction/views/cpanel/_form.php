@@ -43,7 +43,7 @@ $this->registerJsFile('@web/js/jquery/jquery.typeahead.js', ['depends' => [\yii\
 
     <?= $form->field($model, 'type_id')->dropDownList($typeArray, ['disabled' => !$model->isNewRecord]) ?>
 
-    <?= $form->field($model, 'status')->dropDownList($statusArray, ['disabled' => !$model->getIsEditable()]) ?>
+    <?= $form->field($model, 'status')->dropDownList($model->getIsEditable() ? [Lot::STATUS_PUBLISHED => Yii::t('auction', 'LOT_STATUS_PUBLISHED'), Lot::STATUS_DRAFT => Yii::t('auction', 'LOT_STATUS_DRAFT')] : $statusArray, ['disabled' => !$model->getIsEditable()]) ?>
 
     <div class="panel-box lot-details">
 
@@ -102,9 +102,9 @@ $this->registerJsFile('@web/js/jquery/jquery.typeahead.js', ['depends' => [\yii\
     <?php if ($model->isNewRecord || $model->status == Lot::STATUS_CLOSED): ?>
         <?= $form->field($model, 'time_elapsed')->dropDownList([
             '172800' => '2 дня',
-            '345600' => '1 неделя',
-            '691200' => '2 недели',
-            '1382400' => '4 недели',
+            '1209600' => '1 неделя',
+            '2419200' => '2 недели',
+            '4838400' => '4 недели',
         ]) ?>
     <?php else: ?>
         <?= $form->field($model, 'time_elapsed')->textInput(['disabled' => true, 'value' => Yii::$app->formatter->asDatetime($model->time_elapsed)])->label('Аукцион закончится') ?>

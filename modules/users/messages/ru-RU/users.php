@@ -10,6 +10,14 @@ return [
     'DEFAULT_CONTROLLER_SET_PASSWORD_SUCCESS' => 'Пароль изменен.',
     'DEFAULT_CONTROLLER_SET_PASSWORD_ERROR' => 'Возникла ошибка при изменении пароля.',
 
+    'DEFAULT_CONTROLLER_AUTH_SUCCESS' => 'Вы успешно авторизовались, рад снова вас видеть!',
+    'DEFAULT_CONTROLLER_AUTH_FAILED' => 'Что то пошло не так, к сожалению я не могу вас авторизовать.',
+    'DEFAULT_CONTROLLER_AUTH_REGISTER_SUCCESS' => 'Хорошие новости! Во время регистрации проблем не обнаружено, добро пожаловать!',
+    'DEFAULT_CONTROLLER_AUTH_REGISTER_FAILED' => 'Сожалею, но во время регистрации произошла ошибка.',
+    'DEFAULT_CONTROLLER_AUTH_EXIST_USERNAME' => 'Вы успешно подтвердили свой аккаунт. Теперь можете авторизовываться с помощью GreenCubes!',
+    'DEFAULT_CONTROLLER_AUTH_EXIST_USERNAME_PASSWORD_RESET' => 'Обратите внимание! Ваш пароль был сброшен, если хотите можете его установить, <a href="{url}">здесь</a>.',
+    'DEFAULT_CONTROLLER_AUTH_EXIST_EMAIL' => 'Стало быть ты уже зарегистрирован под ником {login}, я взял смелось предположить что это твой аккаунт и позвоил себе переименовать его.',
+
     /* Default views */
     'MESSAGE_VIEWS_INDEX_TITLE' => 'Твой профиль',
     'MESSAGE_VIEWS_INDEX_USERNAME' => 'Ваш логин:',
@@ -36,7 +44,6 @@ return [
     /* User model */
     'USER_ID' => 'Номер пользователя',
     'USER_ROLE' => 'Роль пользователя',
-    'USER_STATUS' => 'Статус пользователя',
     'USER_EMAIL' => 'Email',
     'USER_NEW_EMAIL' => 'Новый email',
     'USER_USERNAME' => 'Имя пользователя',
@@ -46,6 +53,11 @@ return [
     'USER_AUTH_KEY' => 'Ключ аутентификации',
     'USER_CREATED_AT' => 'Создан',
     'USER_UPDATED_AT' => 'Последнее обновление',
+
+    'USER_ROLE_USER' => 'Участник',
+    'USER_ROLE_AUTHOR' => 'Пользователь',
+    'USER_ROLE_MODER' => 'Модератор',
+    'USER_ROLE_ADMIN' => 'Администратор',
 
     /* Message model */
     'MESSAGE_ID' => 'Номер сообщения',

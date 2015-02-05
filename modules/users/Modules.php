@@ -20,7 +20,7 @@ class Modules extends Module implements BootstrapInterface
             $this->usersUrl . '/msg/<id:\d+>' => $this->id . '/message/view',
             $this->usersUrl . '/msg/<_action:\w+>' => $this->id . '/message/<_action>',
             $this->usersUrl . '/<_action:\w+>' => $this->id . '/default/<_action>',
-            //$this->shopUrl . '/<_action:\w+>/<alias:\w+>' => $this->id . '/default/<_action>',
+            $this->usersUrl . '/<username:\w+>' => $this->id . '/default/view',
 
             $this->usersUrl . '/<_controller:\w+>/<_action:\w+>' => $this->id . '/<_controller>/<_action>',
         ], false);

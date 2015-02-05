@@ -1,5 +1,5 @@
 <?php
-namespace app\helpers;
+namespace app\components;
 
 use Yii;
 use yii\helpers\Html;

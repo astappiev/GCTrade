@@ -4,6 +4,7 @@ namespace app\modules\users\controllers;
 
 use Yii;
 use yii\base\InvalidParamException;
+use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\HttpException;
@@ -62,73 +63,54 @@ class DefaultController extends Controller
         $attributes["username"] = preg_replace('!\@.*!is', '', $attributes["username"]);
         $user = User::findByUsername($attributes["username"]);
 
-        if($user) {
-            if($user->status == User::STATUS_LOCAL)
-            {
-                $user->status = User::STATUS_ACTIVE;
-                $correct_email = ($user->email === $attributes["email"]);
-                if(!$correct_email){
+        if ($user) {
+            if ($user->role == User::ROLE_USER) {
+                $user->role = User::ROLE_AUTHOR;
+                $isEmailMatches = $user->email === $attributes["email"];
+                if (!$isEmailMatches) {
                     $user->email = $attributes["email"];
-                    $user->password_hash = '';
+                    $user->password_hash = null;
                 }
+                $user->access_token = $client->accessToken->getToken()["token"];
 
-                if($user->save()){
-                    if(!$correct_email)
-                        Yii::$app->session->setFlash('warning', 'Ваш email был отличен от email в вашем профиле, он был обновлен. Так же был аннулирован ваш пароль, вы можете установить новый.');
-                } else {
-                    Yii::$app->session->setFlash('error', 'Произошла ошибка, возможно ваш email уже используется на другом аккаунте.');
-                    return $this->goBack();
+                if ($user->save()) {
+                    Yii::$app->session->setFlash('info', Yii::t('users', 'DEFAULT_CONTROLLER_AUTH_EXIST_USERNAME'));
+                    if(!$isEmailMatches) {
+                        Yii::$app->session->setFlash('warning', Yii::t('users', 'DEFAULT_CONTROLLER_AUTH_EXIST_USERNAME_PASSWORD_RESET', ['url' => Url::to(['default/index'])]));
+                    }
                 }
-            }
-
-            $user->access_token = $client->accessToken->getToken()["token"];
-            $user->save();
-
-            $user_login = new LoginForm();
-            $user_login->username = $user->username;
-            if(Yii::$app->user->login($user_login->getUser(), 2592000)) {
-                Yii::$app->session->setFlash('success', 'Вы успешно авторизовались через OAuth, спасибо.');
-            } else {
-                Yii::$app->session->setFlash('error', 'Ошибка авторизации.');
             }
         } else {
-            $findByEmail = User::findOne(["email" => $attributes["email"]]);
-            if($findByEmail)
-            {
-                $old_login = $findByEmail->username;
-                $findByEmail->username = $attributes["username"];
-                $findByEmail->status = User::STATUS_ACTIVE;
+            $user = User::findOne(["email" => $attributes["email"]]);
+            if ($user) {
+                $oldLogin = $user->username;
+                $user->username = $attributes["username"];
+                $user->role = User::ROLE_AUTHOR;
+                $user->access_token = $client->accessToken->getToken()["token"];
 
-                if($findByEmail->save()){
-                    Yii::$app->session->setFlash('warning', 'Ваш логин был отличен от логина в вашем профиле, он был изменен ('.$old_login.' => '.$findByEmail->username.').');
-                } else {
-                    Yii::$app->session->setFlash('error', 'Произошла ошибка, возможно ваш логин уже используется на другом аккаунте.');
-                    return $this->goBack();
-                }
-
-                $user_login = new LoginForm();
-                $user_login->username = $findByEmail->username;
-                if(Yii::$app->user->login($user_login->getUser(), 2592000)) {
-                    Yii::$app->session->setFlash('success', 'Вы успешно авторизовались через OAuth, спасибо.');
-                } else {
-                    Yii::$app->session->setFlash('error', 'Ошибка авторизации.');
+                if($user->save()) {
+                    Yii::$app->session->setFlash('info', Yii::t('users', 'DEFAULT_CONTROLLER_AUTH_EXIST_EMAIL', ['login' => $oldLogin]));
                 }
             } else {
                 $user = new User;
+                $user->role = User::ROLE_AUTHOR;
                 $user->email = $attributes["email"];
                 $user->username = $attributes["username"];
                 $user->access_token = $client->accessToken->getToken()["token"];
-                $user->status = User::STATUS_ACTIVE;
-                $user->generateAuthKey();
                 if ($user->save()) {
-                    if (Yii::$app->getUser()->login($user)) {
-                        Yii::$app->session->setFlash('success', 'Вы успешно зарегистрировались, '.$user->username.'.');
-                    }
+                    Yii::$app->session->setFlash('info', Yii::t('users', 'DEFAULT_CONTROLLER_AUTH_REGISTER_SUCCESS'));
                 } else {
-                    Yii::$app->session->setFlash('error', 'Ошибка регистрации.');
+                    Yii::$app->session->setFlash('error', Yii::t('users', 'DEFAULT_CONTROLLER_AUTH_REGISTER_FAILED'));
                 }
             }
         }
+
+        if (Yii::$app->user->login($user, 2592000)) {
+            Yii::$app->session->setFlash('success', Yii::t('users', 'DEFAULT_CONTROLLER_AUTH_SUCCESS'));
+        } else {
+            Yii::$app->session->setFlash('error', Yii::t('users', 'DEFAULT_CONTROLLER_AUTH_FAILED'));
+        }
+
         return true;
     }
 

@@ -1,21 +1,11 @@
 <?php
-$server = require(__DIR__ . '/web-server.php');
-$local = require(__DIR__ . '/web-local.php');
-$debug = require(__DIR__ . '/web-debug.php');
-
-$params = require(__DIR__ . '/params.php');
+$common = require(__DIR__ . '/common.php');
 $rules = require(__DIR__ . '/rules.php');
 
 $config = [
     'id' => 'gctrade',
-    'name' => 'GCTrade',
-    'language' => 'ru-RU',
-    'sourceLanguage' => 'system',
     'charset' => 'utf-8',
-    'timeZone' => 'Europe/Kiev',
-    'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'shop', 'auction', 'users'],
-    'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'), //???
+    'bootstrap' => ['shop', 'auction', 'users'],
     'components' => [
         'request' => [
             'baseUrl' => '',
@@ -38,18 +28,11 @@ $config = [
             'class' => 'yii\authclient\Collection',
             'clients' => [
                 'greencubes' => [
-                    'class' => 'app\helpers\GreenCubesOAuth',
+                    'class' => 'app\components\GreenCubesOAuth',
                     'clientId' => 'CLIENT_ID',
                     'clientSecret' => 'CLIENT_SECRET',
                 ],
             ],
-        ],
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
-        ],
-        'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
-            'defaultRoles' => ['admin', 'author'],
         ],
         'user' => [
             'identityClass' => 'app\modules\users\models\User',
@@ -64,43 +47,6 @@ $config = [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
-        ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'viewPath' => '@app/mails',
-            'messageConfig' => [
-                'from' => $params['supportEmail'],
-            ],
-        ],
-        'log' => [
-            'traceLevel' => 0,
-            'targets' => [
-                'file' => [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['trace', 'info', 'error', 'warning'],
-                    'categories' => ['yii\*'],
-                ],
-            ],
-        ],
-        'db' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=DB1_HOST;dbname=DB1_NAME',
-            'username' => 'DB1_USERNAME',
-            'password' => 'DB1_PASSWORD',
-            'charset' => 'utf8',
-            'tablePrefix' => 'DB1_PREFIX',
-            'enableSchemaCache' => true,
-            'schemaCacheDuration' => 3600,
-        ],
-        'db_analytics' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=DB2_HOST;dbname=DB2_NAME',
-            'username' => 'DB2_USERNAME',
-            'password' => 'DB2_PASSWORD',
-            'charset' => 'utf8',
-            'tablePrefix' => 'DB2_PREFIX',
-            'enableSchemaCache' => true,
-            'schemaCacheDuration' => 3600,
         ],
         'i18n' => [
             'translations' => [
@@ -118,27 +64,20 @@ $config = [
             ],
         ],
     ],
-    'modules' => [
-        'shop' => [
-            'class' => 'app\modules\shop\Modules',
-        ],
-        'auction' => [
-            'class' => 'app\modules\auction\Modules',
-        ],
-        'users' => [
-            'class' => 'app\modules\users\Modules',
-        ],
-    ],
-    'params' => $params,
 ];
 
-if(!YII_ENV_PROD) {
-    $config = yii\helpers\ArrayHelper::merge($config, $local);
+$config = yii\helpers\ArrayHelper::merge($config, $common);
+
+if(YII_ENV_PROD) {
+    $prod = require(__DIR__ . '/web-prod.php');
+    $config = yii\helpers\ArrayHelper::merge($config, $prod);
 } else {
-    $config = yii\helpers\ArrayHelper::merge($config, $server);
+    $dev = require(__DIR__ . '/web-dev.php');
+    $config = yii\helpers\ArrayHelper::merge($config, $dev);
 }
 
 if (YII_DEBUG) {
+    $debug = require(__DIR__ . '/web-debug.php');
     $config = yii\helpers\ArrayHelper::merge($config, $debug);
 }
 

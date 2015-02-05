@@ -3,17 +3,17 @@
 namespace app\modules\shop\controllers;
 
 use Yii;
+use app\components\ParentController;
 use app\modules\shop\models\Shop;
 use app\modules\shop\models\search\Shop as ShopSearch;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
 
 /**
  * DefaultController includes base Shop actions
  */
-class DefaultController extends Controller
+class DefaultController extends ParentController
 {
     /**
      * Lists all Shop models.

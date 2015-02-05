@@ -2,6 +2,7 @@
 
 namespace app\modules\auction\controllers;
 
+use Yii;
 use app\modules\auction\models\Lot;
 use yii\web\Response;
 use yii\data\ActiveDataProvider;
@@ -59,7 +60,7 @@ class CpanelController extends DefaultController
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Lot::find()->where(['user_id' => \Yii::$app->user->id]),
+            'query' => Lot::find()->where(['user_id' => Yii::$app->user->id]),
             'sort' => [
                 'defaultOrder' => [
                     'name' => SORT_ASC,
@@ -80,9 +81,14 @@ class CpanelController extends DefaultController
      * Creates a new Lot model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @throws ForbiddenHttpException if you do not have permission to create this model
      */
     public function actionCreate()
     {
+        if (!\Yii::$app->user->can('createAuction')) {
+            throw new ForbiddenHttpException('Access denied');
+        }
+
         $model = new Lot();
         $model->scenario = 'create';
         $typeArray = Lot::getTypeArray();
@@ -150,9 +156,13 @@ class CpanelController extends DefaultController
     public function actionDelete($id)
     {
         $model = $this->findModel($id, true);
-        $model->delete();
+        if($model->bid) {
+            Yii::$app->session->setFlash('error', 'Невозможно удалить лот '.$model->name.', т.к. уже существуют ставки.');
+        } else {
+            $model->delete();
+            Yii::$app->session->setFlash('success', 'Лот '.$model->name.', успешно удален.');
+        }
 
-        \Yii::$app->session->setFlash('success', 'Лот '.$model->name.', успешно удален.');
         return $this->redirect(['cpanel/index']);
     }
 

@@ -28,7 +28,7 @@ class Lot extends LotModel
 
     public function search($params)
     {
-        $query = LotModel::find()->where(['status' => [Lot::STATUS_PUBLISHED, Lot::STATUS_STARTED]]);
+        $query = LotModel::find()->where(['status' => [Lot::STATUS_PUBLISHED, Lot::STATUS_STARTED, Lot::STATUS_FINISHED, Lot::STATUS_CLOSED]]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

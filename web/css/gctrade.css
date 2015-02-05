@@ -514,10 +514,34 @@ a.desc:after {
 .auction.cpanel .input-group-addon.item-th {
     padding: 3px 6px;
 }
+
 .auction.cpanel img.item-th {
     width: 26px;
     height: 26px;
 }
+
+.auction .lot-info {
+    width: 100%;
+}
+
+.auction .lot-preview img {
+    max-width: 100%;
+}
+
+
+/* Auction grid */
+@media screen and (max-width: 991px){
+    .dynamic-grid[data-columns]::before {
+        content: '1 .col-sm-12';
+    }
+}
+
+@media screen and (min-width:992px) and (max-width: 9999px){
+    .dynamic-grid[data-columns]::before {
+        content: '2 .col-md-6';
+    }
+}
+
 .auction-grid .well > a {
     display: block;
     float: left;
@@ -535,59 +559,50 @@ a.desc:after {
 .auction-grid > p {
     margin: 0 0 8px;
 }
-.auction-grid .lot-preview > div {
-    float: left;
-}
 
 .auction-grid .lot-preview {
     margin: 10px 0;
 }
 
-.auction .lot-preview .panel-heading {
-    padding: 0;
-}
-
-.auction-grid .posts .panel {
-    margin-bottom: 0;
-}
-.auction .info, .auction .lot-preview img {
-    max-width: 100%;
-}
 
 /* Аукционы -> Регион */
-.auction .lot-preview .map {
+.lot-preview.type-land {
+    width: 100%;
+}
+
+.lot-preview.type-land .map {
     width: 100%;
     height: 150px;
 }
-.auction.lot-view .lot-preview .map {
+
+.auction.lot-view .lot-preview.type-land .map {
     height: 300px;
 }
 
-/* Dynamic-grid salvattore */
-@media screen and (max-width: 991px){
-    .dynamic-grid[data-columns]::before {
-        content: '1 .col-sm-12';
-    }
-}
-@media screen and (min-width:992px) and (max-width: 9999px){
-    .dynamic-grid[data-columns]::before {
-        content: '2 .col-md-6';
-    }
+.lot-preview.type-land .panel-heading {
+    padding: 0;
 }
 
+
 /* Карточка предмета */
-.item-preview .grid-table {
+.lot-preview.type-item {
+    display: inline-block;
+}
+
+.lot-preview.type-item .grid-table {
     position: absolute;
     text-align: center;
     border: 1px solid #0A180E;
     border-radius: 5px;
 }
-.item-preview .grid-table .grid-table-border {
+
+.lot-preview.type-item .grid-table .grid-table-border {
     border: 1px solid #53604F;
     background: #3E4A3A;
     border-radius: 4px;
 }
-.item-preview .grid-table .grid-table-item {
+
+.lot-preview.type-item .grid-table .grid-table-item {
     border: 1px solid #24331F;
     float: left;
     margin: 1px;
@@ -595,101 +610,122 @@ a.desc:after {
     height: 34px;
     border-radius: 2px;
 }
-.item-preview .grid-table .grid-table-item-border {
+
+.lot-preview.type-item .grid-table .grid-table-item-border {
     width: 100%;
     height: 100%;
     background: #A2B296;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9);
 }
-.item-preview .grid-table .grid-table-item-border a.tip {
+
+.lot-preview.type-item .grid-table .grid-table-item-border a.tip {
     position: relative;
     cursor: pointer;
     vertical-align: sub;
     text-align: left;
 }
-.item-preview .grid-table .grid-table-item-border a.tip img {
+
+.lot-preview.type-item .grid-table .grid-table-item-border a.tip img {
     width: 32px;
     height: 32px;
 }
-.item-preview .item-desc {
+
+.lot-preview.type-item .item-desc {
     margin-left: 48px;
     color: #fff;
     border: 1px solid #000;
     border-radius: 5px;
     font-size: 13px;
 }
-.item-preview .item-desc .arrow {
+
+.lot-preview.type-item .item-desc .arrow {
     position: absolute;
 }
-.item-preview .item-desc .arrow:before,
-.item-preview .item-desc .arrow:after {
+
+.lot-preview.type-item .item-desc .arrow:before,
+.lot-preview.type-item .item-desc .arrow:after {
     content: "";
     position: absolute;
 }
-.item-preview .item-desc .arrow:before {
+
+.lot-preview.type-item .item-desc .arrow:before {
     border-right: 10px solid #666;
     border-top: 14px solid rgba(113, 101, 58, 0);
     border-bottom: 14px solid rgba(113, 101, 58, 0);
     left: -9px;
     top: 7px;
 }
-.item-preview .item-desc .arrow:after {
+
+.lot-preview.type-item .item-desc .arrow:after {
     border-right: 8px solid rgba(51, 51, 51, 0.95);
     border-top: 10px solid rgba(255, 241, 190, 0);
     border-bottom: 10px solid rgba(255, 241, 190, 0);
     left: -5px;
     top: 10px;
 }
-.item-preview .item-desc .item-desc-border {
+
+.lot-preview.type-item .item-desc .item-desc-border {
     border: 2px solid #666;
     border-radius: 5px;
     overflow: hidden;
 }
-.item-preview .item-desc .item-desc-block {
+
+.lot-preview.type-item .item-desc .item-desc-block {
     background: rgba(51, 51, 51, 0.95);
     padding: 5px;
 }
-.item-preview .item-desc .item-desc-block p {
+
+.lot-preview.type-item .item-desc .item-desc-block p {
     margin: 0;
 }
-.item-preview .item-desc .item-desc-block h3 {
+
+.lot-preview.type-item .item-desc .item-desc-block h3 {
     font-size: 14px;
     margin: 0;
 }
-.item-preview .item-desc .item-desc-block h3 > span.id,
-.item-preview .item-desc .item-desc-block .desc {
+
+.lot-preview.type-item .item-desc .item-desc-block h3 > span.id,
+.lot-preview.type-item .item-desc .item-desc-block .desc {
     color: #9C9C9C;
 }
-.item-preview .item-desc .item-desc-block .color p {
+
+.lot-preview.type-item .item-desc .item-desc-block .color p {
     margin-left: 25px;
 }
-.item-preview .item-desc .item-desc-block .color p:first-child {
+
+.lot-preview.type-item .item-desc .item-desc-block .color p:first-child {
     margin-left: 0;
 }
-.item-preview .item-desc .item-desc-block .history p {
+
+.lot-preview.type-item .item-desc .item-desc-block .history p {
     color: #0EBD0E;
 }
-.item-preview .item-desc .item-desc-block p.strength {
+
+.lot-preview.type-item .item-desc .item-desc-block p.strength {
     color: grey;
 }
-.item-preview .item-desc .item-desc-block p.strength span {
+
+.lot-preview.type-item .item-desc .item-desc-block p.strength span {
     color: white;
 }
-.item-preview .item-desc .item-desc-block .tag span::after {
+
+.lot-preview.type-item .item-desc .item-desc-block .tag span::after {
     content: ", ";
     color: grey;
 }
-.item-preview .item-desc .item-desc-block .tag span:last-child::after {
+
+.lot-preview.type-item .item-desc .item-desc-block .tag span:last-child::after {
     content: "";
 }
+
 @media screen and (max-width: 460px){
-    .item-preview .grid-table {
+    .lot-preview.type-item .grid-table {
         display: none;
     }
-    .item-preview .item-desc .arrow {
+    .lot-preview.type-item .item-desc .arrow {
         display: none;
     }
-    .item-preview .item-desc {
+    .lot-preview.type-item .item-desc {
         margin-left: 0;
     }
 }

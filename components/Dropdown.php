@@ -1,5 +1,5 @@
 <?php
-namespace app\helpers;
+namespace app\components;
 
 use yii\helpers\Html;
 use yii\base\InvalidConfigException;

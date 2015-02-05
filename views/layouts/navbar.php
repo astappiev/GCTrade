@@ -1,7 +1,7 @@
 <?php
 
 use yii\bootstrap\NavBar;
-use app\helpers\Nav;
+use app\components\Nav;
 use app\modules\users\models\Message;
 
 NavBar::begin([

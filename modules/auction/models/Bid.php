@@ -2,6 +2,7 @@
 
 namespace app\modules\auction\models;
 
+use Yii;
 use app\modules\users\models\User;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -47,7 +48,7 @@ class Bid extends ActiveRecord
     public function rules()
     {
         return [
-            ['user_id', 'default', 'value' => \Yii::$app->user->id],
+            ['user_id', 'default', 'value' => Yii::$app->user->id],
 
             [['lot_id', 'user_id', 'cost'], 'required'],
             [['lot_id', 'user_id', 'cost'], 'integer'],
@@ -62,12 +63,12 @@ class Bid extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'lot' => 'Лот',
-            'user' => 'Пользователь',
-            'cost' => 'Сумма сделки',
-            'created_at' => 'Создано',
-            'updated_at' => 'Последнее обновление',
+            'id' => Yii::t('auction', 'BID_ID'),
+            'lot' => Yii::t('auction', 'BID_LOT'),
+            'user' => Yii::t('auction', 'BID_USER'),
+            'cost' => Yii::t('auction', 'BID_COST'),
+            'created_at' => Yii::t('auction', 'BID_CREATED_AT'),
+            'updated_at' => Yii::t('auction', 'BID_UPDATED_AT'),
         ];
     }
 

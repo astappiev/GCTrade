@@ -24,7 +24,7 @@ use yii\helpers\Html;
 
         <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
+            'class' => $model->bid ? 'btn btn-danger disabled' : 'btn btn-danger',
             'data' => [
                 'confirm' => 'Вы действительно хотите удалить магазин?',
                 'method' => 'post',

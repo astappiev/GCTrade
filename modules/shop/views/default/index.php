@@ -1,6 +1,5 @@
 <?php
 
-use app\helpers\Glyph;
 use yii\helpers\Html;
 use yii\widgets\ListView;
 use app\modules\shop\Modules as Module;

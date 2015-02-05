@@ -8,7 +8,7 @@
 use yii\helpers\Html;
 
 ?>
-<div class="item-preview">
+<div class="lot-preview type-item">
     <div class="grid-table">
         <div class="grid-table-border clearfix">
             <div class="grid-table-item">

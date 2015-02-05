@@ -2,10 +2,12 @@
 
 namespace app\modules\auction\models;
 
+use Yii;
 use app\modules\users\models\User;
 use vova07\fileapi\behaviors\UploadBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\debug\models\search\Log;
 
 /**
  * Class Lot
@@ -156,24 +158,24 @@ class Lot extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'user_id' => 'Пользователь',
-            'name' => 'Название лота',
-            'metadata' => 'Данные о лоте',
-            'type_id' => 'Тип лота',
-            'status' => 'Состояние',
-            'description' => 'Описание',
-            'price_min' => 'Начальная цена',
-            'price_step' => 'Шаг аукциона',
-            'price_blitz' => 'Блиц цена',
-            'time_bid' => 'Время ставки',
-            'time_elapsed' => 'Время аукциона',
-            'created_at' => 'Создан',
-            'updated_at' => 'Последнее обновление',
+            'id' => Yii::t('auction', 'LOT_ID'),
+            'user_id' => Yii::t('auction', 'LOT_USER_ID'),
+            'name' => Yii::t('auction', 'LOT_NAME'),
+            'metadata' => Yii::t('auction', 'LOT_METADATA'),
+            'type_id' => Yii::t('auction', 'LOT_TYPE_ID'),
+            'status' => Yii::t('auction', 'LOT_STATUS'),
+            'description' => Yii::t('auction', 'LOT_DESCRIPTION'),
+            'price_min' => Yii::t('auction', 'LOT_PRICE_MIN'),
+            'price_step' => Yii::t('auction', 'LOT_PRICE_STEP'),
+            'price_blitz' => Yii::t('auction', 'LOT_PRICE_BLITZ'),
+            'time_bid' => Yii::t('auction', 'LOT_TIME_BID'),
+            'time_elapsed' => Yii::t('auction', 'LOT_TIME_ELAPSED'),
+            'created_at' => Yii::t('auction', 'LOT_CREATED_AT'),
+            'updated_at' => Yii::t('auction', 'LOT_UPDATED_AT'),
 
-            'picture_url' => 'Изображение',
-            'item_id' => 'Предмет',
-            'region_name' => 'Регион',
+            'picture_url' => Yii::t('auction', 'LOT_PICTURE_URL'),
+            'item_id' => Yii::t('auction', 'LOT_ITEM_ID'),
+            'region_name' => Yii::t('auction', 'LOT_REGION_NAME'),
         ];
     }
 
@@ -183,10 +185,10 @@ class Lot extends ActiveRecord
     public static function getTypeArray()
     {
         return [
-            self::TYPE_ITEM => 'Предмет',
-            self::TYPE_LAND => 'Территория',
-            self::TYPE_PROJECT => 'Проект',
-            self::TYPE_OTHER => 'Прочее',
+            self::TYPE_ITEM => Yii::t('auction', 'LOT_TYPE_ITEM'),
+            self::TYPE_LAND => Yii::t('auction', 'LOT_TYPE_LAND'),
+            self::TYPE_PROJECT => Yii::t('auction', 'LOT_TYPE_PROJECT'),
+            self::TYPE_OTHER => Yii::t('auction', 'LOT_TYPE_OTHER'),
         ];
     }
 
@@ -196,8 +198,12 @@ class Lot extends ActiveRecord
     public static function getStatusArray()
     {
         return [
-            self::STATUS_PUBLISHED => 'Опубликовано',
-            self::STATUS_DRAFT => 'Черновик',
+            self::STATUS_PUBLISHED => Yii::t('auction', 'LOT_STATUS_PUBLISHED'),
+            self::STATUS_DRAFT => Yii::t('auction', 'LOT_STATUS_DRAFT'),
+            self::STATUS_STARTED => Yii::t('auction', 'LOT_STATUS_STARTED'),
+            self::STATUS_FINISHED => Yii::t('auction', 'LOT_STATUS_FINISHED'),
+            self::STATUS_CLOSED => Yii::t('auction', 'LOT_STATUS_CLOSED'),
+            self::STATUS_BLOCKED => Yii::t('auction', 'LOT_STATUS_BLOCKED'),
         ];
     }
 
@@ -262,6 +268,7 @@ class Lot extends ActiveRecord
      */
     public function getCurrentStatus()
     {
+        Yii::trace('Зашел: '  . $this->status);
         if (!empty($this->_status)) {
             return $this->_status;
         } elseif ($this->status === self::STATUS_BLOCKED || $this->status === self::STATUS_DRAFT || $this->status === self::STATUS_CLOSED || $this->status === self::STATUS_FINISHED) {
@@ -284,6 +291,8 @@ class Lot extends ActiveRecord
         $this->status = $this->_status;
         $this->save();
 
+        Yii::trace('Вышел: '  . $this->status);
+
         return $this->_status;
     }
 
@@ -305,7 +314,11 @@ class Lot extends ActiveRecord
     public function beforeSave($insert)
     {
         if(parent::beforeSave($insert)) {
-            if ($this->isNewRecord && $this->time_elapsed < time()) $this->time_elapsed += time();
+            Yii::trace('time123: ' . time() . ', ' . $this->time_elapsed);
+            if ($this->getIsEditable() && $this->time_elapsed < time()) {
+                $this->time_elapsed += time();
+                $this->status = self::STATUS_PUBLISHED;
+            }
             return true;
         }
         return false;

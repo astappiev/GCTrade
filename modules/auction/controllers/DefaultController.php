@@ -5,14 +5,14 @@ namespace app\modules\auction\controllers;
 use Yii;
 use app\modules\auction\models\Lot;
 use app\modules\auction\models\search\Lot as LotSearch;
-use yii\web\Controller;
+use app\components\ParentController;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 
 /**
  * AuctionController implements the CRUD actions for Lot model.
  */
-class DefaultController extends Controller
+class DefaultController extends ParentController
 {
     /**
      * Lists all Lot models.
@@ -54,13 +54,13 @@ class DefaultController extends Controller
     {
         if (($model = Lot::findOne($id)) !== null) {
 
-            if(($access === true || in_array($model->status, [Lot::STATUS_DRAFT, Lot::STATUS_BLOCKED])) && $model->user_id != \Yii::$app->user->id)
-                throw new ForbiddenHttpException(Yii::t('app/shop', 'SHOP_NO_PERMISSION'));
+            if(($access === true || in_array($model->status, [Lot::STATUS_DRAFT, Lot::STATUS_BLOCKED])) && !Yii::$app->user->can('updateAuction', ['model' => $model]))
+                throw new ForbiddenHttpException(Yii::t('auction', 'DEFAULT_CONTROLLER_LOT_NO_PERMISSION'));
 
             return $model;
 
         } else {
-            throw new NotFoundHttpException(Yii::t('app/shop', 'SHOP_NOT_FOUND'));
+            throw new NotFoundHttpException(Yii::t('auction', 'DEFAULT_CONTROLLER_LOT_NOT_FOUND'));
         }
     }
 }

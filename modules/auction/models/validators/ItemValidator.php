@@ -21,8 +21,11 @@ class ItemValidator extends Validator
         return <<<JS
             if($('#lot-type_id').val() == $type_item) {
                 var metadata = $('#lot-metadata');
+                var item_id = $('#lot-item_id');
                 var data = metadata.val() ? JSON.parse(metadata.val()) : {};
-                data.item_id = $('#lot-item_id').val().replace(/,/g,".");
+                var value = item_id.val().replace(/,/g,".");
+                item_id.val(value);
+                data.item_id = value;
                 metadata.val(JSON.stringify(data));
             }
 JS;

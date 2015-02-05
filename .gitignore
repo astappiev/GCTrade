@@ -33,9 +33,9 @@ phpunit.phar
 /phpunit.xml
 
 # Config file
-config/console-server.php
-config/web-server.php
-config/web-local.php
+config/common-prod.php
+config/web-prod.php
+config/web-dev.php
 
 # Assets
 web/assets/*

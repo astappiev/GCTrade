@@ -1,9 +1,14 @@
 <?php
 return [
-    'bootstrap' => ['log', 'debug', 'gii'],
+    'bootstrap' => ['debug', 'gii'],
     'components' => [
         'log' => [
             'traceLevel' => 3,
+            'targets' => [
+                'file' => [
+                    'levels' => ['trace', 'info', 'error', 'warning'],
+                ],
+            ],
         ],
     ],
     'modules' => [
