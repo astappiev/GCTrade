@@ -48,15 +48,6 @@ class ApiController extends Controller
         return self::renderJSON(['message' => 'Results not found']);
     }
 
-    public function actionSkin($login)
-    {
-        // TODO: Реализовать кэширование
-        $src = 'http://greenusercontent.net/mc/skins/'.$login.'.png';
-        Header('Access-Control-Allow-Origin: *');
-        Header("Content-type: image/png");
-        echo file_get_contents($src);
-    }
-
     public function actionHead($login)
     {
         // TODO: Реализовать кэширование
