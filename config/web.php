@@ -28,7 +28,7 @@ $config = [
             'class' => 'yii\authclient\Collection',
             'clients' => [
                 'greencubes' => [
-                    'class' => 'app\components\GreenCubesOAuth',
+                    'class' => 'app\modules\users\components\GreencubesAuth',
                     'clientId' => 'CLIENT_ID',
                     'clientSecret' => 'CLIENT_SECRET',
                 ],

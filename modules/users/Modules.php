@@ -25,10 +25,9 @@ class Modules extends Module implements BootstrapInterface
             $this->usersUrl . '/<_controller:\w+>/<_action:\w+>' => $this->id . '/<_controller>/<_action>',
         ], false);
 
-        if (!isset($app->i18n->translations['users']) && !isset($app->i18n->translations['users*'])) {
+        if (!isset($app->i18n->translations['users'])) {
             $app->i18n->translations['users'] = [
                 'class' => 'yii\i18n\PhpMessageSource',
-                'sourceLanguage' => 'system',
                 'basePath' => '@app/modules/users/messages',
                 'forceTranslation' => true
             ];
