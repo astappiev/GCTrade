@@ -4,14 +4,31 @@ namespace app\modules\shop;
 
 use Yii;
 
+/**
+ * Shop module
+ *
+ * @author astappev <astappev@gmail.com>
+ */
 class Modules extends \yii\base\Module implements \yii\base\BootstrapInterface
 {
+    /**
+     * @var string namespace for module
+     */
     public $controllerNamespace = 'app\modules\shop\controllers';
 
+    /**
+     * @var string Url prefix for item
+     */
     public $itemUrl = 'item';
 
+    /**
+     * @var string Url prefix for module
+     */
     public $shopUrl = 'shop';
 
+    /**
+     * @inheritdoc
+     */
     public function bootstrap($app)
     {
         $app->getUrlManager()->addRules([
@@ -39,10 +56,13 @@ class Modules extends \yii\base\Module implements \yii\base\BootstrapInterface
 
             $this->shopUrl . '/<_controller:\w+>/<_action:\w+>' => $this->id . '/<_controller>/<_action>',
         ], false);
-    }
 
-    public function init()
-    {
-        parent::init();
+        if (!isset($app->i18n->translations['shop'])) {
+            $app->i18n->translations['shop'] = [
+                'class' => 'yii\i18n\PhpMessageSource',
+                'basePath' => '@app/modules/shop/messages',
+                'forceTranslation' => true
+            ];
+        }
     }
 }

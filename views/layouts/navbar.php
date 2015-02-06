@@ -56,18 +56,10 @@ if (!Yii::$app->user->isGuest) {
 
 } else  {
 
-    $userMenu = [[
-        'label' => 'Войти',
-        'linkOptions' => ['id' => 'gclogin', 'class' => 'intro-user'],
-        'url' => ['/users/default/auth', 'authclient' => 'greencubes']
-    ]];
-    $this->registerJs("$('a#gclogin').on('click', function(e) {
-        e.preventDefault();
-
-        GCAuthPopup = window.open(this.href, 'gc_auth', 'directories=yes');
-        GCAuthPopup.focus();
-        this.data('GCAuthPopup', GCAuthPopup);
-    });");
+    $userMenu = [
+        ['label' => 'Зарегистрироваться', 'linkOptions' => ['class' => 'intro-register'], 'url' => ['/users/default/signup']],
+        ['label' => 'Войти', 'linkOptions' => ['class' => 'intro-login'], 'url' => ['/users/default/login']],
+    ];
 
 }
 

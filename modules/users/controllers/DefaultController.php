@@ -25,12 +25,12 @@ class DefaultController extends Controller
                 'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['signup', 'auth', 'login'],
+                        'actions' => ['signup', 'auth', 'login', 'request-password-reset'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['signup', 'auth', 'login'],
+                        'actions' => ['signup', 'auth', 'login', 'request-password-reset'],
                         'allow' => false,
                         'roles' => ['@'],
                     ],

@@ -50,7 +50,7 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            //'useFileTransport' => true,
+            'useFileTransport' => true,
             'viewPath' => '@app/mails',
             'messageConfig' => [
                 'from' => $params['supportEmail'],

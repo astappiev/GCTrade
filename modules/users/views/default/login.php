@@ -23,13 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'password')->passwordInput() ?>
             <?= $form->field($model, 'rememberMe')->checkbox() ?>
             <div style="color:#999; margin:1em 0">
-                Если вы забыли пароль, вы всегда можете его <?= Html::a('восстановить', ['user/request-password-reset']) ?>.
+                Если вы забыли пароль, вы всегда можете его <?= Html::a('восстановить', ['/users/default/request-password-reset']) ?>.
             </div>
             <div class="form-group">
                 <?= Html::submitButton('Войти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 <?php if(\Yii::$app->has('authClientCollection'))
                 {
-                    $authChoice = AuthChoice::begin(['baseAuthUrl' => ['user/auth']]);
+                    $authChoice = AuthChoice::begin(['baseAuthUrl' => ['/users/default/auth']]);
                     $greencubes = $authChoice->getClients()["greencubes"];
                     $authChoice->clientLink($greencubes, 'GreenCubes Auth', ['class' => 'btn btn-greencubes auth-link']);
                     AuthChoice::end();
