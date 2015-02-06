@@ -1,13 +1,37 @@
 <?php
 namespace app\controllers;
 
+use linslin\yii2\curl\Curl;
 use Yii;
-use yii\base\Exception;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\db\Query;
+use yii\web\Response;
 
 class ApiController extends Controller
 {
+
+    public function behaviors()
+    {
+        return [
+            'json' => [
+                'class' => 'yii\filters\ContentNegotiator',
+                'except' => ['index'],
+                'formats' => [
+                    'application/json' => Response::FORMAT_JSON,
+                ],
+            ],
+            'cors' => [
+                'class' => 'yii\filters\Cors',
+                'except' => ['index'],
+                'cors' => [
+                    'Access-Control-Request-Method' => ['POST', 'GET'],
+                    'Access-Control-Allow-Credentials' => true,
+                    'Access-Control-Max-Age' => 3600,
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex()
     {
@@ -17,74 +41,79 @@ class ApiController extends Controller
 	public function actionShop($request = null)
 	{
         $query = (new Query)->select('alias, name, about, description, subway, x_cord, z_cord, logo_url, updated_at')->from('tg_shop');
-        if($request) {
-            $query->where(['alias' => $request])->orWhere(['like', 'name', $request]);
-        }
+        if ($request) $query->where(['alias' => $request])->orWhere(['like', 'name', $request]);
         $rows = $query->createCommand()->queryAll();
 
-        if(!empty($rows))
-        {
-            for($i = count($rows); 0 < $i; --$i) {
-                $rows[$i - 1]["logo_url"] = 'http://gctrade.ru/images/shop/'.$rows[$i - 1]["logo_url"];
-            }
-            return self::renderJSON($rows);
+        for ($i = count($rows); 0 < $i; --$i) {
+            $rows[$i - 1]["image_url"] = Url::base(true) . '/images/shop/' . $rows[$i - 1]["logo_url"];
         }
 
+        if (!empty($rows)) return count($rows) === 1 ?$rows[0] : $rows;
+
         Yii::$app->response->statusCode = 404;
-        return self::renderJSON(['message' => 'Results not found']);
+        return ['message' => 'Results not found'];
 	}
 
-    public function actionNomenclature()
+    public function actionNomenclature($id = null)
     {
         $query = (new Query)->select('alias as id, name')->from('tg_item');
+        if ($id) $query->where(['alias' => $id]);
         $rows = $query->createCommand()->queryAll();
 
-        if(!empty($rows))
-        {
-            return self::renderJSON($rows);
+        for ($i = count($rows); 0 < $i; --$i) {
+            $rows[$i - 1]["image_url"] = Url::base(true) . '/images/items/' . $rows[$i - 1]["id"] . '.png';
         }
 
+        if (!empty($rows)) return count($rows) === 1 ? $rows[0] : $rows;
+
         Yii::$app->response->statusCode = 404;
-        return self::renderJSON(['message' => 'Results not found']);
+        return ['message' => 'Results not found'];
     }
 
     public function actionHead($login)
     {
-        // TODO: Реализовать кэширование
         $src = 'http://greenusercontent.net/mc/skins/'.$login.'.png';
         $headers = @get_headers($src);
 
-        if(strpos($headers[0], '200')) {
+        if (strpos($headers[0], '200')) {
             $size = getimagesize($src);
-            if($size[0] == "256") $src_size = 32;
-            elseif($size[0] == "128") $src_size = 16;
+            if ($size[0] == "256") $src_size = 32;
+            elseif ($size[0] == "128") $src_size = 16;
             else $src_size = 8;
 
             $dst_size = 32;
             $img_r = imagecreatefrompng($src);
-            $dst_r = ImageCreateTrueColor($dst_size, $dst_size);
+            $image = ImageCreateTrueColor($dst_size, $dst_size);
 
-            imagecopyresampled($dst_r, $img_r, 0, 0, $src_size, $src_size, $dst_size, $dst_size, $src_size, $src_size);
-            imagecopyresampled($dst_r, $img_r, 0, 0, $src_size*5, $src_size, $dst_size, $dst_size, $src_size, $src_size);
+            imagecopyresampled($image, $img_r, 0, 0, $src_size, $src_size, $dst_size, $dst_size, $src_size, $src_size);
+            imagecopyresampled($image, $img_r, 0, 0, $src_size*5, $src_size, $dst_size, $dst_size, $src_size, $src_size);
         } else {
-            $dst_r = imagecreatefromjpeg(Yii::getAlias('@webroot').'/images/head_skin.jpg');
+            $image = imagecreatefromjpeg(Yii::getAlias('@webroot').'/images/head_skin.jpg');
         }
 
+        Header('Pragma: public');
+        Header('Cache-Control: max-age=86400');
+        Header('Expires: '. gmdate('D, d M Y H:i:s \G\M\T', time() + 86400));
         Header('Content-type: image/jpeg');
-        Header('Content-Disposition: filename="'.$login.'.jpg"');
-        imagejpeg($dst_r, null, 90);
+        Header('Content-Disposition: filename="' . $login . '.jpg"');
+        imagejpeg($image, null, 90);
+        return;
     }
 
     public function actionBadges($login)
     {
-        $json = json_decode(@file_get_contents('https://api.greencubes.org/users/'.$login))->badges;
+        $response = (new Curl())->get('https://api.greencubes.org/users/' . $login);
+        $json = json_decode($response)->badges;
 
-        $width_badges = 32;
-        $in_line = 14;
-        $margin = 8;
-        $line_width = ($width_badges * $in_line) + ($margin * ($in_line - 1));
-        if(!empty($json))
-        {
+        if (empty($json)) {
+            Yii::$app->response->statusCode = 404;
+            return ['message' => 'User not found or user hasn\'t badges'];
+        } else {
+            $width_badges = 32;
+            $in_line = 14;
+            $margin = 8;
+            $line_width = ($width_badges * $in_line) + ($margin * ($in_line - 1));
+
             $i = 0;
             foreach($json as $badge)
                 $i += $badge->count;
@@ -97,148 +126,122 @@ class ApiController extends Controller
 
             imagecolortransparent($img, $black); //прозрачный фон
 
-            foreach($json as $badge)
-            {
-                if($badge->badgeData > 0) $id = $badge->badgeId.'.'.$badge->badgeData;
-                else $id = $badge->badgeId;
-
+            foreach ($json as $badge) {
+                $id = $badge->badgeData > 0 ? $badge->badgeId.'.'.$badge->badgeData : $badge->badgeId;
                 $badge_img = imagecreatefrompng(Yii::getAlias('@webroot').'/images/items/'.$id.'.png');
                 imagealphablending($badge_img, false);
                 imagesavealpha($badge_img, true);
 
-                for($i = $badge->count; $i > 0; --$i)
-                {
+                for ($i = $badge->count; $i > 0; --$i) {
                     imagecopy($img, $badge_img, $current_width, $current_height, 0, 0, $width_badges, $width_badges);
                     $current_width += $width_badges + $margin;
-                    if($current_width > $line_width)
-                    {
+                    if ($current_width > $line_width) {
                         $current_width = 0;
                         $current_height += $width_badges + $margin;
                     }
                 }
             }
 
-            Header("Content-type: image/png");
+            Header('Pragma: public');
+            Header('Cache-Control: max-age=86400');
+            Header('Expires: '. gmdate('D, d M Y H:i:s \G\M\T', time() + 86400));
+            Header('Content-Type: image/png');
+            Header('Content-Disposition: filename="badge_' . $login . '.png"');
             imagepng($img);
-            return imagedestroy($img);
+            imagedestroy($img);
         }
 
-        Yii::$app->response->statusCode = 404;
-        return self::renderJSON(['message' => 'User not found or user hasn\'t badges']);
+        return null;
     }
 
     public function actionRegions()
     {
-        if(Yii::$app->user->isGuest)
-            return self::renderJSON(['message' => 'You must be logged in']);
+        if (Yii::$app->user->isGuest) {
+            return ['message' => 'You must be logged in'];
+        }
 
-        if(Yii::$app->user->identity->getAccessToken() == null)
-            return self::renderJSON(['message' => 'It is a trouble with accessToken']);
+        if (Yii::$app->user->identity->getAccessToken() == null) {
+            return ['message' => 'It is a trouble with accessToken'];
+        }
 
-        $request = "https://api.greencubes.org/user/regions?access_token=".Yii::$app->user->identity->getAccessToken();
-
-        $curl_handle =  curl_init();
-        curl_setopt($curl_handle, CURLOPT_URL, $request);
-        curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
-        curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl_handle, CURLOPT_USERAGENT, 'GCTrade');
-        $regions = curl_exec($curl_handle);
-        curl_close($curl_handle);
-
-        return self::renderJSON(json_decode($regions));
+        $response = (new Curl())->get('https://api.greencubes.org/user/regions?access_token=' . Yii::$app->user->identity->getAccessToken());
+        return json_decode($response);
     }
 
     public function actionWorld($login = null)
     {
-        $world = @file_get_contents("http://srv1.greencubes.org/up/world/world");
-
-        if(!empty($world))
-        {
+        $world = (new Curl())->get('http://srv1.greencubes.org/up/world/world');
+        if (!empty($world)) {
             $world = json_decode($world)->players;
-
             $players = [];
-            foreach($world as $line)
-            {
+            foreach ($world as $line) {
                 $players[] = ['name' => $line->name, 'cord' => round($line->x).' '.round($line->y).' '.round($line->z)];
             }
 
-            if($login)
-            {
-                foreach($players as $player)
-                {
-                    if(strtolower($player["name"]) == strtolower($login))
-                        return self::renderJSON($player);
+            if ($login) {
+                foreach ($players as $player) {
+                    if(strtolower($player["name"]) === strtolower($login)) {
+                        return $player;
+                    }
                 }
-                return self::renderJSON(['message' => 'User is offline']);
+                return ['message' => 'User is offline'];
             }
-
-            return self::renderJSON($players);
+            return $players;
         }
 
         Yii::$app->response->statusCode = 404;
-        return self::renderJSON(['message' => 'Impossible to get the array']);
+        return ['message' => 'Impossible to get the array'];
     }
 
     public function actionItem($request)
     {
-        $id = explode(".", $request);
-        $query = (new Query())->select('id, id_primary, id_meta, name')->from('tg_item')->where('tg_item.id_primary=:id_primary AND tg_item.id_meta=:id_meta', [':id_primary' => $id[0], ':id_meta' => isset($id[1]) ? $id[1] : 0]);
+        $query = (new Query())->select('id, alias, name')->from('tg_item')->where('alias=:alias', [':alias' => $request]);
         $items = $query->createCommand()->queryAll();
-        if(empty($items))
-        {
+
+        if (empty($items)) {
             $query->orWhere(['like', 'name', $request]);
             $items = $query->createCommand()->queryAll();
         }
 
-        if(!empty($items))
-        {
-            $lenght = count($items);
-            for($i = 0; $i < $lenght; ++$i)
-            {
-                $price = (new Query())->select('count(*) as count, min(price_sell/stuck) as min, avg(price_sell/stuck) as avg, max(price_sell/stuck) as max')->from('tg_shop_good')->where('item_id=:id', [':id' => $items[$i]["id"]])->one();
+        if (!empty($items)) {
+            for ($i = count($items); 0 < $i; --$i) {
+                $price = (new Query())->select('count(*) as count, min(price_sell/stuck) as min, avg(price_sell/stuck) as avg, max(price_sell/stuck) as max')->from('tg_shop_good')->where('item_id=:id', [':id' => $items[$i - 1]["id"]])->one();
 
-                $items[$i] = [
-                    'id' => ($items[$i]["id_meta"]) ? $items[$i]["id_primary"].'.'.$items[$i]["id_meta"] : $items[$i]["id_primary"],
-                    'name' => $items[$i]["name"],
+                $items[$i - 1] = [
+                    'id' => $items[$i - 1]["alias"],
+                    'name' => $items[$i - 1]["name"],
                     'description' => null,
                     'in_shop' => $price
                 ];
             }
-
-            return self::renderJSON($items);
+            return $items;
         }
 
         Yii::$app->response->statusCode = 404;
-        return self::renderJSON(['message' => 'Nothing found']);
+        return ['message' => 'Nothing found'];
     }
 
     public function actionPrice($request)
     {
-        $id = explode(".", $request);
-        $query = (new Query())->select('id, id_primary, id_meta, name')->from('tg_item')->where('tg_item.id_primary=:id_primary AND tg_item.id_meta=:id_meta', [':id_primary' => $id[0], ':id_meta' => isset($id[1]) ? $id[1] : 0]);
+        $query = (new Query())->select('id, alias, name')->from('tg_item')->where('alias=:alias', [':alias' => $request]);
         $items = $query->createCommand()->queryAll();
-        if(empty($items))
-        {
+
+        if (empty($items)) {
             $query->orWhere(['like', 'name', $request]);
             $items = $query->createCommand()->queryAll();
         }
 
-        if(!empty($items))
-        {
-            $lenght = count($items);
-            for($i = 0; $i < $lenght; ++$i)
-            {
+        if (!empty($items)) {
+            for ($i = 0, $size = count($items); $i < $size; ++$i) {
                 $prices = (new Query())->select('shop_id, price_sell, price_buy, stuck')->from('tg_shop_good')->where('item_id=:id', [':id' => $items[$i]["id"]])->orderBy('IFNULL(`price_sell`, \'1\') / `stuck` ASC')->createCommand()->queryAll();
 
-                if(!empty($prices)) {
-                    $lenght_p = count($prices);
-                    for ($i_p = 0; $i_p < $lenght_p; ++$i_p) {
+                if (!empty($prices)) {
+                    for ($i_p = 0, $size_p = count($prices); $i_p < $size_p; ++$i_p) {
 
                         $shop = (new Query())->select('alias, name, logo_url')->from('tg_shop')->where('id=:id', [':id' => $prices[$i_p]["shop_id"]])->one();
 
-                        $shop["logo_url"] = ($shop["logo_url"] == null) ? null : 'http://gctrade.ru/images/shop/'.$shop["logo_url"];
-                        $shop["shop_url"] = 'http://gctrade.ru/shop/'.$shop["alias"];
+                        $shop["logo_url"] = ($shop["logo_url"] == null) ? null : (Url::base(true) . '/images/shop/' . $shop["logo_url"]);
+                        $shop["shop_url"] = (Url::base(true) . '/shop/' . $shop["alias"]);
                         unset($shop["alias"]);
 
                         $prices[$i_p] = [
@@ -250,28 +253,19 @@ class ApiController extends Controller
                     }
                 }
 
-                $id = ($items[$i]["id_meta"]) ? $items[$i]["id_primary"].'.'.$items[$i]["id_meta"] : $items[$i]["id_primary"];
                 $items[$i] = [
-                    'id' => $id,
+                    'id' => $items[$i]["alias"],
                     'name' => $items[$i]["name"],
                     'description' => null,
-                    'image_url' => 'http://gctrade.ru/images/items/'.$id.'.png',
+                    'image_url' => Url::base(true) . '/images/items/' . $items[$i]["alias"] . '.png',
                     'in_shop' => $prices
                 ];
             }
 
-            return self::renderJSON(($lenght == 1) ? $items[0] : $items);
+            return (count($items) === 1) ? $items[0] : $items;
         }
 
         Yii::$app->response->statusCode = 404;
-        return self::renderJSON(['message' => 'Nothing found']);
-    }
-
-    protected function renderJSON($object)
-    {
-        header('Access-Control-Allow-Origin: *');
-        header('Content-Type: application/json; charset=utf-8');
-
-        echo json_encode($object, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_UNESCAPED_SLASHES);
+        return ['message' => 'Nothing found'];
     }
 }
