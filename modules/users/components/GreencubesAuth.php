@@ -49,7 +49,7 @@ class GreencubesAuth extends OAuth2
     {
         return [
             'popupWidth' => 650,
-            'popupHeight' => 400,
+            'popupHeight' => 450,
         ];
     }
     /**

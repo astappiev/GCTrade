@@ -1,16 +1,21 @@
-$("textarea.autosize").autosize();
-
 function MapsIndexShop() {
     var playerLayers = new L.LayerGroup(), shopsLayers = new L.LayerGroup();
     var map = L.map('map', { maxZoom: 15, minZoom: 10, crs: L.CRS.Simple, layers: [playerLayers, shopsLayers] }).setView([-0.35764, 0.11951], 13);
     L.tileLayer('http://maps.gctrade.ru/tiles/{z}/tile_{x}_{y}.png', { noWrap: true }).addTo(map);
     L.control.layers(null, { "Персонаж": playerLayers, "Магазины": shopsLayers }).addTo(map);
 
-    var shopIcon = L.icon({
-        iconUrl: '/web/images/shop.png',
-        iconSize: [36, 36],
-        iconAnchor: [18, 18],
-        popupAnchor: [0, -18]
+    var shopBookIcon = L.icon({
+        iconUrl: '/web/images/shop_book.png',
+        iconSize: [38, 38],
+        iconAnchor: [19, 19],
+        popupAnchor: [0, -19]
+    });
+
+    var shopProductIcon = L.icon({
+        iconUrl: '/web/images/shop_product.png',
+        iconSize: [38, 38],
+        iconAnchor: [19, 19],
+        popupAnchor: [0, -19]
     });
 
     function AdaptCords(pos) {
@@ -32,32 +37,30 @@ function MapsIndexShop() {
         setUser();
 
         function setUser() {
-            $.getJSON( "/api/world/" + username, function(user_data) {
-                if(user_data["status"] === 1)
-                {
-                    var pos = [user_data["player"]["x"], user_data["player"]["z"]];
-                    pos = AdaptCords(pos);
-                    var cords = map.unproject([pos[0], pos[1]], map.getMaxZoom());
+            $.getJSON( "/api/user/world/" + username, function(user_data) {
+                var cord = user_data.username.split(" ");
+                var pos = [cord[0], cord[2]];
+                pos = AdaptCords(pos);
+                var cords = map.unproject([pos[0], pos[1]], map.getMaxZoom());
 
-                    if(count++)
-                    {
-                        player.setLatLng(cords);
-                    }
-                    else
-                    {
-                        player = L.marker(cords, {icon: playerIcon});
-                        playerLayers.addLayer(player);
-                        map.setView(cords, 15);
-                    }
-                } else {
-                    clearInterval(updateUser);
-                    playerLayers.clearLayers();
+                if(count++)
+                {
+                    player.setLatLng(cords);
                 }
+                else
+                {
+                    player = L.marker(cords, {icon: playerIcon});
+                    playerLayers.addLayer(player);
+                    map.setView(cords, 15);
+                }
+            }).fail(function() {
+                clearInterval(updateUser);
+                playerLayers.clearLayers();
             });
         }
     }
 
-    $.getJSON( "/api/shop", function(data) {
+    $.getJSON( "/api/shops", function(data) {
         for(var i = data.length; i--; )
         {
             if(data[i]["x_cord"] && data[i]["z_cord"])
@@ -66,10 +69,9 @@ function MapsIndexShop() {
                 pos = AdaptCords(pos);
 
                 var popap = '<div class="shop-popup"><h4><a href="/shop/' + data[i]["alias"] + '" target="_blank">' + data[i]["name"] + '</a></h4>';
-                if(data[i]["logo_url"]) popap += '<img src="' + data[i]["logo_url"] + '">';
+                if(data[i]["image_url"]) popap += '<img src="' + data[i]["image_url"] + '">';
                 popap += '<p>' + data[i]["about"] + '</p><p class="plabel"><span class="label label-default">/go ' + data[i]["subway"] + '</span></p><p class="plabel"><a href="/shop/' + data[i]["alias"] + '" target="_blank"><span class="label label-primary">Прайс</span></a> <span class="label label-success">X ' + data[i]["x_cord"] + ', Z ' + data[i]["z_cord"] + '</span></p></div>';
-
-                var shop = L.marker(map.unproject([pos[0], pos[1]], map.getMaxZoom()), {icon: shopIcon}).bindPopup(popap);
+                var shop = L.marker(map.unproject([pos[0], pos[1]], map.getMaxZoom()), {icon: (data[i]["type"] == 0 ? shopProductIcon : shopBookIcon)}).bindPopup(popap);
                 shopsLayers.addLayer(shop);
             }
         }
@@ -80,6 +82,8 @@ function MapsIndexShop() {
 
 function MapsUserRegions()
 {
+    $("textarea.autosize").autosize();
+
     var area = 0, volume = 0, cost = 0;
 
     var buildLayers = new L.LayerGroup(), fullLayers = new L.LayerGroup(), customLayers = new L.LayerGroup();
@@ -89,7 +93,7 @@ function MapsUserRegions()
 
     $.ajax({
         type: 'GET',
-        url: '/api/regions',
+        url: '/api/user/regions',
         dataType: 'json',
         async: false,
         success: function(regions){

@@ -20,8 +20,8 @@ use yii\bootstrap\ActiveForm;
     <?= $form->field($model, 'name') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app/shop', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app/shop', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(Yii::t('shop', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(Yii::t('shop', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

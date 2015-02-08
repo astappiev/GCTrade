@@ -10,13 +10,14 @@ use yii\helpers\Html;
 $this->registerJsFile('@web/js/jquery/jquery.tablesorter.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app/shop', 'ITEM'), 'url' => ['/shop/item/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('shop', 'ITEM'), 'url' => ['/shop/item/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="body-content page">
 	<h1><?= Html::encode($this->title) ?></h1>
 
     <div class="panel panel-default">
+        <div class="panel-heading">
         <div class="panel-heading">
 
             <img src="/images/items/<?= $model->getAlias() ?>.png" alt="<?= $model->name ?>" class="img-rounded" />

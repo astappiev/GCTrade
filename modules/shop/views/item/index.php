@@ -9,7 +9,7 @@ use yii\helpers\Html;
 $this->registerJsFile('@web/js/jquery/jquery.tablesorter.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('@web/js/jquery/jquery.filtertable.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
-$this->title = Yii::t('app/shop', 'CATALOG_ITEM');
+$this->title = Yii::t('shop', 'CATALOG_ITEM');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="body-content item-list">

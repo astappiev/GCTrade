@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `tg_shop` (
   `subway` varchar(100) DEFAULT NULL,
   `x_cord` int(5) DEFAULT NULL,
   `z_cord` int(5) DEFAULT NULL,
-  `logo_url` varchar(255) DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
   `source` varchar(255) DEFAULT NULL,
   `created_at` int(10) unsigned NOT NULL,
   `updated_at` int(10) unsigned NOT NULL,

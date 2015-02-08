@@ -3,12 +3,12 @@
     <tr>
         <th width="5%"></th>
         <th width="5%">ID</th>
-        <th class="name"><?= Yii::t('app/shop', 'NAME') ?></th>
-        <th width="12%"><?= Yii::t('app/shop', 'SELLING_PRICE') ?></th>
+        <th class="name"><?= Yii::t('shop', 'NAME') ?></th>
+        <th width="12%"><?= Yii::t('shop', 'SELLING_PRICE') ?></th>
         <th width="8%"></th>
-        <th width="12%"><?= Yii::t('app/shop', 'PURCHASE_PRICE') ?></th>
+        <th width="12%"><?= Yii::t('shop', 'PURCHASE_PRICE') ?></th>
         <th width="8%"></th>
-        <th width="15%"><?= Yii::t('app/shop', 'NUMBER_OF') ?></th>
+        <th width="15%"><?= Yii::t('shop', 'NUMBER_OF') ?></th>
         <th width="10%"></th>
     </tr>
     </thead>

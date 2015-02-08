@@ -15,12 +15,12 @@ $this->title = 'Приветствуем!';
                 <div class="col-lg-4 intro-col1">
                     <h2>Для покупателей</h2>
                     <div style="margin-bottom: 15px;">
-                        <img src="/images/info/01_b.png" align="left" style="margin: 10px;" />
+                        <img src="/images/homepage/01_b.png" align="left" style="margin: 10px;" />
                         <h4>Подбор магазина</h4>
                         <p>Вы можете найти свой любимый магазин: по расположению, по ценам, по удобству.</p>
                     </div>
                     <div style="margin-bottom: 15px;">
-                        <img src="/images/info/03_b.png" align="left" style="margin: 10px;" />
+                        <img src="/images/homepage/03_b.png" align="left" style="margin: 10px;" />
                         <h4>Поиск товара</h4>
                         <p>Вы выбираете товар и смотрите в каких магазинах он в наличии.</p>
                     </div>
@@ -28,12 +28,12 @@ $this->title = 'Приветствуем!';
                 <div class="col-lg-4 intro-col2">
                     <h2>Для продавцов</h2>
                     <div style="margin-bottom: 15px;">
-                        <img src="/images/info/02_b.png" align="left" style="margin: 10px;" />
+                        <img src="/images/homepage/02_b.png" align="left" style="margin: 10px;" />
                         <h4>Доступная информация</h4>
                         <p>Держите в курсе вашего покупателя об актуальных ценах. Поддерживайте конкурентоспособность.</p>
                     </div>
                     <div style="margin-bottom: 15px;">
-                        <img src="/images/info/04_b.png" align="left" style="margin: 10px;" />
+                        <img src="/images/homepage/04_b.png" align="left" style="margin: 10px;" />
                         <h4>Простое управление</h4>
                         <p>Вашим прайсом очень легко управлять. Только попробуйте!</p>
                     </div>
@@ -41,12 +41,12 @@ $this->title = 'Приветствуем!';
                 <div class="col-lg-4 intro-col3">
                     <h2>Общая информация</h2>
                     <div style="margin-bottom: 15px;">
-                        <img src="/images/info/05_b.png" align="left" style="margin: 10px;" />
+                        <img src="/images/homepage/05_b.png" align="left" style="margin: 10px;" />
                         <h4>Сравнение цен</h4>
                         <p>Хотели узнать где дешевле всего купить кровокамень? Мы укажем вам, где дешевле!</p>
                     </div>
                     <div style="margin-bottom: 15px;">
-                        <img src="/images/info/06_b.png" align="left" style="margin: 10px;" />
+                        <img src="/images/homepage/06_b.png" align="left" style="margin: 10px;" />
                         <h4>Информация об экономике</h4>
                         <p>Вы всегда можете узнать актуальную цену продажи или покупки.</p>
                     </div>

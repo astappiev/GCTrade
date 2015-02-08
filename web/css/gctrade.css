@@ -418,20 +418,22 @@ a.desc:after {
     display: inline;
 }
 
-.btn-greencubes {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    color: #999;
+.btn.btn-greencubes {
+    background: transparent url(../images/btn_gc.jpg);
+    border: 0;
+    width: 34px;
+    height: 34px;
+    font-size: 0;
 }
 
-.btn-greencubes:hover,
-.btn-greencubes:focus,
-.btn-greencubes:active,
-.btn-greencubes.active {
-    text-decoration: none;
-    color: #fff;
-    background-color: transparent;
+.btn.btn-greencubes:hover {
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
 }
+
+.btn.btn-greencubes:active {
+    background-position: 0 34px;
+}
+
 
 
 /* User */

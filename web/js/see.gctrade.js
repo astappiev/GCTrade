@@ -19,7 +19,7 @@ var user = {
                                 new Notification(name, {
                                     tag : "gc-see",
                                     body : bodytext,
-                                    icon : "/images/see.png"
+                                    icon : "/api/head/" + login
                                 });
                                 user.online[login] = true;
                             }

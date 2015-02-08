@@ -159,10 +159,10 @@ class CpanelController extends DefaultController
     public function actionItemClear($shop_id)
     {
         if(($shop = Shop::findOne($shop_id)) === null)
-            throw new NotFoundHttpException(Yii::t('app/shop', 'SHOP_NOT_FOUND'));
+            throw new NotFoundHttpException(Yii::t('shop', 'SHOP_NOT_FOUND'));
 
         if($shop->user_id !== Yii::$app->user->id)
-            throw new ForbiddenHttpException(Yii::t('app/shop', 'SHOP_NO_PERMISSION'));
+            throw new ForbiddenHttpException(Yii::t('shop', 'SHOP_NO_PERMISSION'));
 
         if($shop->type == Shop::TYPE_GOODS)
             Good::deleteAll(['shop_id' => $shop_id]);

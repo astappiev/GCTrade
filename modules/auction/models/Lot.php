@@ -327,7 +327,7 @@ class Lot extends ActiveRecord
     public function getPicture()
     {
         if ($this->_picture === null) {
-            $this->_picture = $this->picture_url ? ('/images/auction/'.$this->picture_url) : '/images/nologo.png';
+            $this->_picture = $this->picture_url ? ('/images/auction/'.$this->picture_url) : '/images/cap_image.png';
         }
         return $this->_picture;
     }

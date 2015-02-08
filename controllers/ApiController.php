@@ -22,12 +22,12 @@ class ApiController extends Controller
                 ],
             ],
             'cors' => [
+
                 'class' => 'yii\filters\Cors',
                 'except' => ['index'],
                 'cors' => [
+                    'Origin' => ['*'],
                     'Access-Control-Request-Method' => ['POST', 'GET'],
-                    'Access-Control-Allow-Credentials' => true,
-                    'Access-Control-Max-Age' => 3600,
                 ],
             ],
         ];
@@ -64,7 +64,7 @@ class ApiController extends Controller
         $row = (new Query)->select('alias, type, name, about, description, subway, x_cord, z_cord, image_url, updated_at')->from('tg_shop')->where(['alias' => $request])->one();
 
         if (!empty($row)) {
-            $row["image_url"] = Url::base(true) . ($row["image_url"] == null ? '/images/nologo.png' : '/images/shop/' . $row["image_url"]);
+            $row["image_url"] = Url::base(true) . ($row["image_url"] == null ? '/images/cap_image.png' : '/images/shop/' . $row["image_url"]);
             return $row;
         } else {
             Yii::$app->response->statusCode = 404;
@@ -83,6 +83,7 @@ class ApiController extends Controller
      *          "type": "0",
      *          "name": "Гипермаркет TWIX",
      *          "about": "В наших магазинах вы найдете самые разные товары на всякий вкус и достаток, причем иногда на выбор разной цены или количества. Казино порадует вас разнообразием ставок и ценными призами.",
+     *          "subway": "twix",
      *          "x_cord": "-7675",
      *          "z_cord": "-915",
      *          "image_url": "http://gctrade.ru/images/shop/twix_Atnkhh.png",
@@ -93,6 +94,7 @@ class ApiController extends Controller
      *          "type": "0",
      *          "name": "ТЦ Ноттингем",
      *          "about": "Магазин строительных материалов.",
+     *          "subway": "Nott",
      *          "x_cord": "-7700",
      *          "z_cord": "-1750",
      *          "image_url": "http://gctrade.ru/images/shop/nottingham_l0cmw.jpg",
@@ -112,6 +114,7 @@ class ApiController extends Controller
      *          "type": "0",
      *          "name": "Гипермаркет TWIX",
      *          "about": "В наших магазинах вы найдете самые разные товары на всякий вкус и достаток, причем иногда на выбор разной цены или количества. Казино порадует вас разнообразием ставок и ценными призами.",
+     *          "subway": "twix",
      *          "x_cord": "-7675",
      *          "z_cord": "-915",
      *          "image_url": "http://gctrade.ru/images/shop/twix_Atnkhh.png",
@@ -125,7 +128,7 @@ class ApiController extends Controller
      */
     function actionShopSearch($request = null)
 	{
-        $query = (new Query)->select('alias, type, name, about, x_cord, z_cord, image_url, updated_at')->from('tg_shop');
+        $query = (new Query)->select('alias, type, name, about, subway, x_cord, z_cord, image_url, updated_at')->from('tg_shop');
         if ($request) {
             $query->where(['alias' => $request]);
         }
@@ -138,7 +141,7 @@ class ApiController extends Controller
 
         if (!empty($rows)) {
             for ($i = 0, $length = count($rows); $i < $length; ++$i) {
-                $rows[$i]["image_url"] = Url::base(true) . ($rows[$i]["image_url"] == null ? '/images/nologo.png' : '/images/shop/' . $rows[$i]["image_url"]);
+                $rows[$i]["image_url"] = Url::base(true) . ($rows[$i]["image_url"] == null ? '/images/cap_image.png' : '/images/shop/' . $rows[$i]["image_url"]);
             }
             return $rows;
         } else {
@@ -307,7 +310,7 @@ class ApiController extends Controller
                 $items[$i] = [
                     'id' => $items[$i]["alias"],
                     'name' => $items[$i]["name"],
-                    'image_url' => Url::base(true) . '/images/items/' . $items[$i]["id"] . '.png',
+                    'image_url' => Url::base(true) . '/images/items/' . $items[$i]["alias"] . '.png',
                     'in_shop' => $price
                 ];
             }
@@ -372,17 +375,20 @@ class ApiController extends Controller
                         'stuck' => $prices[$i]["stuck"],
                         'shop' => [
                             'name' => $shop["name"],
-                            'image_url' => Url::base(true) . ($shop["image_url"] == null ? '/images/nologo.png' : '/images/shop/' . $shop["image_url"]),
+                            'image_url' => Url::base(true) . ($shop["image_url"] == null ? '/images/cap_image.png' : '/images/shop/' . $shop["image_url"]),
                             'shop_url' => Url::base(true) . '/shop/' . $shop["alias"]
                         ]
                     ];
                 }
+            } else {
+                Yii::$app->response->statusCode = 404;
+                return ['message' => 'Goods "' . $request .'" is absent in assortment'];
             }
 
             return [
                 'id' => $item["alias"],
                 'name' => $item["name"],
-                'image_url' => Url::base(true) . '/images/items/' . $item["id"] . '.png',
+                'image_url' => Url::base(true) . '/images/items/' . $item["alias"] . '.png',
                 'in_shop' => $prices
             ];
         } else {
@@ -494,17 +500,20 @@ class ApiController extends Controller
                             'stuck' => $prices[$p]["stuck"],
                             'shop' => [
                                 'name' => $shop["name"],
-                                'image_url' => Url::base(true) . ($shop["image_url"] == null ? '/images/nologo.png' : '/images/shop/' . $shop["image_url"]),
+                                'image_url' => Url::base(true) . ($shop["image_url"] == null ? '/images/cap_image.png' : '/images/shop/' . $shop["image_url"]),
                                 'shop_url' => Url::base(true) . '/shop/' . $shop["alias"]
                             ]
                         ];
                     }
+                } else {
+                    Yii::$app->response->statusCode = 404;
+                    return ['message' => 'Goods "' . $request .'" is absent in assortment'];
                 }
 
                 $items[$i] = [
                     'id' => $items[$i]["alias"],
                     'name' => $items[$i]["name"],
-                    'image_url' => Url::base(true) . '/images/items/' . $items[$i]["id"] . '.png',
+                    'image_url' => Url::base(true) . '/images/items/' . $items[$i]["alias"] . '.png',
                     'in_shop' => $prices
                 ];
             }

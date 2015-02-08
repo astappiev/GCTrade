@@ -11,7 +11,7 @@ use app\modules\shop\models\Shop;
 $this->registerJsFile('@web/js/jquery/jquery.tablesorter.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app/shop', 'SHOP'), 'url' => ['/shop/default/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('shop', 'SHOP'), 'url' => ['/shop/default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="body-content page" id="<?= $model->id ?>">
@@ -26,14 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="info">
                 <p><?= Html::encode($model->about) ?></p>
                 <?php if(isset($model->subway)):
-                    echo '<p>'.Yii::t('app/shop', 'Subway station:').' /go '.Html::encode($model->subway).'</p>';
+                    echo '<p>'.Yii::t('shop', 'Subway station:').' /go '.Html::encode($model->subway).'</p>';
                 endif; ?>
                 <?php if(isset($model->x_cord) && isset($model->z_cord)):
-                    echo '<p id="cord" data-x="'.Html::encode($model->x_cord).'" data-z="'.Html::encode($model->x_cord).'">'.Yii::t('app/shop', 'Coordinates:').' X: '.$model->x_cord.', Z: '.$model->z_cord.'</p>';
+                    echo '<p id="cord" data-x="'.Html::encode($model->x_cord).'" data-z="'.Html::encode($model->x_cord).'">'.Yii::t('shop', 'Coordinates:').' X: '.$model->x_cord.', Z: '.$model->z_cord.'</p>';
                 endif; ?>
-                <?= '<p>'.Yii::t('app/shop', 'Last update:').' <span class="label label-info">'.Yii::t('app/shop', '{0, date, medium}', $model->updated_at).'</span></p>' ?>
+                <?= '<p>'.Yii::t('shop', 'Last update:').' <span class="label label-info">'.Yii::t('shop', '{0, date, medium}', $model->updated_at).'</span></p>' ?>
                 <?php if($model->source):
-                    echo '<p><a href="http://'.$model->source.'" target="_blank">'.Yii::t('app/shop', 'Source:').'</a></p>';
+                    echo '<p><a href="http://'.$model->source.'" target="_blank">'.Yii::t('shop', 'Source:').'</a></p>';
                 endif; ?>
             </div>
         </div>

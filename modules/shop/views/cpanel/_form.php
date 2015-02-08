@@ -61,7 +61,7 @@ use vova07\fileapi\Widget as FileAPI;
         ])->textInput(['placeholder' => 'Координата по Z', 'maxlength' => 6]) ?>
     </div>
 
-    <?php echo $form->field($model, 'logo_url')->widget(FileAPI::className(), [
+    <?php echo $form->field($model, 'image_url')->widget(FileAPI::className(), [
         'settings' => [
             'url' => Url::to(['/shop/cpanel/logo-upload']),
         ],

@@ -10,7 +10,7 @@ use app\modules\shop\Modules as Module;
  * @var $dataProvider yii\data\ActiveDataProvider
  */
 
-$this->title = Yii::t('app/shop', 'Shops catalog');
+$this->title = Yii::t('shop', 'Shops catalog');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="body-content">

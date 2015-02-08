@@ -20,10 +20,10 @@ use yii\helpers\Html;
     <p><?= Html::encode($model->about) ?></p>
     <?php
     if(isset($model->subway))
-        echo '<p>'.Yii::t('app/shop', 'Subway station:').' /go '.Html::encode($model->subway).'</p>';
+        echo '<p>'.Yii::t('shop', 'Subway station:').' /go '.Html::encode($model->subway).'</p>';
 
     if(isset($model->x_cord) && isset($model->z_cord))
-        echo '<p id="cord" data-x="'.Html::encode($model->x_cord).'" data-z="'.Html::encode($model->x_cord).'">'.Yii::t('app/shop', 'Coordinates:').' X: '.$model->x_cord.', Z: '.$model->z_cord.'</p>';
+        echo '<p id="cord" data-x="'.Html::encode($model->x_cord).'" data-z="'.Html::encode($model->x_cord).'">'.Yii::t('shop', 'Coordinates:').' X: '.$model->x_cord.', Z: '.$model->z_cord.'</p>';
     ?>
-    <?= '<p>'.Yii::t('app/shop', 'Last update:').' <span class="label label-info">'.Yii::t('app/shop', '{0, date, medium}', $model->updated_at).'</span></p>' ?>
+    <?= '<p>'.Yii::t('shop', 'Last update:').' <span class="label label-info">'.Yii::t('shop', '{0, date, medium}', $model->updated_at).'</span></p>' ?>
 </div>

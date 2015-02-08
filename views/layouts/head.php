@@ -1,7 +1,7 @@
 <?php
 /**
  * "Head" содержимое основного frontend-шаблона.
- * @var yii\base\View $this Представление
+ * @var yii\web\View $this Представление
  * @var array $params Основные параметры представления
  */
 
@@ -16,11 +16,10 @@ use app\assets\AppAsset;
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link type="image/png" href="/favicon.png" rel="icon" sizes="48x48">
 <link type="image/png" href="/favicon.png" rel="shortcut icon" sizes="48x48">
-<link type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans&amp;subset=latin,cyrillic" rel="stylesheet">
-<link type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu&amp;subset=latin,cyrillic" rel="stylesheet">
+<link type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu|Open+Sans&subset=latin,cyrillic" rel="stylesheet">
 
 <?php
-if(!\Yii::$app->user->isGuest) $this->registerJS("var username = '".Yii::$app->user->identity->username."';", $this::POS_END);
+if(!Yii::$app->user->isGuest) $this->registerJS("var username = '".Yii::$app->user->identity->username."';", $this::POS_END);
 
 echo Html::csrfMetaTags();
 $this->registerLinkTag(['rel' => 'canonical', 'href' => Url::canonical()]);

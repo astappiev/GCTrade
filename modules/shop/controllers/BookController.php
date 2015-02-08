@@ -45,16 +45,16 @@ class BookController extends \yii\web\Controller
             $model->item_id = $model->item->id_primary;
             return Json::encode(['status' => 1, 'model' => $model->attributes]);
         }
-        return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'ERROR_TRANSMITTED_DATA')]);
+        return Json::encode(['status' => 0, 'message' => Yii::t('shop', 'ERROR_TRANSMITTED_DATA')]);
     }
 
     public function actionDelete($id)
     {
         $model = $this->findModel($id, true);
         if($model->delete()) {
-            return Json::encode(['status' => 1, 'message' => Yii::t('app/shop', 'ITEM_REMOVED')]);
+            return Json::encode(['status' => 1, 'message' => Yii::t('shop', 'ITEM_REMOVED')]);
         }
-        return Json::encode(['status' => 0, 'message' => Yii::t('app/shop', 'ERROR_TRANSMITTED_DATA')]);
+        return Json::encode(['status' => 0, 'message' => Yii::t('shop', 'ERROR_TRANSMITTED_DATA')]);
     }
 
     /**
@@ -71,12 +71,12 @@ class BookController extends \yii\web\Controller
         if (($model = Book::findOne($id)) !== null) {
 
             if($access === true && $model->shop->user_id != \Yii::$app->user->id)
-                throw new ForbiddenHttpException(Yii::t('app/shop', 'ITEM_NO_PERMISSION'));
+                throw new ForbiddenHttpException(Yii::t('shop', 'ITEM_NO_PERMISSION'));
 
             return $model;
 
         } else {
-            throw new NotFoundHttpException(Yii::t('app/shop', 'ITEM_NOT_FOUND'));
+            throw new NotFoundHttpException(Yii::t('shop', 'ITEM_NOT_FOUND'));
         }
     }
 }

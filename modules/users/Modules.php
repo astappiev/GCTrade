@@ -32,11 +32,11 @@ class Modules extends Module implements BootstrapInterface
             $this->usersUrl => $this->id . '/default/index',
             $this->usersUrl . '/msg' => $this->id . '/message/index',
             $this->usersUrl . '/msg/<id:\d+>' => $this->id . '/message/view',
-            $this->usersUrl . '/msg/<_action:\w+>' => $this->id . '/message/<_action>',
-            $this->usersUrl . '/<_action:[\w+-]>' => $this->id . '/default/<_action>',
-            $this->usersUrl . '/<username:\w+>' => $this->id . '/default/view',
+            $this->usersUrl . '/msg/<_action:[\w\-]+>' => $this->id . '/message/<_action>',
+            $this->usersUrl . '/<_action:[\w\-]+>' => $this->id . '/default/<_action>',
+            $this->usersUrl . '/<username:[\w]+>' => $this->id . '/default/view',
 
-            $this->usersUrl . '/<_controller:\w+>/<_action:\w+>' => $this->id . '/<_controller>/<_action>',
+            $this->usersUrl . '/<_controller:[\w\-]+>/<_action:[\w\-]+>' => $this->id . '/<_controller>/<_action>',
         ], false);
 
         if (!isset($app->i18n->translations['users'])) {

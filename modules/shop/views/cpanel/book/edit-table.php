@@ -2,9 +2,9 @@
     <thead>
     <tr>
         <th width="5%"></th>
-        <th class="name"><?= Yii::t('app/shop', 'NAME') ?></th>
-        <th class="name" width="25%"><?= Yii::t('app/shop', 'AUTHOR') ?></th>
-        <th width="15%"><?= Yii::t('app/shop', 'SELLING_PRICE') ?></th>
+        <th class="name"><?= Yii::t('shop', 'NAME') ?></th>
+        <th class="name" width="25%"><?= Yii::t('shop', 'AUTHOR') ?></th>
+        <th width="15%"><?= Yii::t('shop', 'SELLING_PRICE') ?></th>
         <th width="10%"></th>
     </tr>
     </thead>

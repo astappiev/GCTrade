@@ -27,13 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="form-group">
                 <?= Html::submitButton('Войти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                <?php if(\Yii::$app->has('authClientCollection'))
-                {
+                <?php if(\Yii::$app->has('authClientCollection')) {
                     $authChoice = AuthChoice::begin(['baseAuthUrl' => ['/users/default/auth']]);
                     $greencubes = $authChoice->getClients()["greencubes"];
-                    $authChoice->clientLink($greencubes, 'GreenCubes Auth', ['class' => 'btn btn-greencubes auth-link']);
+                    $authChoice->clientLink($greencubes, 'Используя GC', ['class' => 'btn btn-greencubes auth-link']);
                     AuthChoice::end();
-                }  ?>
+                } ?>
             </div>
             <?php ActiveForm::end(); ?>
         </div>

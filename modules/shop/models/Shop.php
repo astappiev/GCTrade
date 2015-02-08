@@ -24,7 +24,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string $subway
  * @property integer $x_cord
  * @property integer $z_cord
- * @property string $logo_url
+ * @property string $image_url
  * @property string $source
  * @property integer $created_at
  * @property integer $updated_at
@@ -63,7 +63,7 @@ class Shop extends ActiveRecord
             'uploadBehavior' => [
                 'class' => UploadBehavior::className(),
                 'attributes' => [
-                    'logo_url' => [
+                    'image_url' => [
                         'path' => 'images/shop/',
                         'tempPath' => 'images/shop/tmp/',
                         'url' => '/images/shop'
@@ -79,10 +79,10 @@ class Shop extends ActiveRecord
     public function scenarios()
     {
         return [
-            'create' => ['name', 'user_id', 'status', 'type', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'logo_url', 'source'],
-            'update' => ['name', 'status', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'logo_url', 'source'],
+            'create' => ['name', 'user_id', 'status', 'type', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'image_url', 'source'],
+            'update' => ['name', 'status', 'alias', 'about', 'description', 'subway', 'x_cord', 'z_cord', 'image_url', 'source'],
             'update_date' => ['updated_at'],
-            'delete-logo' => ['logo_url'],
+            'delete-logo' => ['image_url'],
         ];
     }
 
@@ -131,7 +131,7 @@ class Shop extends ActiveRecord
     public function getLogo()
     {
         if ($this->_logo === null) {
-            $this->_logo = $this->logo_url ? ('/images/shop/'.$this->logo_url) : '/images/nologo.png';
+            $this->_logo = $this->image_url ? ('/images/shop/'.$this->image_url) : '/images/cap_image.png';
         }
         return $this->_logo;
     }
@@ -201,7 +201,7 @@ class Shop extends ActiveRecord
             'subway' => 'Станция метро',
             'x_cord' => 'Координата X',
             'z_cord' => 'Координата Z',
-            'logo_url' => 'Логотип магазина',
+            'image_url' => 'Логотип магазина',
             'source' => 'Ссылка на форум или сайт',
             'created_at' => 'Создано',
             'updated_at' => 'Последнее обновление',
@@ -233,7 +233,7 @@ class Shop extends ActiveRecord
             ['name', 'string', 'min' => 3, 'max' => 90],
             ['name', 'unique', 'targetClass' => '\app\modules\shop\models\Shop', 'message' => 'Данное имя уже используется.'],
 
-            [['description', 'subway', 'logo_url', 'source'], 'string'],
+            [['description', 'subway', 'image_url', 'source'], 'string'],
             [['x_cord', 'z_cord'], 'integer', 'max' => 30000],
         ];
     }

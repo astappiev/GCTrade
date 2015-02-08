@@ -35,7 +35,7 @@ class ItemController extends Controller
         if (($model = Item::find()->where(['id_primary' => $id[0], 'id_meta' => isset($id[1]) ? $id[1] : 0])->one()) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException(Yii::t('app/shop', 'ITEM_NOT_FOUND'));
+            throw new NotFoundHttpException(Yii::t('shop', 'ITEM_NOT_FOUND'));
         }
     }
 }

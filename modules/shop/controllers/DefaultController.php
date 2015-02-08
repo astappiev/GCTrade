@@ -93,12 +93,12 @@ class DefaultController extends ParentController
         if (($model = Shop::find()->where(['alias' => $alias])->one()) !== null) {
 
             if(($access === true || in_array($model->status, [Shop::STATUS_DRAFT, Shop::STATUS_BLOCKED])) && $model->user_id != \Yii::$app->user->id)
-                throw new ForbiddenHttpException(Yii::t('app/shop', 'SHOP_NO_PERMISSION'));
+                throw new ForbiddenHttpException(Yii::t('shop', 'SHOP_NO_PERMISSION'));
 
             return $model;
 
         } else {
-            throw new NotFoundHttpException(Yii::t('app/shop', 'SHOP_NOT_FOUND'));
+            throw new NotFoundHttpException(Yii::t('shop', 'SHOP_NOT_FOUND'));
         }
     }
 }
