@@ -11,7 +11,7 @@ use yii\widgets\ListView;
 $this->registerJsFile('@web/js/jquery/jquery.countdown.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('@web/js/auction.gctrade.js', ['depends' => [\yii\web\JqueryAsset::className(), \app\assets\MapAsset::className()]]);
 
-$this->title = 'Активные аукционы';
+$this->title = 'Завершенные аукционы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="body-content auction lot-index">

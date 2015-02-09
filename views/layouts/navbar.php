@@ -22,7 +22,10 @@ $mainMenu = [
         ['label' => 'Все товары', 'url' => ['/shop/item/full']],
         ['label' => 'Товары в наличии', 'url' => ['/shop/item/index']],
     ]],
-    ['label' => 'Аукционы', 'linkOptions' => ['class' => 'intro-auction'], 'url' => ['/auction/default/index']],
+    ['label' => 'Аукционы', 'linkOptions' => ['class' => 'intro-auction'], 'items' => [
+        ['label' => 'Активные', 'url' => ['/auction/default/index']],
+        ['label' => 'Завершенные', 'url' => ['/auction/default/finished']],
+    ]],
     ['label' => 'Инструменты', 'linkOptions' => ['class' => 'intro-tools'], 'items' => [
         ['label' => ' Наблюдение за активностью', 'icon' => 'search', 'url' => ['/see/index']],
         ['label' => ' Карта регионов пользователя', 'icon' => 'flag', 'url' => ['/maps/user']],

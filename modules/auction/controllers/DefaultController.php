@@ -6,6 +6,7 @@ use Yii;
 use app\modules\auction\models\Lot;
 use app\modules\auction\models\search\Lot as LotSearch;
 use app\components\ParentController;
+use yii\data\ActiveDataProvider;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 
@@ -26,6 +27,20 @@ class DefaultController extends ParentController
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+        ]);
+    }
+
+    public function actionFinished()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Lot::find()->where(['status' => [Lot::STATUS_FINISHED, Lot::STATUS_CLOSED]]),
+            'sort'=> ['defaultOrder' => [
+                'time_elapsed' => SORT_DESC,
+            ]]
+        ]);
+
+        return $this->render('finished', [
+            'dataProvider' => $dataProvider,
         ]);
     }
 
