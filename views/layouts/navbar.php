@@ -35,7 +35,7 @@ $mainMenu = [
         ['label' => 'Расчёты связаные с белым камнем', 'linkOptions' => ['target' => '_blank'], 'url' => 'http://raschet.gctrade.ru/'],
     ]],
     ['label' => 'Статистика', 'linkOptions' => ['class' => 'intro-economy'], 'url' => ['/site/statistics']],
-    ['label' => 'Handbook', 'linkOptions' => ['class' => 'intro-handbook', 'target' => '_blank'], 'url' => 'http://handbook.gctrade.ru/'],
+    ['label' => 'Handbook', 'linkOptions' => ['class' => 'intro-handbook', 'target' => '_blank'], 'url' => 'http://gcbook.ru/'],
 ];
 
 if (!Yii::$app->user->isGuest) {
