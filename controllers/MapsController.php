@@ -20,7 +20,7 @@ class MapsController extends Controller
                     [
                         'actions' => ['user'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['author'],
                     ],
                 ],
                 'denyCallback' => function ($rule, $action) {
