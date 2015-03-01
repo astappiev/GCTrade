@@ -60,14 +60,13 @@ class LoginForm extends Model
 	 */
 	public function login()
 	{
-        if(User::findOne(["username" => $this->username])->password_hash == null)
-            Yii::$app->session->setFlash('error', 'Вероятно ваша учетная запись перенесена из старого сайта, вам необходимо воспользоваться функцией '.Html::a('«восстановить пароль»', ['user/request-password-reset']).'.');;
-
-        if ($this->validate()) {
+        if(empty(User::findOne(["username" => $this->username])->password_hash)) {
+            Yii::$app->session->setFlash('error', Yii::t('users', 'LOGIN_FORM_VALIDATE_PASSWORD_NOT_SET') . ' ' . Html::a(Yii::t('users', 'LOGIN_FORM_VALIDATE_RESTORE_PASSWORD'), ['default/request-password-reset']) . '.');
+        } else if ($this->validate()) {
 			return \Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
-		} else {
-			return false;
 		}
+
+        return false;
 	}
 
 	/**

@@ -78,6 +78,8 @@ return [
     'LOGIN_FORM_PASSWORD' => 'Пароль',
     'LOGIN_FORM_REMEMBER_ME' => 'Запомнить меня',
     'LOGIN_FORM_VALIDATE_USER_OR_PASSWORD_ERROR' => 'Неверное имя пользователя или пароль.',
+    'LOGIN_FORM_VALIDATE_PASSWORD_NOT_SET' => 'Для вашей учетной запись пароль не установлен, воспользуйтей авторизацией через GreenCubes или функцией',
+    'LOGIN_FORM_VALIDATE_RESTORE_PASSWORD' => '«восстановить пароль»',
 
     /* PasswordResetRequestForm model */
     'PASSWORD_RESET_REQUEST_FORM_EMAIL' => 'Email',
