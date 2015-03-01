@@ -120,7 +120,7 @@ class CpanelController extends DefaultController
             } else {
                 Yii::$app->session->setFlash('error', 'Возникла ошибка при сохранении.');
             }
-            return $this->refresh();
+            return $this->redirect(['update', 'alias' => $model->alias]);
         } else {
             return $this->render('update', [
                 'model' => $model,
