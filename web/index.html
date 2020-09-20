@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+    <script type="text/javascript">
+      var CLIENT_ID = '663229798165-76e1ph1pd1qoorvf7n0tg0fhdlvkberc.apps.googleusercontent.com';
+      var SCOPES = [
+          'https://www.googleapis.com/auth/analytics.readonly',
+        ];
+
+      /**
+       * Called when the client library is loaded.
+       */
+      function handleClientLoad() {
+        checkAuth();
+      }
+
+      /**
+       * Check if the current user has authorized the application.
+       */
+      function checkAuth() {
+        gapi.auth.authorize(
+            {'client_id': CLIENT_ID, 'scope': SCOPES.join(' '), 'immediate': true},
+            handleAuthResult);
+      }
+
+      /**
+       * Called when authorization server replies.
+       *
+       * @param {Object} authResult Authorization result.
+       */
+      function handleAuthResult(authResult) {
+        if (authResult) {
+          // Access token has been successfully retrieved, requests can be sent to the API
+        } else {
+          // No access token could be retrieved, force the authorization flow.
+          gapi.auth.authorize(
+              {'client_id': CLIENT_ID, 'scope': SCOPES.join(' '), 'immediate': false},
+              handleAuthResult);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <!-- YOUR CONTENT -->
+  </body>
+</html>

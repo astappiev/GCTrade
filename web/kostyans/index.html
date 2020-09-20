@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>Коллекция головных уборов от kostyans</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Данная коллекция является самой большой на ГК и включает в себя почти все виды головных уборов. Основанная в январе 2014 года она постепенно расширяется, включая в себя различные шапки, уже существующие в мире, а также те, что появляются в новых сундуках и на различных ивентах.">
+		<meta name="author" content="Oleg Astappev">
+		<link rel="icon" type="image/png" href="favicon.png">
+		<link href='http://fonts.googleapis.com/css?family=Philosopher&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+		<!-- Bootstrap -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<link href="css/style.css" rel="stylesheet">
+		
+		<script src="js/angular.min.js"></script>
+		<script src="js/angular-sanitize.min.js"></script>
+		<script src="js/controllers.js"></script>
+	</head>
+	<body>
+		<img alt="full screen background image" src="background.jpg" id="full-screen-background-image" />
+		<div class="container">
+			<div class="header">
+				<div class="wrap">
+					<h3>Коллекция головных уборов от <span class="username">kostyans</span></h3>
+				</div>
+			</div>
+			
+			<div class="row" ng-app="inventarApp" ng-controller="ListItem">
+				<div class="col-xs-12 col-md-6">
+
+					<div id="collection" class="row collection">
+					
+						<!-- Grid-->
+						<div class="grid-table" ng-repeat="Arr in Matr">
+							<div class="grid-table-border clearfix">
+								<div class="grid-table-item" ng-repeat="item in Arr">
+									<div class="grid-table-item-border">
+										<a class="tip" ng-show="item.name" flexible-width ng-mouseenter="item.skin_url ? $parent.$parent.backgroundStyle={'background-image':'url(' + item.skin_url +')'} : $parent.$parent.backgroundStyle={}">
+											<img alt="{{item.name}}" ng-src="{{item.image_url}}">
+											<div class="item-desc">
+												<div class="item-desc-border">
+													<div class="item-desc-block">
+														<h3 class="title" ng-style="{ 'color' : item.name_color }">{{item.name}}</h3>
+														<p class="tag" ng-show="item.tag">
+															<span ng-repeat="tag in item.tag" ng-style="{ 'color' : tag.color }" ng-class="{'last':$last}">{{tag.title}}</span>
+														</p>
+														<p class="desc" ng-show="item.desc" ng-bind-html="item.desc"></p>
+														<div class="meta" ng-show="item.meta">
+															<p ng-repeat="meta in item.meta" ng-show="meta" ng-style="{ 'color' : meta.color }" ng-class="{'last':$last}">{{meta.title}}</p>
+														</div>
+														<p class="csed" ng-show="item.csed" ng-bind-html="item.csed"></p>
+														<div class="history" ng-show="item.history">
+															<p ng-repeat="history in item.history" ng-show="history">{{history}}</p>
+														</div>
+														<p class="strength" ng-show="item.strength">Прочность: <span>{{item.strength.current}}</span> / <span>{{item.strength.max}}</span> </p>
+														<p class="absorption" ng-show="item.absorption">Поглощение урона: <span>{{item.absorption.current}}</span> / <span>{{item.absorption.max}}</span> </p>
+														<div class="attr" ng-show="item.attr">
+															<p ng-repeat="attr in item.attr" ng-show="attr" ng-style="{ 'color' : attr.color }" ng-class="{'last':$last}">{{attr.title}}<span style="color: grey;" ng-show="attr.need_set"> (необходим весь набор)</span></p>
+														</div>
+														<div class="color" ng-show="item.color">
+															<p ng-show="item.color" style="color: #B227F7;">С эффектом декоративного свечения:</p>
+															<p ng-show="item.color.name" ng-style="{ 'color' : item.color.code }">Цвет: {{item.color.name}}</p>
+															<p ng-show="item.color.complexity">Сложность оттенка: {{item.color.complexity}}</p>
+															<p ng-show="item.color.saturation">Насыщенность: {{item.color.saturation}}</p>
+															<p ng-show="item.color.level">Яркость: уровень {{item.color.level}}</p>
+															<p ng-show="item.color.locked" style="color: grey;">(Цвет заблокирован)</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- End Grid-->
+						
+					</div>
+			
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<div class="skin" id="skin" ng-style="backgroundStyle" ng-mouseover="backgroundStyle={}"></div>
+				</div>
+			</div>
+			
+			<div class="jumbotron">
+				<p class="lead">Данная коллекция является самой большой на ГК и включает в себя почти все виды головных уборов. Основанная в январе 2014 года она постепенно расширяется, включая в себя различные шапки, уже существующие в мире, а также те, что появляются в новых сундуках и на различных ивентах.</p>
+			</div>
+		
+			<div class="footer">
+				<p class="pull-left">Разработка: <a href="https://forum.greencubes.org/memberlist.php?mode=viewprofile&u=129522" rel="external" target="_blank">astappev</a></p>
+				<p class="pull-right"><a href="https://greencubes.org/" rel="external" target="_blank"><span class="green">Green</span>Cubes</a></p>
+			</div>
+		</div>
+
+	</body>
+</html>

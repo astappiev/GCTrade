@@ -1,6 +1,6 @@
 <?php
 defined('YII_DEBUG') or define('YII_DEBUG', true);
-defined('YII_ENV') or define('YII_ENV', 'dev'); // test dev prod
+defined('YII_ENV') or define('YII_ENV', 'prod'); // test dev prod
 
 require(__DIR__ . '/../vendor/autoload.php');
 require(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');

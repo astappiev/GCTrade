@@ -1,0 +1,1982 @@
+[
+	[
+		{
+			"name": "Кожаный шлем",
+			"desc": "Броня (голова)",
+			"strength": {
+				"max": 55,
+				"current": 55
+			},
+			"absorption": {
+				"max": 1.0,
+				"current": 1.0
+			},
+			"image_url": "https://greencubes.org/img/items/head.leather.png",
+			"skin_url": "skin/20.png"
+		},
+		{
+			"name": "Красный шлем",
+			"name_color": "#8C9FFF",
+			"desc": "Броня (голова)",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"strength": {
+				"max": 55,
+				"current": 55
+			},
+			"absorption": {
+				"max": 1.0,
+				"current": 1.0
+			},
+			"image_url": "http://gctrade.ru/images/items/3050.png",
+			"skin_url": "skin/19.png"
+		},
+		{
+			"name": "Оранжевый шлем",
+			"name_color": "#8C9FFF",
+			"desc": "Броня (голова)",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"strength": {
+				"max": 55,
+				"current": 55
+			},
+			"absorption": {
+				"max": 1.0,
+				"current": 1.0
+			},
+			"image_url": "http://gctrade.ru/images/items/3062.png",
+			"skin_url": "skin/18.png"
+		},
+		{
+			"name": "Зелёный шлем",
+			"name_color": "#8C9FFF",
+			"desc": "Броня (голова)",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"strength": {
+				"max": 55,
+				"current": 55
+			},
+			"absorption": {
+				"max": 1.0,
+				"current": 1.0
+			},
+			"image_url": "http://gctrade.ru/images/items/3058.png",
+			"skin_url": "skin/37.png"
+		},
+		{
+			"name": "Фиолетовый шлем",
+			"name_color": "#8C9FFF",
+			"desc": "Броня (голова)",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"strength": {
+				"max": 55,
+				"current": 55
+			},
+			"absorption": {
+				"max": 1.0,
+				"current": 1.0
+			},
+			"image_url": "http://gctrade.ru/images/items/3066.png",
+			"skin_url": "skin/01.png"
+		},
+		{
+			"name": "Синий шлем",
+			"name_color": "#8C9FFF",
+			"desc": "Броня (голова)",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"strength": {
+				"max": 55,
+				"current": 55
+			},
+			"absorption": {
+				"max": 1.0,
+				"current": 1.0
+			},
+			"image_url": "http://gctrade.ru/images/items/3054.png",
+			"skin_url": "skin/02.png"
+		},
+		{
+			"name": "Бирюзовый шлем",
+			"name_color": "#8C9FFF",
+			"desc": "Броня (голова)",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"strength": {
+				"max": 55,
+				"current": 55
+			},
+			"absorption": {
+				"max": 1.0,
+				"current": 1.0
+			},
+			"image_url": "http://gctrade.ru/images/items/3070.png",
+			"skin_url": "skin/03.png"
+		},
+		{
+			"name": "Железный шлем",
+			"desc": "Броня (голова)&#044; чинится: Слиток железа",
+			"strength": {
+				"max": 165,
+				"current": 165
+			},
+			"absorption": {
+				"max": 1.0,
+				"current": 1.0
+			},
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				},
+				{
+					"title": "Не уничтожается от повреждений",
+					"color": "#ABFFFF"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.iron.png",
+			"skin_url": "skin/04.png"
+		},
+		{
+			"name": "Золотой шлем",
+			"desc": "Броня (голова)&#044; чинится: Слиток золота",
+			"strength": {
+				"max": 77,
+				"current": 77
+			},
+			"absorption": {
+				"max": 2.5,
+				"current": 2.5
+			},
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				},
+				{
+					"title": "Не уничтожается от повреждений",
+					"color": "#ABFFFF"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.gold.png",
+			"skin_url": "skin/05.png"
+		},
+		{
+			"name": "Алмазный шлем",
+			"desc": "Броня (голова)&#044; чинится: Алмазная пыль",
+			"strength": {
+				"max": 363,
+				"current": 363
+			},
+			"absorption": {
+				"max": 2.0,
+				"current": 2.0
+			},
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				},
+				{
+					"title": "Не уничтожается от повреждений",
+					"color": "#ABFFFF"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.diamond.png",
+			"skin_url": "skin/06.png"
+		},
+		{
+			"name": "Декоративный алмазный шлем",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Броня (голова)&#044; чинится: Алмазная пыль",
+			"strength": {
+				"max": 363,
+				"current": 363
+			},
+			"absorption": {
+				"max": 2.0,
+				"current": 2.0
+			},
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				},
+				{
+					"title": "Не уничтожается от повреждений",
+					"color": "#ABFFFF"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.diamond.png",
+			"skin_url": "skin/06.png"
+		},
+		{
+			"name": "Кольчужный шлем",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Броня (голова)&#044; чинится: Алмазная пыль",
+			"strength": {
+				"max": 77,
+				"current": 77
+			},
+			"absorption": {
+				"max": 2.5,
+				"current": 2.5
+			},
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				},
+				{
+					"title": "Не уничтожается от повреждений",
+					"color": "#ABFFFF"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.chainmail.png",
+			"skin_url": "skin/14.png"
+		},
+		{
+			"name": "Маска Гая Фокса",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.guyfawkesmask.png",
+			"skin_url": "skin/07.png"
+		},
+		{
+			"name": "Маска Гая Фокса",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Летняя распродажа 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.guyfawkesmask.png",
+			"skin_url": "skin/07.png"
+		},
+		{
+			"name": "Жутковатая маска Гая Фокса",
+			"name_color": "#FF7519",
+			"tag": [
+				{
+					"title": "Уникальный декоративный предмет",
+					"color": "#FF7519"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Сувенир с Halloween-ивента 2014 (benseeley - капитан)",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#9F9E9E"
+				}
+			],
+			"color": {
+				"name": "Тыквенный (255, 115, 26)",
+				"code": "#FF731C",
+				"complexity": 6,
+				"saturation": "90%",
+				"level": 10,
+				"locked": true
+			},
+			"image_url": "https://greencubes.org/img/items/head.guyfawkesmask.png",
+			"skin_url": "skin/07.png"
+		},
+		{
+			"name": "Маска скелета",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.maskhlwn13.skeleton.png",
+			"skin_url": "skin/08.png"
+		},
+		{
+			"name": "Маска крипера",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.maskhlwn13.creeper.png",
+			"skin_url": "skin/09.png"
+		},
+		{
+			"name": "Маска зомби",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.maskhlwn13.zombie.png",
+			"skin_url": "skin/10.png"
+		},
+		{
+			"name": "Маска Стива",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.maskhlwn13.steve.png",
+			"skin_url": "skin/12.png"
+		},
+		{
+			"name": "Маска эндермана",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.maskhlwn13.enderman.png",
+			"skin_url": "skin/13.png"
+		},
+		{
+			"name": "Жутковатая маска эндермана",
+			"name_color": "#FF7519",
+			"tag": [
+				{
+					"title": "Уникальный декоративный предмет",
+					"color": "#FF7519"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Сувенир с Halloween-ивента 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#9F9E9E"
+				}
+			],
+			"color": {
+				"name": "Тыквенный (255, 115, 26)",
+				"code": "#FF731C",
+				"complexity": 6,
+				"saturation": "90%",
+				"level": 10,
+				"locked": true
+			},
+			"image_url": "https://greencubes.org/img/items/head.maskhlwn13.enderman.png",
+			"skin_url": "skin/13.png"
+		},
+		{
+			"name": "Маска паука",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.maskhlwn13.spider.png",
+			"skin_url": "skin/11.png"
+		},
+		{
+			"name": "Чёрный бантик",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bow.black.png",
+			"skin_url": "skin/40.png"
+		},
+		{
+			"name": "Чёрный бантик",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Сувенир с Нового Года 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bow.black.png",
+			"skin_url": "skin/40.png"
+		},
+		{
+			"name": "Чёрный бантик",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Летняя распродажа 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bow.black.png",
+			"skin_url": "skin/40.png"
+		},
+		{
+			"name": "Розовый бантик",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bow.pink.png",
+			"skin_url": "skin/39.png"
+		},
+		{
+			"name": "Розовый бантик",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Сувенир с Нового Года 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bow.pink.png",
+			"skin_url": "skin/39.png"
+		}
+	],
+	[
+		{
+			"name": "Красный бантик в горошек",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bow.reddotted.png",
+			"skin_url": "skin/38.png"
+		},
+		{
+			"name": "Красный бантик в горошек",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Сувенир с Нового Года 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bow.reddotted.png",
+			"skin_url": "skin/38.png"
+		},
+		{
+			"name": "Красный бантик в горошек",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Летняя распродажа 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bow.reddotted.png",
+			"skin_url": "skin/38.png"
+		},
+		{
+			"name": "Тыква",
+			"image_url": "https://greencubes.org/img/items/pumpkin.face.png",
+			"skin_url": "skin/27.png"
+		},
+		{
+			"name": "Шапка-ушанка",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.earflapshat.png",
+			"skin_url": "skin/21.png"
+		},
+		{
+			"name": "Шапка-ушанка",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Сувенир с Нового Года 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.earflapshat.png",
+			"skin_url": "skin/21.png"
+		},
+		{
+			"name": "Шапка-ушанка",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Летняя распродажа 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.earflapshat.png",
+			"skin_url": "skin/21.png"
+		},
+		{
+			"name": "Шлем самурая",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				},
+				{
+					"title": "снят с производства",
+					"color": "#FF9B85"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.samurai.png",
+			"skin_url": "skin/17.png"
+		},
+		{
+			"name": "Перерождённый шлем самурая",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.samurai.png",
+			"skin_url": "skin/17.png"
+		},
+		{
+			"name": "Шлем тёмного рыцаря",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				},
+				{
+					"title": "снят с производства",
+					"color": "#FF9B85"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.darkknight.png",
+			"skin_url": "skin/15.png"
+		},
+		{
+			"name": "Необычный шлем тёмного рыцаря #11",
+			"name_color": "#BD24FF",
+			"tag": [
+				{
+					"title": "Необычный предмет внешнего вида",
+					"color": "#BD24FF"
+				},
+				{
+					"title": "уникальный",
+					"color": "#FF7519"
+				},
+				{
+					"title": "снят с производства",
+					"color": "#FF9B85"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				},
+				{
+					"title": "С эффектом \"Частицы тьмы\"",
+					"color": "#B428FA",
+					"need_set": true
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.darkknight.png",
+			"skin_url": "skin/15.png"
+		},
+		{
+			"name": "Перерождённый шлем тёмного рыцаря",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.darkknight.png",
+			"skin_url": "skin/15.png"
+		},
+		{
+			"name": " Перерождённый необычный шлем тёмного рыцаря #23",
+			"name_color": "#BD24FF",
+			"tag": [
+				{
+					"title": "Необычный предмет внешнего вида",
+					"color": "#BD24FF"
+				},
+				{
+					"title": "уникальный",
+					"color": "#FF7519"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				},
+				{
+					"title": "С эффектом \"Частицы тьмы\"",
+					"color": "#B428FA",
+					"need_set": true
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.darkknight.png",
+			"skin_url": "skin/15.png"
+		},
+		{
+			"name": "Шлем паладина",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				},
+				{
+					"title": "снят с производства",
+					"color": "#FF9B85"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.paladin.png",
+			"skin_url": "skin/16.png"
+		},
+		{
+			"name": "Необычный шлем паладина #3",
+			"name_color": "#BD24FF",
+			"tag": [
+				{
+					"title": "Необычный предмет внешнего вида",
+					"color": "#BD24FF"
+				},
+				{
+					"title": "уникальный",
+					"color": "#FF7519"
+				},
+				{
+					"title": "снят с производства",
+					"color": "#FF9B85"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				},
+				{
+					"title": "С эффектом \"Частицы света\"",
+					"color": "#B428FA",
+					"need_set": true
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.paladin.png",
+			"skin_url": "skin/16.png"
+		},
+		{
+			"name": "Перерождённый шлем паладина",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.paladin.png",
+			"skin_url": "skin/16.png"
+		},
+		{
+			"name": "Перерождённый необычный шлем паладина #34",
+			"name_color": "#BD24FF",
+			"tag": [
+				{
+					"title": "Необычный предмет внешнего вида",
+					"color": "#BD24FF"
+				},
+				{
+					"title": "уникальный",
+					"color": "#FF7519"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				},
+				{
+					"title": "С эффектом \"Частицы света\"",
+					"color": "#B428FA",
+					"need_set": true
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.paladin.png",
+			"skin_url": "skin/16.png"
+		},
+		{
+			"name": "Арбузная шапка",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.watermelonhat.png",
+			"skin_url": "skin/26.png"
+		},
+		{
+			"name": "Японская повязка",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.japanheadband.png",
+			"skin_url": "skin/28.png"
+		},
+		{
+			"name": "Шляпа джентльмена #90",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				},
+				{
+					"title": "уникальный",
+					"color": "#FB7417"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.gentlemanset.hat.png",
+			"skin_url": "skin/30.png"
+		},
+		{
+			"name": "Шляпа джентльмена #65",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				},
+				{
+					"title": "уникальный",
+					"color": "#FB7417"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Летняя распродажа 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.gentlemanset.hat.png",
+			"skin_url": "skin/30.png"
+		},
+		{
+			"name": "Монокль джентльмена",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.gentlemanset.monocle.png",
+			"skin_url": "skin/31.png"
+		},
+		{
+			"name": "Монокль джентльмена",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Летняя распродажа 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.gentlemanset.monocle.png",
+			"skin_url": "skin/31.png"
+		},
+		{
+			"name": "Усы джентльмена",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.gentlemanset.mustache.png",
+			"skin_url": "skin/32.png"
+		},
+		{
+			"name": "Усы джентльмена",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Летняя распродажа 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.gentlemanset.mustache.png",
+			"skin_url": "skin/32.png"
+		},
+		{
+			"name": "Набор джентльмена #75",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				},
+				{
+					"title": "уникальный",
+					"color": "#FB7417"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.gentlemanset.set.png",
+			"skin_url": "skin/33.png"
+		},
+		{
+			"name": "Набор джентльмена #98",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				},
+				{
+					"title": "уникальный",
+					"color": "#FB7417"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Летняя распродажа 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.gentlemanset.set.png",
+			"skin_url": "skin/33.png"
+		}
+	],
+	[
+		{
+			"name": "Костяной шлем",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				}
+			],	
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bone.png",
+			"skin_url": "skin/44.png"
+		},
+		{
+			"name": "Необычный костяной шлем #75",
+			"name_color": "#BD24FF",
+			"tag": [
+				{
+					"title": "Необычный предмет внешнего вида",
+					"color": "#BD24FF"
+				},
+				{
+					"title": "уникальный",
+					"color": "#FF7519"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				},
+				{
+					"title": "С эффектом \"Песчаный вихрь\"",
+					"color": "#B428FA",
+					"need_set": true
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bone.png",
+			"skin_url": "skin/44.png"
+		},
+		{
+			"name": "Костяная корона",
+			"name_color": "#573CF0",
+			"tag": [
+				{
+					"title": "Высококачественный предмет внешнего вида",
+					"color": "#573CF0"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				},
+				{
+					"title": "С эффектом \"Алмазный вихрь\"",
+					"color": "#B428FA",
+					"need_set": true
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.crown.bone.png",
+			"skin_url": "skin/45.png"
+		},
+		{
+			"name": "Корона",
+			"name_color": "#573CF0",
+			"tag": [
+				{
+					"title": "Высококачественный предмет внешнего вида",
+					"color": "#573CF0"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.crown.png",
+			"skin_url": "skin/36.png"
+		},
+		{
+			"name": "Корона",
+			"name_color": "#573CF0",
+			"tag": [
+				{
+					"title": "Высококачественный предмет внешнего вида",
+					"color": "#573CF0"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Летняя распродажа 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.crown.png",
+			"skin_url": "skin/36.png"
+		},
+		{
+			"name": "Корона удачливого искателя #2",
+			"name_color": "#FF1492",
+			"tag": [
+				{
+					"title": "Неповторимый декоративный предмет",
+					"color": "#FF1492"
+				},
+				{
+					"title": "уникальный",
+					"color": "#FB7417"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+				
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Сувенир с ивента Halloween 2013",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Приз за 2 место",
+					"color": "#A8A8A8"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.crown.png",
+			"skin_url": "skin/36.png"
+		},
+		{
+			"name": "Очки \"Deal with it\"",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.dealwithit.png",
+			"skin_url": "skin/34.png"
+		},
+		{
+			"name": "Очки \"Deal with it\"",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Летняя распродажа 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.dealwithit.png",
+			"skin_url": "skin/34.png"
+		},
+		{
+			"name": "Очки умника",
+			"name_color": "#FF7519",
+			"tag": [
+				{
+					"title": "Уникальный декоративный предмет",
+					"color": "#FF7519"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"meta": [
+				{
+					"title": "Сувенир с ивента Исилианская головоломка 2014",
+					"color": "#ABFFFF"
+				}
+			],
+			"csed": "Когда-то принадлежали sashamxmv, но<br>были переданы kostyans для<br>коллекции головных уборов.",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#9F9E9E"
+				}
+			],
+			"color": {
+				"name": "Насыщенный синий (0, 0, 255)",
+				"code": "#0000FF",
+				"complexity": 1,
+				"saturation": "100%",
+				"level": 10,
+				"locked": true
+			},
+			"image_url": "https://greencubes.org/img/items/head.dealwithit.png",
+			"skin_url": "skin/34.png"
+		},
+		{
+			"name": "Золотые очки \"Deal with it\" #9",
+			"name_color": "#573CF0",
+			"tag": [
+				{
+					"title": "Высококачественный предмет внешнего вида",
+					"color": "#573CF0"
+				},
+				{
+					"title": "уникальный",
+					"color": "#FB7417"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#9F9E9E"
+				}
+			],
+			"color": {
+				"name": "Золотой (255, 215, 0)",
+				"code": "#FFD500",
+				"complexity": 5,
+				"saturation": "100%",
+				"level": 5,
+				"locked": true
+			},
+			"image_url": "https://greencubes.org/img/items/head.dealwithitgold.png",
+			"skin_url": "skin/35.png"
+		},
+		{
+			"name": "Золотые очки \"Deal with it\" #99",
+			"name_color": "#573CF0",
+			"tag": [
+				{
+					"title": "Высококачественный предмет внешнего вида",
+					"color": "#573CF0"
+				},
+				{
+					"title": "уникальный",
+					"color": "#FB7417"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Летняя распродажа 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#9F9E9E"
+				}
+			],
+			"color": {
+				"name": "Золотой (255, 215, 0)",
+				"code": "#FFD500",
+				"complexity": 5,
+				"saturation": "100%",
+				"level": 5,
+				"locked": true
+			},
+			"image_url": "https://greencubes.org/img/items/head.dealwithitgold.png",
+			"skin_url": "skin/35.png"
+		},
+		{
+			"name": "Лавровый венок",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.laurelwreath.png",
+			"skin_url": "skin/29.png"
+		},
+		{
+			"name": "Лавровый венок",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Летняя распродажа 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.laurelwreath.png",
+			"skin_url": "skin/29.png"
+		},
+		{
+			"name": "Куфия",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.keffiyeh.png",
+			"skin_url": "skin/25.png"
+		},
+		{
+			"name": "Куфия",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Летняя распродажа 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.keffiyeh.png",
+			"skin_url": "skin/25.png"
+		},
+		{
+			"name": "Синяя новогодняя шапочка",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Сувенир с Нового Года 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bluenyhat2014.png",
+			"skin_url": "skin/24.png"
+		},
+		{
+			"name": "Синяя новогодняя шапочка",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Сувенир с ивента Ледовое побоище 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bluenyhat2014.png",
+			"skin_url": "skin/24.png"
+		},
+		{
+			"name": "Синяя новогодняя шапочка",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Сувенир с Нового Года 2015",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bluenyhat2014.png",
+			"skin_url": "skin/24.png"
+		},
+		{
+			"name": "Новогодняя шапка благородного человека",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"meta" : [
+				{
+					"title": "Сувенир с Нового Года 2015",
+					"color": "#ABFFFF"
+				}
+			],
+			"csed": "Вы получили этот дар за то, что были честны<br>и проявили благородство. Доброе сердце<br>лучше многих богатств.",
+			"history": [
+				"Предмет получен игроком kostyans"
+			],
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bluenyhat2014.png",
+			"skin_url": "skin/24.png"
+		},
+		{
+			"name": "Синяя новогодняя шапка с бородой",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Сувенир с Нового Года 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bluenyhat2014beard.png",
+			"skin_url": "skin/43.png"
+		},
+		{
+			"name": "Синяя новогодняя шапка с бородой",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Сувенир с ивента Ледовое побоище 2014",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bluenyhat2014beard.png",
+			"skin_url": "skin/43.png"
+		},
+		{
+			"name": "Синяя новогодняя шапка с бородой",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Сувенир с Нового Года 2015",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bluenyhat2014beard.png",
+			"skin_url": "skin/43.png"
+		},
+		{
+			"name": "Новогодняя шапка благородного человека",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"meta" : [
+				{
+					"title": "Сувенир с Нового Года 2015",
+					"color": "#ABFFFF"
+				}
+			],
+			"csed": "Вы получили этот дар за то, что были честны<br>и проявили благородство. Доброе сердце<br>лучше многих богатств.",
+			"history": [
+				"Предмет получен игроком DedyshkaMoroz"
+			],
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.bluenyhat2014beard.png",
+			"skin_url": "skin/43.png"
+		},
+		{
+			"name": "Красная новогодняя шапочка",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#8C9FFF"
+				},
+				{
+					"title": "снят с производства",
+					"color": "#FF9B85"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.rednyhat2013.png",
+			"skin_url": "skin/23.png"
+		},
+		{
+			"name": "Новогодняя шапка хитрого человека",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"meta" : [
+				{
+					"title": "Сувенир с Нового Года 2015",
+					"color": "#ABFFFF"
+				}
+			],
+			"sced": "Вы проявили хитрость и коварство при достижении<br>цели. Но победителей не судят, поэтому Вы<br>получили этот дар.",
+			"history": [
+				"Предмет получен игроком Khim"
+			],
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.rednyhat2013.png",
+			"skin_url": "skin/23.png"
+		},
+		{
+			"name": "Красная новогодняя шапка с бородой",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Сувенир с Нового Года 2015",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.rednyhat2013beard.png",
+			"skin_url": "skin/42.png"
+		},
+		{
+			"name": "Новогодняя шапка хитрого человека",
+			"name_color": "#3253FA",
+			"tag": [
+				{
+					"title": "Редкий предмет внешнего вида",
+					"color": "#3253FA"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"meta" : [
+				{
+					"title": "Сувенир с Нового Года 2015",
+					"color": "#ABFFFF"
+				}
+			],
+			"csed": "Вы проявили хитрость и коварство при достижении<br>цели. Но победителей не судят, поэтому Вы<br>получили этот дар.",
+			"history": [
+				"Предмет получен игроком KHlM"
+			],
+			"attr": [
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.rednyhat2013beard.png",
+			"skin_url": "skin/42.png"
+		}
+	],
+	[
+		{
+			"name": "Борода деда мороза",
+			"name_color": "#8C9FFF",
+			"tag": [
+				{
+					"title": "Предмет внешнего вида",
+					"color": "#8C9FFF"
+				},
+				{
+					"title": "сувенирный",
+					"color": "#469962"
+				}
+			],
+			"desc": "Декоративная одежда (голова)",
+			"attr": [
+				{
+					"title": "Сувенир с Нового Года 2015",
+					"color": "#ABFFFF"
+				},
+				{
+					"title": "Не выпадает при смерти",
+					"color": "#A8A8A8"
+				}
+			],
+			"image_url": "https://greencubes.org/img/items/head.ny2015beard.png",
+			"skin_url": "skin/41.png"
+		}
+	]
+]
