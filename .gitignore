@@ -33,9 +33,9 @@ phpunit.phar
 /phpunit.xml
 
 # Config file
-config/common-prod.php
-config/web-prod.php
-config/web-dev.php
+#config/common-prod.php
+#config/web-prod.php
+#config/web-dev.php
 
 # Assets
 web/assets/*
@@ -44,7 +44,7 @@ web/assets/*
 runtime/*
 
 # Images
-web/images/shop/*
-web/images/items/*
-web/images/auction/*
-web/images/background/original
+#web/images/shop/*
+#web/images/items/*
+#web/images/auction/*
+#web/images/background/original
